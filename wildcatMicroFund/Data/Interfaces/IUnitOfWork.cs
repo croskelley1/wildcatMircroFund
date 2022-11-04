@@ -23,7 +23,7 @@ namespace wildcatMicroFund.Interfaces
         public IRepository<Status> Status { get; }
         public IRepository<Survey> Survey { get; }
         public IRepository<SurveyQuestion> SurveyQuestion { get; }
-        public IRepository<SurvType> SurveyQestion { get; }
+        public IRepository<SurvType> SurvType { get; }
         public IRepository<User> User { get; }
         public IRepository<UserAssignment> UserAssignment { get; }
         public IRepository<UserRole> UserRole { get; }
