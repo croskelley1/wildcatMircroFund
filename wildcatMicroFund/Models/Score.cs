@@ -5,15 +5,21 @@ namespace wildcatMicroFund.Models
     public class Score
     {
         [Key]
-        public int ScoreId { get; set; }
+        public int ScoreID { get; set; }
+
         public int UserID { get; set; }
-        public int PitchEvAppID { get; set; }
-        public int ResponseID { get; set; }
-        [Required]
-        [Display(Name = "ScoreValue")]
+
+        [Display(Name = "Score")]
+        [Range(1, 10, ErrorMessage = "Score must be from 1 to 10.")]
         public double ScoreValue { get; set; }
-        [Required]
-        [Display(Name = "ScoreComments")]
+
+        [Display(Name = "Score Comments")]
         public string? ScoreComments { get; set; }
+
+        [Display(Name = "Pitch Event Application ID")]
+        public int PitchEvAppID { get; set; }
+
+        [Display(Name = "Response ID")]
+        public int ResponseID { get; set; }
     }
 }
