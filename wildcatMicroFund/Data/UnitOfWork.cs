@@ -200,13 +200,13 @@ namespace wildcatMicroFund.Data
             }
         }
 
-        private IRepository<SurvType> _SurvType;
-        public IRepository<SurvType> SurvType
+        private IRepository<SurveyType> _SurveyType;
+        public IRepository<SurveyType> SurveyType
         {
             get
             {
-                _SurvType ??= new Repository<SurvType>(_dbContext);
-                return _SurvType;
+                _SurveyType ??= new Repository<SurveyType>(_dbContext);
+                return _SurveyType;
             }
         }
 
