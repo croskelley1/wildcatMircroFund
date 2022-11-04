@@ -2,12 +2,12 @@
 
 namespace wildcatMicroFund.Models
 {
-    public class SurvType
+    public class SurveyType
     {
         [Key]
-        public int SurvTypeID { get; set; }
+        public int SurveyTypeID { get; set; }
         [Required]
         [Display(Name = "SurveyTypeDescription")]
-        public string SurvTypeDesc { get; set; }
+        public string SurveyTypeDesc { get; set; }
     }
 }
