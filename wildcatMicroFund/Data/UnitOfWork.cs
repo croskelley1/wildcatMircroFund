@@ -14,13 +14,13 @@ namespace wildcatMicroFund.Data
             _dbContext = dbContext;
         }
         private IRepository<Application> _Application;
-            
+
         public IRepository<Application> Application
         {
             get
             {
 
-            _Application ??= new Repository<Application>(_dbContext);
+                _Application ??= new Repository<Application>(_dbContext);
                 return _Application;
             }
         }
