@@ -363,4 +363,5 @@ MigrationBackup/
 FodyWeavers.xsd
 
 # ASP.Net
-appsettings.json
+wildcatMicroFund/appsettings.json
+*appsettings.json
