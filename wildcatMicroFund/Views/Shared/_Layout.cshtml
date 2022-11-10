@@ -23,35 +23,39 @@
                             <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Index">Home</a>
                             
                         </li>
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Email" asp-action="Index">Email Actions</a>
-                            
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="PitchEvent" asp-action="Index">Pitch Event</a>
-                            
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="ScorePitch" asp-action="Index">Score Pitch</a>
-                            
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="NewApplication" asp-action="Index">New Application</a>
-                            
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="AllApplication" asp-action="Index">All Application</a>
-                            
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="ReviewApplication" asp-action="Index">Review Application</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="FillOutSurvey" asp-action="Index">Fill Out Survey</a>
+                        <li class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle" data-bs-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">Admin</a>
+                            <div class="dropdown-menu">
+                                <a class="dropdown-menu" asp-area="" asp-controller="ReviewApplication" asp-action="Index">Review Application</a>
 
+                                <a class="dropdown-item" asp-area="" asp-controller="Email" asp-action="Index">Email Actions</a>
+                                <a class="dropdown-item" asp-area="" asp-controller="AllApplication" asp-action="Index">All Applications</a>
+                                <div class="dropdown-divider"></div>
+                                <a class="dropdown-item" asp-area="Admin" asp-page="/Users/Index">Manage Users</a>
+                                <a class="dropdown-item" asp-area="Admin" asp-page="/Roles/Index">Manage Roles</a>
+                            </div>
                         </li>
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
+                        <li class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle" data-bs-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">Mentor</a>
+                            <div class="dropdown-menu">
+                                <a class="dropdown-item" asp-area="" asp-controller="ReviewApplication" asp-action="Index">Review Application</a>
+                                <a class="dropdown-item" asp-area="" asp-controller="AllApplication" asp-action="Index">All Applications</a>                             
+                            </div>
+                        </li>
+                        <li class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle" data-bs-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">Judge</a>
+                            <div class="dropdown-menu">
+                                <a class="dropdown-item" asp-area="" asp-controller="PitchEvent" asp-action="Index">Pitch Event</a>
+                                <a class="dropdown-item" asp-area="" asp-controller="ScorePitch" asp-action="Index">Score Pitch</a>
+                            </div>
+                        </li>
+                        <li class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle" data-bs-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">Entrepreneur</a>
+                            <div class="dropdown-menu">
+                                <a class="dropdown-item" asp-area="" asp-controller="NewApplication" asp-action="Index">New Applications</a>
+                                <a class="dropdown-item" asp-area="" asp-controller="AllApplication" asp-action="Index">All Application</a>
+                                <a class="dropdown-item" asp-area="" asp-controller="FillOutSurvey" asp-action="Index">Fill Out Survey</a>
+                            </div>
                         </li>
                     </ul>
                     <partial name="_LoginPartial" />
