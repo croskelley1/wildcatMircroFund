@@ -10,6 +10,7 @@ namespace wildcatMicroFund.Data
 
         public DbSet<ApplicationStatus> ApplicationStatus { get; set; }
         public DbSet<Availability> Availability { get; set; }
+        public DbSet<ReviewApplication> ReviewApplication { get; set; }
         public DbSet<Award> Award { get; set; }
         public DbSet<AwardType> AwardType { get; set; }
         public DbSet<Document> Document { get; set; }
