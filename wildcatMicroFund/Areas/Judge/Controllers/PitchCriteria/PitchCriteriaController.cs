@@ -2,6 +2,7 @@
 using wildcatMicroFund.Interfaces;
 using wildcatMicroFund.Models;
 
+[Area("Judge")]
 public class PitchCriteriaController : Controller
 {
 
@@ -12,7 +13,7 @@ public class PitchCriteriaController : Controller
         _unitOfWork = unitOfWork;
     }
 
-    public ViewResult Index()
+    public ViewResult Scoresheet()
     {
         IEnumerable<Question> objQuestionList = _unitOfWork.Question.GetAll(); //_unitOfWork is the database, Applications is the table, GetAll puts rows in a list
         return View(objQuestionList);

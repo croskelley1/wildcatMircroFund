@@ -3,7 +3,7 @@ using System.Diagnostics;
 using wildcatMicroFund.Interfaces;
 using wildcatMicroFund.Models;
 
-[Area("Entrepreneurs")]
+[Area("Entrepreneur")]
 public class HomeController : Controller
 {
     private readonly IUnitOfWork _unitOfWork;
