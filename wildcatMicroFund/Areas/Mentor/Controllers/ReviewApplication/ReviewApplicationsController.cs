@@ -35,7 +35,7 @@ public class ReviewApplicationsController : Controller
         {
             ReviewApplication = new ReviewApplication(),
             ApplicationList = categories.Select(c => new SelectListItem { Value = c.Id.ToString(), Text = c.CompanyName }),
-            StatusList = statui.Select(f => new SelectListItem { Value = f.Id.ToString(), Text = f.Name })
+            StatusList = statui.Select(f => new SelectListItem { Value = f.StatusID.ToString(), Text = f.StatusDesc })
         };
 
         if (id != null)
