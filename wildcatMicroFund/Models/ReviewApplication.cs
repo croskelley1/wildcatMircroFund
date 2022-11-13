@@ -15,9 +15,7 @@ namespace wildcatMicroFund.Models
         public string? CompanyName { get; set; }
 
         [Display(Name = "Status")]
-        public String? 
-
-        public string? Description { get; set; }
+        public String? Description { get; set; }
 
         public int ApplicationId { get; set; }
 
