@@ -1,16 +1,18 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using System.Diagnostics;
+using wildcatMicroFund.Interfaces;
 using wildcatMicroFund.Models;
 
 namespace wildcatMicroFund.Controllers
 {
+    [Area("Entrepreneur")]
     public class HomeController : Controller
     {
-        private readonly ILogger<HomeController> _logger;
+        private readonly IUnitOfWork _unitOfWork;
 
-        public HomeController(ILogger<HomeController> logger)
+        public HomeController(IUnitOfWork unitOfWork)
         {
-            _logger = logger;
+            _unitOfWork = unitOfWork;
         }
 
         public IActionResult Index()
