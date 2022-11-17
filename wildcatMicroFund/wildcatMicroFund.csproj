@@ -16,6 +16,8 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Folder Include="Areas\Judge\Controllers\" />
+    <Folder Include="Areas\Mentor\Controllers\" />
     <Folder Include="Controllers\" />
   </ItemGroup>
 

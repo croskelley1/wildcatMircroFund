@@ -240,6 +240,18 @@ namespace wildcatMicroFund.Data
             }
         }
 
+        private IRepository<EmailTemplate> _EmailTemplate;
+
+        public IRepository<EmailTemplate> EmailTemplate
+        {
+            get
+            {
+
+                _EmailTemplate ??= new Repository<EmailTemplate>(_dbContext);
+                return _EmailTemplate;
+            }
+        }
+
         public async Task<int> CommitAsync()
         {
             return await _dbContext.SaveChangesAsync();
