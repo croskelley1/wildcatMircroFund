@@ -42,4 +42,9 @@
     <None Include="Areas\Mentor\Views\ReviewApplications\Index.cshtml" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Areas\Admins\Controllers\" />
+    <Folder Include="Areas\Admins\Views\" />
+  </ItemGroup>
+
 </Project>
