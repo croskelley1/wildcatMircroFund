@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using wildcatMicroFund.Data;
 
@@ -11,9 +12,10 @@ using wildcatMicroFund.Data;
 namespace wildcatMicroFund.Data.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20221119043135_QUestionUseAndQCategory")]
+    partial class QUestionUseAndQCategory
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -507,12 +509,12 @@ namespace wildcatMicroFund.Data.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int?>("QuestionID")
+                    b.Property<int?>("StatusId")
                         .HasColumnType("int");
 
                     b.HasKey("QuestionDetailId");
 
-                    b.HasIndex("QuestionID");
+                    b.HasIndex("StatusId");
 
                     b.ToTable("QuestionDetail");
                 });
@@ -869,11 +871,11 @@ namespace wildcatMicroFund.Data.Migrations
 
             modelBuilder.Entity("wildcatMicroFund.Models.QuestionDetail", b =>
                 {
-                    b.HasOne("wildcatMicroFund.Models.Question", "Question")
+                    b.HasOne("wildcatMicroFund.Models.Status", "Status")
                         .WithMany()
-                        .HasForeignKey("QuestionID");
+                        .HasForeignKey("StatusId");
 
-                    b.Navigation("Question");
+                    b.Navigation("Status");
                 });
 
             modelBuilder.Entity("wildcatMicroFund.Models.QuestionUse", b =>
