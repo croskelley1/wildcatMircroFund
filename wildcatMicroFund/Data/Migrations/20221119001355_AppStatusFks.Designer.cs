@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using wildcatMicroFund.Data;
 
@@ -11,9 +12,10 @@ using wildcatMicroFund.Data;
 namespace wildcatMicroFund.Data.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20221119001355_AppStatusFks")]
+    partial class AppStatusFks
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -255,7 +257,13 @@ namespace wildcatMicroFund.Data.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("AppStat"), 1L, 1);
 
+                    b.Property<int>("AppID")
+                        .HasColumnType("int");
+
                     b.Property<int?>("ApplicationId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("StatID")
                         .HasColumnType("int");
 
                     b.Property<DateTime>("StatusDate")
