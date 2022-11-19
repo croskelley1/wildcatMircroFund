@@ -8,6 +8,13 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Remove="Areas\Admins\**" />
+    <Content Remove="Areas\Admins\**" />
+    <EmbeddedResource Remove="Areas\Admins\**" />
+    <None Remove="Areas\Admins\**" />
+  </ItemGroup>
+
+  <ItemGroup>
     <Content Remove="Areas\Mentor\Views\Application\ReviewApplication.cshtml" />
   </ItemGroup>
 
@@ -40,11 +47,6 @@
 
   <ItemGroup>
     <None Include="Areas\Mentor\Views\ReviewApplications\Index.cshtml" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <Folder Include="Areas\Admins\Controllers\" />
-    <Folder Include="Areas\Admins\Views\" />
   </ItemGroup>
 
 </Project>

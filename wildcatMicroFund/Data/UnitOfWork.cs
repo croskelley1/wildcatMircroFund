@@ -49,6 +49,18 @@ namespace wildcatMicroFund.Data
             }
         }
 
+        private IRepository<AdminReviewApplication> _AdminReviewApplication;
+
+        public IRepository<AdminReviewApplication> AdminReviewApplication      
+        {
+            get
+            {
+
+                _AdminReviewApplication ??= new Repository<AdminReviewApplication>(_dbContext);
+                return _AdminReviewApplication;
+            }
+        }
+
         private IRepository<Availability> _Availability;
 
         public IRepository<Availability> Availability
