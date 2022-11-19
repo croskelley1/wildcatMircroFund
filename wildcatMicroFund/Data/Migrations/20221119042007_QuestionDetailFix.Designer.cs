@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using wildcatMicroFund.Data;
 
@@ -11,9 +12,10 @@ using wildcatMicroFund.Data;
 namespace wildcatMicroFund.Data.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20221119042007_QuestionDetailFix")]
+    partial class QuestionDetailFix
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -458,23 +460,6 @@ namespace wildcatMicroFund.Data.Migrations
                     b.ToTable("PitchEventApplication");
                 });
 
-            modelBuilder.Entity("wildcatMicroFund.Models.QCategory", b =>
-                {
-                    b.Property<int>("QCategoryID")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("QCategoryID"), 1L, 1);
-
-                    b.Property<string>("QCategoryDesc")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.HasKey("QCategoryID");
-
-                    b.ToTable("QCategory");
-                });
-
             modelBuilder.Entity("wildcatMicroFund.Models.Question", b =>
                 {
                     b.Property<int>("Id")
@@ -507,40 +492,14 @@ namespace wildcatMicroFund.Data.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int?>("QuestionID")
+                    b.Property<int?>("StatusId")
                         .HasColumnType("int");
 
                     b.HasKey("QuestionDetailId");
 
-                    b.HasIndex("QuestionID");
+                    b.HasIndex("StatusId");
 
                     b.ToTable("QuestionDetail");
-                });
-
-            modelBuilder.Entity("wildcatMicroFund.Models.QuestionUse", b =>
-                {
-                    b.Property<int>("QuestionUseID")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("QuestionUseID"), 1L, 1);
-
-                    b.Property<int>("QCategoryID")
-                        .HasColumnType("int");
-
-                    b.Property<int>("QuestID")
-                        .HasColumnType("int");
-
-                    b.Property<int>("QuestPointValue")
-                        .HasColumnType("int");
-
-                    b.HasKey("QuestionUseID");
-
-                    b.HasIndex("QCategoryID");
-
-                    b.HasIndex("QuestID");
-
-                    b.ToTable("QuestionUse");
                 });
 
             modelBuilder.Entity("wildcatMicroFund.Models.Response", b =>
@@ -869,30 +828,11 @@ namespace wildcatMicroFund.Data.Migrations
 
             modelBuilder.Entity("wildcatMicroFund.Models.QuestionDetail", b =>
                 {
-                    b.HasOne("wildcatMicroFund.Models.Question", "Question")
+                    b.HasOne("wildcatMicroFund.Models.Status", "Status")
                         .WithMany()
-                        .HasForeignKey("QuestionID");
+                        .HasForeignKey("StatusId");
 
-                    b.Navigation("Question");
-                });
-
-            modelBuilder.Entity("wildcatMicroFund.Models.QuestionUse", b =>
-                {
-                    b.HasOne("wildcatMicroFund.Models.QCategory", "QCategory")
-                        .WithMany()
-                        .HasForeignKey("QCategoryID")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("wildcatMicroFund.Models.Question", "Question")
-                        .WithMany()
-                        .HasForeignKey("QuestID")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("QCategory");
-
-                    b.Navigation("Question");
+                    b.Navigation("Status");
                 });
 
             modelBuilder.Entity("wildcatMicroFund.Models.ReviewApplication", b =>

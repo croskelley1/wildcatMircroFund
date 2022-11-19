@@ -9,12 +9,8 @@ namespace wildcatMicroFund.Models
 
         [Required]
         [Display(Name = "Question Description")]
-        public string? QuestDesc { get; set; }
-
-        [Required]
-        [Display(Name = "Survey Question")]
-        public string? SurveyQuestion { get; set; }
-
+        public string? QuestionSummary { get; set; }
+                
         [Required]
         [Display(Name = "Active")]
         public bool QuestIsActive { get; set; }

@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using wildcatMicroFund.Data;
 
@@ -11,9 +12,10 @@ using wildcatMicroFund.Data;
 namespace wildcatMicroFund.Data.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20221119044512_QuestionDetailFix2")]
+    partial class QuestionDetailFix2
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -525,10 +527,10 @@ namespace wildcatMicroFund.Data.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("QuestionUseID"), 1L, 1);
 
-                    b.Property<int>("QCategoryID")
+                    b.Property<int?>("QCategoryID")
                         .HasColumnType("int");
 
-                    b.Property<int>("QuestID")
+                    b.Property<int?>("QuestID")
                         .HasColumnType("int");
 
                     b.Property<int>("QuestPointValue")
@@ -880,15 +882,11 @@ namespace wildcatMicroFund.Data.Migrations
                 {
                     b.HasOne("wildcatMicroFund.Models.QCategory", "QCategory")
                         .WithMany()
-                        .HasForeignKey("QCategoryID")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .HasForeignKey("QCategoryID");
 
                     b.HasOne("wildcatMicroFund.Models.Question", "Question")
                         .WithMany()
-                        .HasForeignKey("QuestID")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .HasForeignKey("QuestID");
 
                     b.Navigation("QCategory");
 
