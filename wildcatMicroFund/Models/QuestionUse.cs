@@ -8,7 +8,10 @@ namespace wildcatMicroFund.Models
     {
         [Key]
         public int QuestionUseID { get; set; }
-        
+
+        public int QuestID { get; set; }
+        public int QCategoryID { get; set; }
+
         [Display(Name = "Point Value")]
         public int QuestPointValue { get; set; }
 
@@ -17,6 +20,8 @@ namespace wildcatMicroFund.Models
 
         [ForeignKey("QCategoryID")]
         public virtual QCategory? QCategory { get; set; }
+
+                
     }
 
 }
