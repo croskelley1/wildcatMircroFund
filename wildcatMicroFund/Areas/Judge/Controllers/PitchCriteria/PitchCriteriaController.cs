@@ -13,10 +13,10 @@ public class PitchCriteriaController : Controller
         _unitOfWork = unitOfWork;
     }
 
-    public ViewResult Scoresheet()
+    public ViewResult PitchCriteria()
     {
-        IEnumerable<Question> objQuestionList = _unitOfWork.Question.GetAll(); //_unitOfWork is the database, Applications is the table, GetAll puts rows in a list
-        return View(objQuestionList);
+        IEnumerable<QuestionUse> PitchJudgeCriteriaList = _unitOfWork.QuestionUse.List(u => u.QCategory.QCategoryID == 4, u => u.QuestionUseID, "Question,QCategory"); //_unitOfWork is the database, Applications is the table, GetAll puts rows in a list
+        return View(PitchJudgeCriteriaList);
     }
 }
 
