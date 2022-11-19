@@ -10,20 +10,18 @@ namespace wildcatMicroFund.Models
         [Key]
         public int Id { get; set; }
 
-        [Required]
-        [Display(Name = "App Name")]
-        public string? CompanyName { get; set; }
-
-        [Display(Name = "Status")]
-        public String? Description { get; set; }
-
         public int ApplicationId { get; set; }
 
         public int ApplicationStatusId { get; set; }
 
+        public int StatusId { get; set; }
+
         // Connects to Objects or Tables
         [ForeignKey("ApplicationId")]
         public virtual Application? Application { get; set; }
+
+        [ForeignKey("ApplicationStatusId")]
+        public virtual ApplicationStatus ApplicationStatus { get; set; }
 
         [ForeignKey("StatusId")]
         public virtual Status? Status { get; set; }
