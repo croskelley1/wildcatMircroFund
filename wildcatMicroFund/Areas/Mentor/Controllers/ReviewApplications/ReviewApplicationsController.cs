@@ -21,7 +21,7 @@ public class ReviewApplicationsController : Controller
 
     public ViewResult Index()
     {
-        IEnumerable<ReviewApplication> ReviewApplication = _unitOfWork.ReviewApplication.List(null, null, "Application,Status");//WHERE, ORDERBY, JOIN
+        IEnumerable<ReviewApplication> ReviewApplication = _unitOfWork.ReviewApplication.List(r => r.StatusId == 1, r => r.ApplicationId, "Application,Status");//WHERE, ORDERBY, JOIN
         return View(ReviewApplication);
     }
 
@@ -48,5 +48,31 @@ public class ReviewApplicationsController : Controller
         }
 
         return View(ReviewApplicationObj);
+    }
+
+    [HttpPost]
+    public IActionResult Upsert()
+    {
+        string webRootPath = _hostEnvironment.WebRootPath; //give root location
+        var files = HttpContext.Request.Form.Files;
+
+        if (!ModelState.IsValid)
+        {
+            return View();
+        }
+
+        if (ReviewApplicationObj.ReviewApplication.Id == 0) //New Menu Item
+        {
+            _unitOfWork.ReviewApplication.Add(ReviewApplicationObj.ReviewApplication);
+        }
+        else //update
+        {
+            var ReviewApplicationFromDb = _unitOfWork.ReviewApplication.Get(m => m.Id == ReviewApplicationObj.ReviewApplication.Id, true);
+                                
+            _unitOfWork.ReviewApplication.Update(ReviewApplicationObj.ReviewApplication);
+        }
+
+        _unitOfWork.Commit();
+        return RedirectToAction("Index");
     }
 }
