@@ -20,7 +20,10 @@ namespace wildcatMicroFund.Data
         public DbSet<NoteType> NoteType { get; set; }
         public DbSet<PitchEvent> PitchEvent { get; set; }
         public DbSet<PitchEventApplication> PitchEventApplication { get; set; }
+        public DbSet<QCategory> QCategory { get; set; }
         public DbSet<Question> Question { get; set; }
+        public DbSet<QuestionDetail> QuestionDetail { get; set; }
+        public DbSet<QuestionUse> QuestionUse { get; set; }
         public DbSet<Response> Response { get; set; }
         public DbSet<Role> Role { get; set; }
         public DbSet<Score> Score { get; set; }

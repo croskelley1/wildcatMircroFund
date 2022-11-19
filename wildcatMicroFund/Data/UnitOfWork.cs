@@ -154,6 +154,16 @@ namespace wildcatMicroFund.Data
             }
         }
 
+        private IRepository<QCategory> _QCategory;
+        public IRepository<QCategory> QCategory
+        {
+            get
+            {
+                _QCategory ??= new Repository<QCategory>(_dbContext);
+                return _QCategory;
+            }
+        }
+
         private IRepository<Question> _Question;
         public IRepository<Question> Question
         {
@@ -161,6 +171,26 @@ namespace wildcatMicroFund.Data
             {
                 _Question ??= new Repository<Question>(_dbContext);
                 return _Question;
+            }
+        }
+
+        private IRepository<QuestionDetail> _QuestionDetail;
+        public IRepository<QuestionDetail> QuestionDetail
+        {
+            get
+            {
+                _QuestionDetail ??= new Repository<QuestionDetail>(_dbContext);
+                return _QuestionDetail;
+            }
+        }
+
+        private IRepository<QuestionUse> _QuestionUse;
+        public IRepository<QuestionUse> QuestionUse
+        {
+            get
+            {
+                _QuestionUse ??= new Repository<QuestionUse>(_dbContext);
+                return _QuestionUse;
             }
         }
 

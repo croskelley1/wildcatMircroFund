@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using wildcatMicroFund.Data;
 
@@ -11,9 +12,10 @@ using wildcatMicroFund.Data;
 namespace wildcatMicroFund.Data.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20221119043135_QUestionUseAndQCategory")]
+    partial class QUestionUseAndQCategory
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -222,39 +224,6 @@ namespace wildcatMicroFund.Data.Migrations
                     b.HasKey("UserId", "LoginProvider", "Name");
 
                     b.ToTable("AspNetUserTokens", (string)null);
-                });
-
-            modelBuilder.Entity("wildcatMicroFund.Models.AdminReviewApplication", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
-
-                    b.Property<int>("ApplicationId")
-                        .HasColumnType("int");
-
-                    b.Property<int>("ApplicationStatusId")
-                        .HasColumnType("int");
-
-                    b.Property<string>("CompanyName")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("Description")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<int?>("StatusId")
-                        .HasColumnType("int");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("ApplicationId");
-
-                    b.HasIndex("StatusId");
-
-                    b.ToTable("AdminReviewApplication");
                 });
 
             modelBuilder.Entity("wildcatMicroFund.Models.Application", b =>
@@ -540,12 +509,12 @@ namespace wildcatMicroFund.Data.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int?>("QuestionID")
+                    b.Property<int?>("StatusId")
                         .HasColumnType("int");
 
                     b.HasKey("QuestionDetailId");
 
-                    b.HasIndex("QuestionID");
+                    b.HasIndex("StatusId");
 
                     b.ToTable("QuestionDetail");
                 });
@@ -885,23 +854,6 @@ namespace wildcatMicroFund.Data.Migrations
                         .IsRequired();
                 });
 
-            modelBuilder.Entity("wildcatMicroFund.Models.AdminReviewApplication", b =>
-                {
-                    b.HasOne("wildcatMicroFund.Models.Application", "Application")
-                        .WithMany()
-                        .HasForeignKey("ApplicationId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("wildcatMicroFund.Models.Status", "Status")
-                        .WithMany()
-                        .HasForeignKey("StatusId");
-
-                    b.Navigation("Application");
-
-                    b.Navigation("Status");
-                });
-
             modelBuilder.Entity("wildcatMicroFund.Models.ApplicationStatus", b =>
                 {
                     b.HasOne("wildcatMicroFund.Models.Application", "Application")
@@ -919,11 +871,11 @@ namespace wildcatMicroFund.Data.Migrations
 
             modelBuilder.Entity("wildcatMicroFund.Models.QuestionDetail", b =>
                 {
-                    b.HasOne("wildcatMicroFund.Models.Question", "Question")
+                    b.HasOne("wildcatMicroFund.Models.Status", "Status")
                         .WithMany()
-                        .HasForeignKey("QuestionID");
+                        .HasForeignKey("StatusId");
 
-                    b.Navigation("Question");
+                    b.Navigation("Status");
                 });
 
             modelBuilder.Entity("wildcatMicroFund.Models.QuestionUse", b =>
