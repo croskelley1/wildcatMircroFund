@@ -1,17 +1,35 @@
 ﻿@*
     For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 *@
-@model IEnumerable<QuestionUse>
+@model wildcatMicroFund.Areas.Judge.ViewModels.PitchCriteriaVM
 @{
     ViewData["Title"] = "Question";
 }
-<div class="container p-3">
+
+@foreach( var question in Model.QuestionList)
+{
+    <div class="row container pb-3 backgroundWhite">
+        <h2>@question.QuestionSummary</h2>
+
+        @* I WAS GOING TO ITERATE THROUGH THE LIST OF QUESTION DETAILS, BUT IT CAN'T MAKE THE QUERY AS IS. NEED TO LOOK AT THE CONTROLLER AND MAKE OUR INDEX LOOK MORE LIKE DEMO/AREAS/'*@
+            
+        <div>
+            @foreach(var detail in Model.QuestionDetailList.Where(d => d.Question.Id == question.Id))
+            {
+                <h4>@detail.QuestionDetailInfo</h4>
+            }
+        </div>
+    </div>
+}
+@*<div class="container p-3">
     <div class="row pt-4">
         <div class="col-6">
             <h2 class="text-primary">Category List</h2>
         </div>
     </div>
     <br /><br />
+
+    
 
     <table class="table table-bordered table-striped" style="width:100%">
         <thead>
@@ -26,11 +44,11 @@
             </tr>
         </thead>
         <tbody>
-            @foreach (var obj in Model)
+            @foreach (var obj in Model.QCategoryList)
             {
                 <tr>
                     <td width="50%">
-                        @obj.Question.QuestionSummary;
+                        @obj.;
                     </td>
                     <td width="30%">
                         
@@ -40,4 +58,4 @@
         </tbody>
 
     </table>
-</div>
+</div>*@
