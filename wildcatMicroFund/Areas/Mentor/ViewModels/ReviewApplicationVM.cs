@@ -6,7 +6,8 @@ namespace wildcatMicroFund.Areas.Mentor.ViewModels
     public class ReviewApplicationVM
     {
         public ReviewApplication? ReviewApplication { get; set; }
-        public IEnumerable<SelectListItem>? ApplicationList { get; set; }
+        public Application? Application { get; set; }
+        public Status? Status { get; set; }
         public IEnumerable<SelectListItem>? StatusList { get; set; }
     }
 }
