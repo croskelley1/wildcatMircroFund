@@ -28,14 +28,16 @@ public class ReviewApplicationsController : Controller
     [HttpGet]
     public IActionResult Upsert(int? id) //optional id needed with edit mode vs create
     {
-        var categories = _unitOfWork.Application.List();
-        var statui = _unitOfWork.Status.List();
+        
+        var stati = _unitOfWork.Status.List();
 
         ReviewApplicationObj = new ReviewApplicationVM
         {
             ReviewApplication = new ReviewApplication(),
-            ApplicationList = categories.Select(c => new SelectListItem { Value = c.Id.ToString(), Text = c.CompanyName }),
-            StatusList = statui.Select(f => new SelectListItem { Value = f.StatusID.ToString(), Text = f.StatusDesc })
+            //Application = ReviewApplication.Select(c => new SelectListItem { Value = c.Id.ToString(), Text = c.CompanyName }),
+            Application = _unitOfWork.Application.Get(a => a.Id == id),
+            Status = _unitOfWork.Status.Get(s => s.StatusID == id),
+            StatusList = stati.Select(f => new SelectListItem { Value = f.StatusID.ToString(), Text = f.StatusDesc })
         };
 
         if (id != null)

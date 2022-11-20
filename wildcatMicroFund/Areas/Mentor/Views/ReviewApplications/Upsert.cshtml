@@ -1,5 +1,6 @@
 ﻿@model wildcatMicroFund.Areas.Mentor.ViewModels.ReviewApplicationVM
 @{
+    ViewData["Title"] = "Update Application";
 }
 <form method="post" asp-controller="ReviewApplications" asp-action="Upsert" enctype="multipart/form-data">
     <div class="container">
@@ -11,25 +12,20 @@
             </div>
             <div class="col-8 pt-3">
                 <div class="form-group row">
+                    
                     <div class="col-3">
                         <label asp-for="ReviewApplication.Application.CompanyName"></label>
-                        
                     </div>
-                    <div class="col-9">
-                        <input id="name" class="form-control" asp-for="ReviewApplication.Application.CompanyName" />
-                        <span class="text-danger" asp-validation-for="ReviewApplication.Application.CompanyName"></span>
+                    <div class="col-3">
+                           <h3>@Model.Application.CompanyName</h3>
                     </div>
-                    @if (Model.ReviewApplication.Id != 0)
-                    {
-                        <input type="hidden" asp-for="ReviewApplication.Id" />
-                    }
                 </div>
                 <div class="form-group row">
                     <div class="col-3">
-                        <label asp-for="ReviewApplication.ApplicationStatus.AppStat"></label>
+                        <label asp-for="ReviewApplication.ApplicationStatus.Status"></label>
                     </div>
                     <div class="col-9">
-                        <h3>ReviewApplication.ApplicationStatus.AppStatId</h3>
+                        <h3>@Model.Status.StatusDesc</h3>
                     </div>
                 </div>
               

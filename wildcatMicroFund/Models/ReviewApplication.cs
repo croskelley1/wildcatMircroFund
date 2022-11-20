@@ -21,7 +21,7 @@ namespace wildcatMicroFund.Models
         public virtual Application? Application { get; set; }
 
         [ForeignKey("ApplicationStatusId")]
-        public virtual ApplicationStatus ApplicationStatus { get; set; }
+        public virtual ApplicationStatus? ApplicationStatus { get; set; }
 
         [ForeignKey("StatusId")]
         public virtual Status? Status { get; set; }
