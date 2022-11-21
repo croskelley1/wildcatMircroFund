@@ -8,51 +8,46 @@
             @* All for Model validation and HTML validation *@
             <div asp-validation-summary="All" class="text-danger"></div>
             <div class="col-12 px-3" style="border-bottom:1px solid #325d88">
-                <h2 class="text-primary">@(Model.ReviewApplication.Id != 0 ? "Update" : "Create") Menu Item</h2>
+                <h2 class="text-primary">Update Application</h2>
             </div>
             <div class="col-8 pt-3">
                 <div class="form-group row">
                     
-                    <div class="col-3">
-                        <label asp-for="ReviewApplication.Application.CompanyName"></label>
+                    <div class="col-4">
+                        <h3>Company Name</h3>
                     </div>
                     <div class="col-3">
                            <h3>@Model.Application.CompanyName</h3>
                     </div>
                 </div>
-                <div class="form-group row">
-                    <div class="col-3">
-                        <label asp-for="ReviewApplication.ApplicationStatus.Status"></label>
-                    </div>
+                
+                <div class="form-group row">                    
                     <div class="col-9">
-                        <h3>@Model.Status.StatusDesc</h3>
+                        <input type="hidden" asp-for="ReviewApplication.Id" />
+                        <input type="hidden" asp-for="ReviewApplication.ApplicationId" />
+                        <input type="hidden" asp-for="ReviewApplication.ApplicationStatusId" />
+                        
                     </div>
                 </div>
-              
+
                 <div class="form-group row">
-                    <div class="col-3">
-                        <label asp-for="ReviewApplication.Status.StatusID"></label>
+                    <div class="col-4">
+                        <label asp-for="ReviewApplication.StatusId"></label>
                     </div>
-                    <div class="col-9">
-                        @Html.DropDownListFor(m => m.ReviewApplication.Status.StatusID,
+                    <div class="col-5">
+                        @Html.DropDownListFor(m => m.ReviewApplication.StatusId,
                         Model.StatusList,
                         " - Please select a new status - ",
                         new { @class = "form-control", @id="ddlStatus" })
-                        <span class="text-danger" asp-validation-for="ReviewApplication.Status.StatusID"></span>
+                        <span class="text-danger" asp-validation-for="ReviewApplication.StatusId"></span>
                     </div>
                 </div>
                 <div class="form-group row">
                     <div class="col-9 offset-3">
                         <div class="row">
                             <div class="col-6">
-                                @if (Model.ReviewApplication.Id != 0)
-                                {
-                                    <button type="submit" class="btn btn-primary form-control">Update</button>
-                                }
-                                else
-                                {
-                                    <button type="submit" class="btn btn-primary form-control" onclick="return ValidateInput()">Create</button>
-                                }
+                                <button type="submit" class="btn btn-primary form-control">Update</button>
+                                                               
                             </div>
                             <div class="col-6">
                                 <a asp-controller="ReviewApplications" asp-action="Index" class="btn btn-success form-control">Back to List</a>
@@ -60,7 +55,7 @@
                         </div>
                     </div>
                 </div>
-            </div>
+            </>
         </div>
     </div>
 </form>
