@@ -55,25 +55,15 @@ public class ReviewApplicationsController : Controller
     [HttpPost]
     public IActionResult Upsert()
     {
-        string webRootPath = _hostEnvironment.WebRootPath; //give root location
-        var files = HttpContext.Request.Form.Files;
-
+        
         if (!ModelState.IsValid)
         {
             return View();
         }
 
-        if (ReviewApplicationObj.ReviewApplication.Id == 0) //New Menu Item
-        {
-            _unitOfWork.ReviewApplication.Add(ReviewApplicationObj.ReviewApplication);
-        }
-        else //update
-        {
-            var ReviewApplicationFromDb = _unitOfWork.ReviewApplication.Get(m => m.Id == ReviewApplicationObj.ReviewApplication.Id, true);
-                                
-            _unitOfWork.ReviewApplication.Update(ReviewApplicationObj.ReviewApplication);
-        }
-
+                                        
+        _unitOfWork.ReviewApplication.Update(ReviewApplicationObj.ReviewApplication);
+        
         _unitOfWork.Commit();
         return RedirectToAction("Index");
     }
