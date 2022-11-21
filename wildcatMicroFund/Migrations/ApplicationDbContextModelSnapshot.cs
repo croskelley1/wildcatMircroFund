@@ -8,7 +8,7 @@ using wildcatMicroFund.Data;
 
 #nullable disable
 
-namespace wildcatMicroFund.Data.Migrations
+namespace wildcatMicroFund.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
     partial class ApplicationDbContextModelSnapshot : ModelSnapshot
@@ -374,6 +374,27 @@ namespace wildcatMicroFund.Data.Migrations
                     b.HasKey("DocTypeID");
 
                     b.ToTable("DocumentType");
+                });
+
+            modelBuilder.Entity("wildcatMicroFund.Models.EmailTemplate", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
+
+                    b.Property<string>("EmailTemplateName")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("TemplateContent")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("EmailTemplate");
                 });
 
             modelBuilder.Entity("wildcatMicroFund.Models.Note", b =>

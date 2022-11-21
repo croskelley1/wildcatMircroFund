@@ -5,7 +5,7 @@ namespace wildcatMicroFund.Models
     public class EmailTemplate
     {
         [Key]
-        public int EmailTemplateID { get; set; }
+        public int Id { get; set; }
         [Required]
         [Display(Name ="TemplateName")]
         public string? EmailTemplateName { get; set; }
