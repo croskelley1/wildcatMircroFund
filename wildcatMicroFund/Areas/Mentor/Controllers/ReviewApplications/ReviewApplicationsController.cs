@@ -21,7 +21,7 @@ public class ReviewApplicationsController : Controller
 
     public ViewResult Index()
     {
-        IEnumerable<ReviewApplication> ReviewApplication = _unitOfWork.ReviewApplication.List(r => r.StatusId == 2 || r.StatusId == 5, r => r.Application.Id, "Application,Status");//WHERE, ORDERBY, JOIN
+        IEnumerable<ReviewApplication> ReviewApplication = _unitOfWork.ReviewApplication.List(r => r.Status.StatusID == 2 || r.Status.StatusID == 5, r => r.Application.Id, "Application,Status");//WHERE, ORDERBY, JOIN
         return View(ReviewApplication);
     }
 
