@@ -21,12 +21,12 @@ public class ReviewApplicationsController : Controller
 
     public ViewResult Index()
     {
-        IEnumerable<ReviewApplication> ReviewApplication = _unitOfWork.ReviewApplication.List(r => r.StatusId == 1, r => r.ApplicationId, "Application,Status");//WHERE, ORDERBY, JOIN
+        IEnumerable<ReviewApplication> ReviewApplication = _unitOfWork.ReviewApplication.List(r => r.StatusId == 2 || r.StatusId == 5, r => r.Application.Id, "Application,Status");//WHERE, ORDERBY, JOIN
         return View(ReviewApplication);
     }
 
     [HttpGet]
-    public IActionResult Upsert(int? id) //optional id needed with edit mode vs create
+    public IActionResult Upsert(int? id, int? appId) //optional id needed with edit mode vs create
     {
         
         var stati = _unitOfWork.Status.List();
@@ -34,8 +34,7 @@ public class ReviewApplicationsController : Controller
         ReviewApplicationObj = new ReviewApplicationVM
         {
             ReviewApplication = new ReviewApplication(),
-            //Application = ReviewApplication.Select(c => new SelectListItem { Value = c.Id.ToString(), Text = c.CompanyName }),
-            Application = _unitOfWork.Application.Get(a => a.Id == id),
+            Application = _unitOfWork.Application.Get(a => a.Id == appId),
             Status = _unitOfWork.Status.Get(s => s.StatusID == id),
             StatusList = stati.Select(f => new SelectListItem { Value = f.StatusID.ToString(), Text = f.StatusDesc })
         };
