@@ -23,4 +23,19 @@ public class NewApplicationController : Controller
     {
         return View();
     }
+
+    [HttpPost]
+    [ValidateAntiForgeryToken]
+    public IActionResult Create(Application obj)
+    {
+
+        if (ModelState.IsValid)
+        {
+            _unitOfWork.Application.Add(obj); //internal add
+            _unitOfWork.Commit(); //physical commit to DB table
+            TempData["success"] = "Application created Successfully";
+            return RedirectToAction("Index");
+        }
+        return View(obj);
+    }
 }
