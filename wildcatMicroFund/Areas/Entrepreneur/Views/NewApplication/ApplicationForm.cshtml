@@ -1,9 +1,9 @@
-﻿@model wildcatMicroFund.Models.Application
+﻿@model Application
 @{
     ViewData["Title"] = "New Applications";
 }
 
-<form method="post" asp-controller="NewApplication" asp-action="SubmitNewApplication" enctype="multipart/form-data">
+<form method="post" asp-controller="NewApplication" asp-action="Create" enctype="multipart/form-data">
     <div class="container">
         <div class="row justify-content-evenly text-center px-2 mx-2 backgroundWhite border">
             @* All for Model validation and HTML validation *@
