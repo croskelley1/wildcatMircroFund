@@ -19,7 +19,6 @@ namespace wildcatMicroFund.Data
         {
             get
             {
-
                 _Application ??= new Repository<Application>(_dbContext);
                 return _Application;
             }
@@ -31,7 +30,6 @@ namespace wildcatMicroFund.Data
         {
             get
             {
-
                 _ApplicationStatus ??= new Repository<ApplicationStatus>(_dbContext);
                 return _ApplicationStatus;
             }
@@ -55,7 +53,6 @@ namespace wildcatMicroFund.Data
         {
             get
             {
-
                 _Availability ??= new Repository<Availability>(_dbContext);
                 return _Availability;
             }
