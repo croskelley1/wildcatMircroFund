@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using wildcatMicroFund.Areas.Admin.ViewModels;
+using wildcatMicroFund.Areas.Mentor.ViewModels;
 // using wildcatMicroFund.Areas.Mentor.ViewModels;
 using wildcatMicroFund.Interfaces;
 using wildcatMicroFund.Models;
@@ -9,7 +10,7 @@ using wildcatMicroFund.Models;
 public class AdminReviewApplicationsController : Controller
 {
     [BindProperty]
-    public AdminReviewApplicationVM AdminReviewApplicationObj { get; set; }
+    public ReviewApplicationVM ReviewApplicationObj { get; set; }
 
     private readonly IUnitOfWork _unitOfWork;
     private readonly IWebHostEnvironment _hostEnvironment;
@@ -22,32 +23,49 @@ public class AdminReviewApplicationsController : Controller
 
     public ViewResult Index()
     {
-        IEnumerable<AdminReviewApplication> AdminReviewApplication = _unitOfWork.AdminReviewApplication.List(null, null, "Application,Status");//WHERE, ORDERBY, JOIN
+        IEnumerable<ReviewApplication> AdminReviewApplication = _unitOfWork.ReviewApplication.List(null, null, "Application,Status");//WHERE, ORDERBY, JOIN
         return View(AdminReviewApplication);
     }
 
     [HttpGet]
-    public IActionResult Upsert(int? id) //optional id needed with edit mode vs create
+    public IActionResult Upsert(int? id, int? appId) //optional id needed with edit mode vs create
     {
-        var categories = _unitOfWork.Application.List();
-        var statui = _unitOfWork.Status.List();
 
-        AdminReviewApplicationObj = new AdminReviewApplicationVM
+        var stati = _unitOfWork.Status.List();
+
+        ReviewApplicationObj = new ReviewApplicationVM
         {
-            AdminReviewApplication = new AdminReviewApplication(),
-            ApplicationList = categories.Select(c => new SelectListItem { Value = c.Id.ToString(), Text = c.CompanyName }),
-            StatusList = statui.Select(f => new SelectListItem { Value = f.StatusID.ToString(), Text = f.StatusDesc })
+            ReviewApplication = new ReviewApplication(),
+            Application = _unitOfWork.Application.Get(a => a.Id == appId),
+            Status = _unitOfWork.Status.Get(s => s.StatusID == id),
+            StatusList = stati.Select(f => new SelectListItem { Value = f.StatusID.ToString(), Text = f.StatusDesc })
         };
 
         if (id != null)
         {
-            AdminReviewApplicationObj.AdminReviewApplication = _unitOfWork.AdminReviewApplication.Get(u => u.Id == id, true);
-            if (AdminReviewApplicationObj == null)
+            ReviewApplicationObj.ReviewApplication = _unitOfWork.ReviewApplication.Get(u => u.Id == id, true);
+            if (ReviewApplicationObj == null)
             {
                 return NotFound();
             }
         }
 
-        return View(AdminReviewApplicationObj);
+        return View(ReviewApplicationObj);
+    }
+
+    [HttpPost]
+    public IActionResult Upsert()
+    {
+
+        if (!ModelState.IsValid)
+        {
+            return View();
+        }
+
+
+        _unitOfWork.ReviewApplication.Update(ReviewApplicationObj.ReviewApplication);
+
+        _unitOfWork.Commit();
+        return RedirectToAction("Index");
     }
 }
