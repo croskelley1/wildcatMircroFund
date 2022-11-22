@@ -23,22 +23,36 @@
                 <div class="form-group row ">
                     <div class="col-9">
                         @*These hide the values from the user, but allow the update button to pass the values back through the VM object*@
-                        <input readonly type="hidden" asp-for="ReviewApplication.Id" />
-                        <input readonly type="hidden" asp-for="ReviewApplication.ApplicationId" />
-                        <input readyonly type="hidden" asp-for="ReviewApplication.ApplicationStatusId" />  
-                    </div>
+                        <h3>AppStat</h3>
+                        <input  asp-for="ReviewApplication.AppStatId" />
+                        <h3>App</h3>
+                        <input  asp-for="ReviewApplication.Application.Id" />
+                        <h3>User</h3>
+                        <input asp-for="ReviewApplication.UserID" />
+                        <h3>Date</h3>
+                        <input asp-for="ReviewApplication.StatusDate" />
+@*                        <input readyonly type="hidden" asp-for="ReviewApplication." />
+
+                        [Key]
+                        public int AppStatId { get; set; }
+                        public int UserID { get; set; }
+
+                        [Display(Name = "StatusDate")]
+                        public DateTime StatusDate { get; set; }
+
+*@                    </div>
                 </div>
 
                 <div class="form-group row m-2">
                     <div class="col-4">
-                        <label asp-for="ReviewApplication.StatusId"></label>
+                        <label asp-for="ReviewApplication.Status.StatusID"></label>
                     </div>
                     <div class="col-5">
-                        @Html.DropDownListFor(m => m.ReviewApplication.StatusId,
+                        @Html.DropDownListFor(m => m.ReviewApplication.Status.StatusID,
                         Model.StatusList,
                         " - Please select a new status - ",
                         new { @class = "form-control", @id="ddlStatus" })
-                        <span class="text-danger" asp-validation-for="ReviewApplication.StatusId"></span>
+                        <span class="text-danger" asp-validation-for="ReviewApplication.Status.StatusID"></span>
                     </div>
                 </div>
                 <div class="form-group row m-2">

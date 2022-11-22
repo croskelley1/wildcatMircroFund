@@ -21,7 +21,7 @@ public class ReviewApplicationsController : Controller
 
     public ViewResult Index()
     {
-        IEnumerable<ReviewApplication> ReviewApplication = _unitOfWork.ReviewApplication.List(r => r.Status.StatusID == 2 || r.Status.StatusID == 5, r => r.Application.Id, "Application,Status");//WHERE, ORDERBY, JOIN
+        IEnumerable<ApplicationStatus> ReviewApplication = _unitOfWork.ApplicationStatus.List(r => r.Status.StatusID == 2 || r.Status.StatusID == 5, r => r.Application.Id, "Application,Status");//WHERE, ORDERBY, JOIN
         return View(ReviewApplication);
     }
 
@@ -33,7 +33,7 @@ public class ReviewApplicationsController : Controller
 
         ReviewApplicationObj = new ReviewApplicationVM
         {
-            ReviewApplication = new ReviewApplication(),
+            ReviewApplication = new ApplicationStatus(),
             Application = _unitOfWork.Application.Get(a => a.Id == appId),
             Status = _unitOfWork.Status.Get(s => s.StatusID == id),
             StatusList = stati.Select(f => new SelectListItem { Value = f.StatusID.ToString(), Text = f.StatusDesc })
@@ -41,7 +41,7 @@ public class ReviewApplicationsController : Controller
 
         if (id != null)
         {
-            ReviewApplicationObj.ReviewApplication = _unitOfWork.ReviewApplication.Get(u => u.Id == id, true);
+            ReviewApplicationObj.ReviewApplication = _unitOfWork.ApplicationStatus.Get(u => u.AppStatId == id, true);
             if (ReviewApplicationObj == null)
             {
                 return NotFound();
@@ -61,7 +61,7 @@ public class ReviewApplicationsController : Controller
         }
 
                                         
-        _unitOfWork.ReviewApplication.Update(ReviewApplicationObj.ReviewApplication);
+        _unitOfWork.ApplicationStatus.Update(ReviewApplicationObj.ReviewApplication);
         
         _unitOfWork.Commit();
         return RedirectToAction("Index");
