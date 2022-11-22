@@ -26,7 +26,7 @@ public class ReviewApplicationsController : Controller
     }
 
     [HttpGet]
-    public IActionResult Upsert(int? id, int? appId) //optional id needed with edit mode vs create
+    public IActionResult Upsert(int? id, int? appId, int? statId) //optional id needed with edit mode vs create
     {
         
         var stati = _unitOfWork.Status.List();
@@ -35,7 +35,7 @@ public class ReviewApplicationsController : Controller
         {
             ReviewApplication = new ApplicationStatus(),
             Application = _unitOfWork.Application.Get(a => a.Id == appId),
-            Status = _unitOfWork.Status.Get(s => s.StatusID == id),
+            Status = _unitOfWork.Status.Get(s => s.StatusID == statId),
             StatusList = stati.Select(f => new SelectListItem { Value = f.StatusID.ToString(), Text = f.StatusDesc })
         };
 
