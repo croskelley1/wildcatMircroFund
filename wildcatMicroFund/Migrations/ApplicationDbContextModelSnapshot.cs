@@ -224,6 +224,39 @@ namespace wildcatMicroFund.Migrations
                     b.ToTable("AspNetUserTokens", (string)null);
                 });
 
+            modelBuilder.Entity("wildcatMicroFund.Models.AdminReviewApplication", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
+
+                    b.Property<int>("ApplicationId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("ApplicationStatusId")
+                        .HasColumnType("int");
+
+                    b.Property<string>("CompanyName")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Description")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int?>("StatusId")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("ApplicationId");
+
+                    b.HasIndex("StatusId");
+
+                    b.ToTable("AdminReviewApplication");
+                });
+
             modelBuilder.Entity("wildcatMicroFund.Models.Application", b =>
                 {
                     b.Property<int>("Id")
@@ -866,6 +899,23 @@ namespace wildcatMicroFund.Migrations
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
+                });
+
+            modelBuilder.Entity("wildcatMicroFund.Models.AdminReviewApplication", b =>
+                {
+                    b.HasOne("wildcatMicroFund.Models.Application", "Application")
+                        .WithMany()
+                        .HasForeignKey("ApplicationId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("wildcatMicroFund.Models.Status", "Status")
+                        .WithMany()
+                        .HasForeignKey("StatusId");
+
+                    b.Navigation("Application");
+
+                    b.Navigation("Status");
                 });
 
             modelBuilder.Entity("wildcatMicroFund.Models.ApplicationStatus", b =>

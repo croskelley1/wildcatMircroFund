@@ -8,6 +8,13 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Remove="Areas\Admins\**" />
+    <Content Remove="Areas\Admins\**" />
+    <EmbeddedResource Remove="Areas\Admins\**" />
+    <None Remove="Areas\Admins\**" />
+  </ItemGroup>
+
+  <ItemGroup>
     <Content Remove="Areas\Mentor\Views\Application\ReviewApplication.cshtml" />
   </ItemGroup>
 
