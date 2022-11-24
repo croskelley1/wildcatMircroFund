@@ -40,12 +40,10 @@
                         @if (User.IsInRole("Admin"))
                         {
                             <li class="nav-item dropdown">
-                                <a class="nav-link dropdown-toggle" data-bs-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">Admin</a>
+                                <a class="nav-link dropdown-toggle text-dark" data-bs-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">Admin</a>
                                 <div class="dropdown-menu">
-                                    <a class="dropdown-menu" asp-area="" asp-controller="ReviewApplication" asp-action="Index">Review Application</a>
-
+                                    <a class="dropdown-item" asp-area="Admin" asp-controller="AdminReviewApplications" asp-action="Index">Review Applications</a>
                                     <a class="dropdown-item" asp-area="Admin" asp-controller="EmailTemplates" asp-action="Index">Email Actions</a>
-                                    <a class="dropdown-item" asp-area="" asp-controller="AllApplication" asp-action="Index">All Applications</a>
                                     <div class="dropdown-divider"></div>
                                     <a class="dropdown-item" asp-area="Admin" asp-page="/Users/Index">Manage Users</a>
                                     <a class="dropdown-item" asp-area="Admin" asp-page="/Roles/Index">Manage Roles</a>
@@ -55,31 +53,27 @@
                         @if (User.IsInRole("Mentor"))
                         {               
                             <li class="nav-item dropdown">
-                                <a class="nav-link dropdown-toggle" data-bs-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">Mentor</a>
+                                <a class="nav-link dropdown-toggle text-dark" data-bs-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">Mentor</a>
                                 <div class="dropdown-menu">
-                                    <a class="dropdown-item" asp-area="" asp-controller="ReviewApplication" asp-action="Index">Review Application</a>
-                                    <a class="dropdown-item" asp-area="" asp-controller="AllApplication" asp-action="Index">All Applications</a>                             
+                                    <a class="dropdown-item" asp-area="Mentor" asp-controller="ReviewApplications" asp-action="Index">Review Applications</a>
                                 </div>
                             </li>
                         }
                         @if (User.IsInRole("Judge"))
                         {
                             <li class="nav-item dropdown">
-                                <a class="nav-link dropdown-toggle" data-bs-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">Judge</a>
+                                <a class="nav-link dropdown-toggle text-dark" data-bs-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">Judge</a>
                                 <div class="dropdown-menu">
-                                    <a class="dropdown-item" asp-area="" asp-controller="PitchEvent" asp-action="Index">Pitch Event</a>
-                                    <a class="dropdown-item" asp-area="" asp-controller="ScorePitch" asp-action="Index">Score Pitch</a>
+                                    <a class="dropdown-item" asp-area="Judge" asp-controller="PitchCriteria" asp-action="PitchCriteria">Pitch Criteria</a>
                                 </div>
                             </li>
                         }
                         @if (User.IsInRole("Entrepreneur"))
                         {
                             <li class="nav-item dropdown">
-                                <a class="nav-link dropdown-toggle" data-bs-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">Entrepreneur</a>
+                                <a class="nav-link dropdown-toggle text-dark" data-bs-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">Entrepreneur</a>
                                 <div class="dropdown-menu">
-                                    <a class="dropdown-item" asp-area="" asp-controller="NewApplication" asp-action="Index">New Applications</a>
-                                    <a class="dropdown-item" asp-area="" asp-controller="AllApplication" asp-action="Index">All Application</a>
-                                    <a class="dropdown-item" asp-area="" asp-controller="FillOutSurvey" asp-action="Index">Fill Out Survey</a>
+                                    <a class="dropdown-item" asp-area="Entrepreneur" asp-controller="NewApplication" asp-action="Index">New Applications</a>
                                 </div>
                             </li>
                         }
