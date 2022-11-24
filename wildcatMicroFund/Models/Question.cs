@@ -13,6 +13,6 @@ namespace wildcatMicroFund.Models
                 
         [Required]
         [Display(Name = "Active")]
-        public bool QuestIsActive { get; set; }
+        public bool QuestIsActive { get; set; }// If this is false then this question will no longer show up for assignment with a new QuestionUse
     }
 }

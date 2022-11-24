@@ -23,13 +23,11 @@
                 <div class="form-group row ">
                     <div class="col-9">
                         @*These hide the values from the user, but allow the update button to pass the values back through the VM object*@
-                        <input type="hidden" asp-for="ReviewApplication.AppStatId" />
-                        <input  asp-for="ReviewApplication.ApplicationId" />
-                        
-                        <input type="hidden" asp-for="ReviewApplication.UserID" />
-                        
-                        <input type="hidden" asp-for="ReviewApplication.StatusDate" />
-                        <input asp-for="Application.CompanyName" />
+                        <input readonly type="hidden" asp-for="ReviewApplication.AppStatId" />
+                        <input readonly type="hidden" asp-for="ReviewApplication.ApplicationId" />
+                        <input readonly type="hidden" asp-for="ReviewApplication.UserID" />                       
+                        <input readonly type="hidden" asp-for="ReviewApplication.StatusDate" />
+                        <input readonly type="hidden"  asp-for="Application.CompanyName" />
                         
 @*                        <input readyonly type="hidden" asp-for="ReviewApplication." />
 

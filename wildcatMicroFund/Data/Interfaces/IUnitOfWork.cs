@@ -7,6 +7,7 @@ namespace wildcatMicroFund.Interfaces
         //Data Accessors
         public IRepository<Application> Application { get; }
         public IRepository<ApplicationStatus> ApplicationStatus { get; }
+        public IRepository<AdminReviewApplication> AdminReviewApplication { get; }
         public IRepository<ReviewApplication> ReviewApplication { get; }
         public IRepository<Availability> Availability { get; }
         public IRepository<Award> Award { get; }
@@ -31,6 +32,8 @@ namespace wildcatMicroFund.Interfaces
         public IRepository<User> User { get; }
         public IRepository<UserAssignment> UserAssignment { get; }
         public IRepository<UserRole> UserRole { get; }
+        public IRepository<EmailTemplate> EmailTemplate { get; }
+        public IRepository<ApplicationUser> ApplicationUser { get; }
 
         //save changes to data source
         void Commit();

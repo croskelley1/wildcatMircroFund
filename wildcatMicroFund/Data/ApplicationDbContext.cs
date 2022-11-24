@@ -10,6 +10,7 @@ namespace wildcatMicroFund.Data
 
         public DbSet<ApplicationStatus> ApplicationStatus { get; set; }
         public DbSet<Availability> Availability { get; set; }
+        public DbSet<AdminReviewApplication> AdminReviewApplication { get; set; }
         public DbSet<ReviewApplication> ReviewApplication { get; set; }
         public DbSet<Award> Award { get; set; }
         public DbSet<AwardType> AwardType { get; set; }
@@ -33,6 +34,8 @@ namespace wildcatMicroFund.Data
         public DbSet<User> User { get; set; }
         public DbSet<UserAssignment> UserAssignment { get; set; }
         public DbSet<UserRole> UserRole { get; set; }
+        public DbSet<EmailTemplate> EmailTemplate { get; set; }
+        public DbSet<ApplicationUser> ApplicationUser { get; set; }
 
         public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options)
             : base(options)

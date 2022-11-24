@@ -19,7 +19,6 @@ namespace wildcatMicroFund.Data
         {
             get
             {
-
                 _Application ??= new Repository<Application>(_dbContext);
                 return _Application;
             }
@@ -31,7 +30,6 @@ namespace wildcatMicroFund.Data
         {
             get
             {
-
                 _ApplicationStatus ??= new Repository<ApplicationStatus>(_dbContext);
                 return _ApplicationStatus;
             }
@@ -49,13 +47,24 @@ namespace wildcatMicroFund.Data
             }
         }
 
+        private IRepository<AdminReviewApplication> _AdminReviewApplication;
+
+        public IRepository<AdminReviewApplication> AdminReviewApplication      
+        {
+            get
+            {
+
+                _AdminReviewApplication ??= new Repository<AdminReviewApplication>(_dbContext);
+                return _AdminReviewApplication;
+            }
+        }
+
         private IRepository<Availability> _Availability;
 
         public IRepository<Availability> Availability
         {
             get
             {
-
                 _Availability ??= new Repository<Availability>(_dbContext);
                 return _Availability;
             }
@@ -279,6 +288,27 @@ namespace wildcatMicroFund.Data
             {
                 _UserRole ??= new Repository<UserRole>(_dbContext);
                 return _UserRole;
+            }
+        }
+
+        private IRepository<EmailTemplate> _EmailTemplate;
+
+        public IRepository<EmailTemplate> EmailTemplate
+        {
+            get
+            {
+
+                _EmailTemplate ??= new Repository<EmailTemplate>(_dbContext);
+                return _EmailTemplate;
+            }
+        }
+        private IRepository<ApplicationUser> _ApplicationUser;
+        public IRepository<ApplicationUser> ApplicationUser 
+        {
+            get 
+            {
+                _ApplicationUser ??= new Repository<ApplicationUser>(_dbContext);
+                return _ApplicationUser;
             }
         }
 
