@@ -1,17 +1,25 @@
 ﻿@model IEnumerable<ReviewApplication>
 
-@{
-    ViewData["Title"] = "Review Application";
-}
+@{ViewData["Title"] = "Review Application";}
 
 <div class="container p-3">
+    @*Header*@
     <div class="row pt-4">
         <div class="col-6">
             <h2 class="text-primary">Application List</h2>
         </div>
     </div>
-    <br /><br />
+    <br/>
 
+    @*Filter tabs*@
+    <div style="background-color:aquamarine; width:0px; white-space:nowrap;">
+        <span class="btn btn-primary" id="all-btn">All</span>
+        <span class="btn btn-primary" id="new-btn">New</span>
+        <span class="btn btn-primary" id="ready-btn">Ready for Pitch Event</span>
+    </div>
+    <br/>
+
+    @*Application information*@
     <table class="table table-bordered table-striped" style="width:100%">
         <thead>
             <tr>
@@ -25,7 +33,7 @@
         <tbody>
             @foreach (var obj in Model)
             {
-                <tr>
+                <tr class="info-row status-@{WriteLiteral(@obj.Status.StatusDesc.ToLower().Replace(' ', '-'));}">
                     <td>@obj.Application.CompanyName</td>
 
                     <td>@*Entrepreneur Name Here*@</td>
@@ -59,6 +67,46 @@
                 </tr>
             }
         </tbody>
-
     </table>
 </div>
+
+<script>
+    const rows = document.getElementsByClassName('info-row');
+    const allButton = document.getElementById('all-btn');
+    const newButton = document.getElementById('new-btn');
+    const rdyButton = document.getElementById('ready-btn');
+
+    // Show all applications
+    function showAll() {
+        for (var i = 0; i < rows.length; i++) {
+            rows.item(i).style.display = "";
+        }
+    }
+    allButton.addEventListener("click", showAll);
+
+    // Only show newly submitted applications
+    function showNew() {
+        for (var i = 0; i < rows.length; i++) {
+            if (rows.item(i).className.includes("status-submitted")) {
+                rows.item(i).style.display = "";
+            } else {
+                rows.item(i).style.display = "none";
+            }
+        }
+    }
+    newButton.addEventListener("click", showNew);
+
+    // Only show applications that need to be assigned to a pitch event
+    function showRdy() {
+        for (var i = 0; i < rows.length; i++) {
+            if (rows.item(i).className.includes("status-ready-for-pitch-event")) {
+                rows.item(i).style.display = "";
+            } else {
+                rows.item(i).style.display = "none";
+            }
+        }
+    }
+    rdyButton.addEventListener("click", showRdy);
+
+    window.addEventListener("load", showAll);
+</script>
