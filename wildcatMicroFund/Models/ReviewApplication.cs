@@ -17,13 +17,13 @@ namespace wildcatMicroFund.Models
         public int StatusId { get; set; }
 
         // Connects to Objects or Tables
-        [ForeignKey("ApplicationId")]
+        
         public virtual Application? Application { get; set; }
 
-        [ForeignKey("ApplicationStatusId")]
+       
         public virtual ApplicationStatus? ApplicationStatus { get; set; }
 
-        [ForeignKey("StatusId")]
+        
         public virtual Status? Status { get; set; }
 
     }

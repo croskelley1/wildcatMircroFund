@@ -17,6 +17,7 @@ namespace wildcatMicroFund.Models
         public DateTime StatusDate { get; set; }
 
         // Connects to Objects or Tables
+        
         [ForeignKey("ApplicationId")]
         public virtual Application? Application { get; set; }
 
