@@ -7,7 +7,7 @@ namespace wildcatMicroFund.Models
     {
         [Key]
         public int AppStatId { get; set; }
-        public int UserID { get; set; }
+        public string? UserID { get; set; }
 
         public int ApplicationId { get; set; }
 
