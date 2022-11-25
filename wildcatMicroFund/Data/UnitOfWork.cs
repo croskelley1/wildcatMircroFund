@@ -33,31 +33,7 @@ namespace wildcatMicroFund.Data
                 _ApplicationStatus ??= new Repository<ApplicationStatus>(_dbContext);
                 return _ApplicationStatus;
             }
-        }
-
-        private IRepository<ReviewApplication> _ReviewApplication;
-
-        public IRepository<ReviewApplication> ReviewApplication      
-        {
-            get
-            {
-
-                _ReviewApplication ??= new Repository<ReviewApplication>(_dbContext);
-                return _ReviewApplication;
-            }
-        }
-
-        private IRepository<AdminReviewApplication> _AdminReviewApplication;
-
-        public IRepository<AdminReviewApplication> AdminReviewApplication      
-        {
-            get
-            {
-
-                _AdminReviewApplication ??= new Repository<AdminReviewApplication>(_dbContext);
-                return _AdminReviewApplication;
-            }
-        }
+        }     
 
         private IRepository<Availability> _Availability;
 
@@ -228,36 +204,6 @@ namespace wildcatMicroFund.Data
             {
                 _Status ??= new Repository<Status>(_dbContext);
                 return _Status;
-            }
-        }
-
-        private IRepository<Survey> _Survey;
-        public IRepository<Survey> Survey
-        {
-            get
-            {
-                _Survey ??= new Repository<Survey>(_dbContext);
-                return _Survey;
-            }
-        }
-
-        private IRepository<SurveyQuestion> _SurveyQuestion;
-        public IRepository<SurveyQuestion> SurveyQuestion
-        {
-            get
-            {
-                _SurveyQuestion ??= new Repository<SurveyQuestion>(_dbContext);
-                return _SurveyQuestion;
-            }
-        }
-
-        private IRepository<SurveyType> _SurveyType;
-        public IRepository<SurveyType> SurveyType
-        {
-            get
-            {
-                _SurveyType ??= new Repository<SurveyType>(_dbContext);
-                return _SurveyType;
             }
         }
 

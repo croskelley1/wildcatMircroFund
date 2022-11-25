@@ -17,7 +17,7 @@ namespace wildcatMicroFund.Migrations
         {
 #pragma warning disable 612, 618
             modelBuilder
-                .HasAnnotation("ProductVersion", "6.0.10")
+                .HasAnnotation("ProductVersion", "6.0.8")
                 .HasAnnotation("Relational:MaxIdentifierLength", 128);
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder, 1L, 1);
@@ -86,10 +86,6 @@ namespace wildcatMicroFund.Migrations
                         .IsConcurrencyToken()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("Discriminator")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
                     b.Property<string>("Email")
                         .HasMaxLength(256)
                         .HasColumnType("nvarchar(256)");
@@ -141,8 +137,6 @@ namespace wildcatMicroFund.Migrations
                         .HasFilter("[NormalizedUserName] IS NOT NULL");
 
                     b.ToTable("AspNetUsers", (string)null);
-
-                    b.HasDiscriminator<string>("Discriminator").HasValue("IdentityUser");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserClaim<string>", b =>
@@ -173,10 +167,12 @@ namespace wildcatMicroFund.Migrations
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserLogin<string>", b =>
                 {
                     b.Property<string>("LoginProvider")
-                        .HasColumnType("nvarchar(450)");
+                        .HasMaxLength(128)
+                        .HasColumnType("nvarchar(128)");
 
                     b.Property<string>("ProviderKey")
-                        .HasColumnType("nvarchar(450)");
+                        .HasMaxLength(128)
+                        .HasColumnType("nvarchar(128)");
 
                     b.Property<string>("ProviderDisplayName")
                         .HasColumnType("nvarchar(max)");
@@ -213,10 +209,12 @@ namespace wildcatMicroFund.Migrations
                         .HasColumnType("nvarchar(450)");
 
                     b.Property<string>("LoginProvider")
-                        .HasColumnType("nvarchar(450)");
+                        .HasMaxLength(128)
+                        .HasColumnType("nvarchar(128)");
 
                     b.Property<string>("Name")
-                        .HasColumnType("nvarchar(450)");
+                        .HasMaxLength(128)
+                        .HasColumnType("nvarchar(128)");
 
                     b.Property<string>("Value")
                         .HasColumnType("nvarchar(max)");
@@ -256,7 +254,7 @@ namespace wildcatMicroFund.Migrations
 
                     b.HasIndex("StatusId");
 
-                    b.ToTable("AdminReviewApplication");
+                    b.ToTable("AdminReviewApplication", (string)null);
                 });
 
             modelBuilder.Entity("wildcatMicroFund.Models.Application", b =>
@@ -279,36 +277,36 @@ namespace wildcatMicroFund.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Application");
+                    b.ToTable("Application", (string)null);
                 });
 
             modelBuilder.Entity("wildcatMicroFund.Models.ApplicationStatus", b =>
                 {
-                    b.Property<int>("AppStatId")
+                    b.Property<int>("AppStat")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int");
 
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("AppStatId"), 1L, 1);
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("AppStat"), 1L, 1);
 
-                    b.Property<int>("ApplicationId")
+                    b.Property<int?>("ApplicationId")
                         .HasColumnType("int");
 
                     b.Property<DateTime>("StatusDate")
                         .HasColumnType("datetime2");
 
-                    b.Property<int>("StatusId")
+                    b.Property<int?>("StatusId")
                         .HasColumnType("int");
 
                     b.Property<int>("UserID")
                         .HasColumnType("int");
 
-                    b.HasKey("AppStatId");
+                    b.HasKey("AppStat");
 
                     b.HasIndex("ApplicationId");
 
                     b.HasIndex("StatusId");
 
-                    b.ToTable("ApplicationStatus");
+                    b.ToTable("ApplicationStatus", (string)null);
                 });
 
             modelBuilder.Entity("wildcatMicroFund.Models.Availability", b =>
@@ -330,7 +328,7 @@ namespace wildcatMicroFund.Migrations
 
                     b.HasKey("AvailID");
 
-                    b.ToTable("Availability");
+                    b.ToTable("Availability", (string)null);
                 });
 
             modelBuilder.Entity("wildcatMicroFund.Models.Award", b =>
@@ -358,7 +356,7 @@ namespace wildcatMicroFund.Migrations
 
                     b.HasKey("AwardId");
 
-                    b.ToTable("Award");
+                    b.ToTable("Award", (string)null);
                 });
 
             modelBuilder.Entity("wildcatMicroFund.Models.AwardType", b =>
@@ -375,7 +373,7 @@ namespace wildcatMicroFund.Migrations
 
                     b.HasKey("AwardTypeId");
 
-                    b.ToTable("AwardType");
+                    b.ToTable("AwardType", (string)null);
                 });
 
             modelBuilder.Entity("wildcatMicroFund.Models.Document", b =>
@@ -395,7 +393,7 @@ namespace wildcatMicroFund.Migrations
 
                     b.HasKey("DocID");
 
-                    b.ToTable("Document");
+                    b.ToTable("Document", (string)null);
                 });
 
             modelBuilder.Entity("wildcatMicroFund.Models.DocumentType", b =>
@@ -412,7 +410,7 @@ namespace wildcatMicroFund.Migrations
 
                     b.HasKey("DocTypeID");
 
-                    b.ToTable("DocumentType");
+                    b.ToTable("DocumentType", (string)null);
                 });
 
             modelBuilder.Entity("wildcatMicroFund.Models.EmailTemplate", b =>
@@ -433,7 +431,7 @@ namespace wildcatMicroFund.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("EmailTemplate");
+                    b.ToTable("EmailTemplate", (string)null);
                 });
 
             modelBuilder.Entity("wildcatMicroFund.Models.Note", b =>
@@ -459,7 +457,7 @@ namespace wildcatMicroFund.Migrations
 
                     b.HasKey("NoteID");
 
-                    b.ToTable("Note");
+                    b.ToTable("Note", (string)null);
                 });
 
             modelBuilder.Entity("wildcatMicroFund.Models.NoteType", b =>
@@ -476,7 +474,7 @@ namespace wildcatMicroFund.Migrations
 
                     b.HasKey("NoteTypeID");
 
-                    b.ToTable("NoteType");
+                    b.ToTable("NoteType", (string)null);
                 });
 
             modelBuilder.Entity("wildcatMicroFund.Models.PitchEvent", b =>
@@ -492,7 +490,7 @@ namespace wildcatMicroFund.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("PitchEvent");
+                    b.ToTable("PitchEvent", (string)null);
                 });
 
             modelBuilder.Entity("wildcatMicroFund.Models.PitchEventApplication", b =>
@@ -511,7 +509,7 @@ namespace wildcatMicroFund.Migrations
 
                     b.HasKey("PitchEvAppID");
 
-                    b.ToTable("PitchEventApplication");
+                    b.ToTable("PitchEventApplication", (string)null);
                 });
 
             modelBuilder.Entity("wildcatMicroFund.Models.QCategory", b =>
@@ -528,7 +526,7 @@ namespace wildcatMicroFund.Migrations
 
                     b.HasKey("QCategoryID");
 
-                    b.ToTable("QCategory");
+                    b.ToTable("QCategory", (string)null);
                 });
 
             modelBuilder.Entity("wildcatMicroFund.Models.Question", b =>
@@ -548,7 +546,7 @@ namespace wildcatMicroFund.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Question");
+                    b.ToTable("Question", (string)null);
                 });
 
             modelBuilder.Entity("wildcatMicroFund.Models.QuestionDetail", b =>
@@ -570,7 +568,7 @@ namespace wildcatMicroFund.Migrations
 
                     b.HasIndex("QuestionID");
 
-                    b.ToTable("QuestionDetail");
+                    b.ToTable("QuestionDetail", (string)null);
                 });
 
             modelBuilder.Entity("wildcatMicroFund.Models.QuestionUse", b =>
@@ -605,7 +603,7 @@ namespace wildcatMicroFund.Migrations
 
                     b.HasIndex("QuestID");
 
-                    b.ToTable("QuestionUse");
+                    b.ToTable("QuestionUse", (string)null);
                 });
 
             modelBuilder.Entity("wildcatMicroFund.Models.Response", b =>
@@ -628,7 +626,7 @@ namespace wildcatMicroFund.Migrations
 
                     b.HasKey("ResponseID");
 
-                    b.ToTable("Response");
+                    b.ToTable("Response", (string)null);
                 });
 
             modelBuilder.Entity("wildcatMicroFund.Models.ReviewApplication", b =>
@@ -656,7 +654,7 @@ namespace wildcatMicroFund.Migrations
 
                     b.HasIndex("StatusId");
 
-                    b.ToTable("ReviewApplication");
+                    b.ToTable("ReviewApplication", (string)null);
                 });
 
             modelBuilder.Entity("wildcatMicroFund.Models.Role", b =>
@@ -673,7 +671,7 @@ namespace wildcatMicroFund.Migrations
 
                     b.HasKey("RoleID");
 
-                    b.ToTable("Role");
+                    b.ToTable("Role", (string)null);
                 });
 
             modelBuilder.Entity("wildcatMicroFund.Models.Score", b =>
@@ -701,7 +699,7 @@ namespace wildcatMicroFund.Migrations
 
                     b.HasKey("ScoreID");
 
-                    b.ToTable("Score");
+                    b.ToTable("Score", (string)null);
                 });
 
             modelBuilder.Entity("wildcatMicroFund.Models.Status", b =>
@@ -718,7 +716,7 @@ namespace wildcatMicroFund.Migrations
 
                     b.HasKey("StatusID");
 
-                    b.ToTable("Status");
+                    b.ToTable("Status", (string)null);
                 });
 
             modelBuilder.Entity("wildcatMicroFund.Models.Survey", b =>
@@ -740,7 +738,7 @@ namespace wildcatMicroFund.Migrations
 
                     b.HasKey("SurveyID");
 
-                    b.ToTable("Survey");
+                    b.ToTable("Survey", (string)null);
                 });
 
             modelBuilder.Entity("wildcatMicroFund.Models.SurveyQuestion", b =>
@@ -762,7 +760,7 @@ namespace wildcatMicroFund.Migrations
 
                     b.HasKey("SurveyQuestionID");
 
-                    b.ToTable("SurveyQuestion");
+                    b.ToTable("SurveyQuestion", (string)null);
                 });
 
             modelBuilder.Entity("wildcatMicroFund.Models.SurveyType", b =>
@@ -779,7 +777,7 @@ namespace wildcatMicroFund.Migrations
 
                     b.HasKey("SurveyTypeID");
 
-                    b.ToTable("SurveyType");
+                    b.ToTable("SurveyType", (string)null);
                 });
 
             modelBuilder.Entity("wildcatMicroFund.Models.User", b =>
@@ -823,7 +821,7 @@ namespace wildcatMicroFund.Migrations
 
                     b.HasKey("UserID");
 
-                    b.ToTable("User");
+                    b.ToTable("User", (string)null);
                 });
 
             modelBuilder.Entity("wildcatMicroFund.Models.UserAssignment", b =>
@@ -845,7 +843,7 @@ namespace wildcatMicroFund.Migrations
 
                     b.HasKey("UserAppID");
 
-                    b.ToTable("UserAssignment");
+                    b.ToTable("UserAssignment", (string)null);
                 });
 
             modelBuilder.Entity("wildcatMicroFund.Models.UserRole", b =>
@@ -858,38 +856,7 @@ namespace wildcatMicroFund.Migrations
 
                     b.HasKey("URID");
 
-                    b.ToTable("UserRole");
-                });
-
-            modelBuilder.Entity("wildcatMicroFund.Models.ApplicationUser", b =>
-                {
-                    b.HasBaseType("Microsoft.AspNetCore.Identity.IdentityUser");
-
-                    b.Property<string>("City")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("FirstName")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("LastName")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("PostalCode")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("State")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("StreetAddress")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.HasDiscriminator().HasValue("ApplicationUser");
+                    b.ToTable("UserRole", (string)null);
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>
@@ -964,15 +931,11 @@ namespace wildcatMicroFund.Migrations
                 {
                     b.HasOne("wildcatMicroFund.Models.Application", "Application")
                         .WithMany()
-                        .HasForeignKey("ApplicationId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .HasForeignKey("ApplicationId");
 
                     b.HasOne("wildcatMicroFund.Models.Status", "Status")
                         .WithMany()
-                        .HasForeignKey("StatusId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .HasForeignKey("StatusId");
 
                     b.Navigation("Application");
 

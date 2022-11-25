@@ -7,11 +7,8 @@ namespace wildcatMicroFund.Data
     public class ApplicationDbContext : IdentityDbContext
     {
         public DbSet<Application> Application { get; set; }
-
         public DbSet<ApplicationStatus> ApplicationStatus { get; set; }
         public DbSet<Availability> Availability { get; set; }
-        public DbSet<AdminReviewApplication> AdminReviewApplication { get; set; }
-        public DbSet<ReviewApplication> ReviewApplication { get; set; }
         public DbSet<Award> Award { get; set; }
         public DbSet<AwardType> AwardType { get; set; }
         public DbSet<Document> Document { get; set; }
@@ -28,9 +25,6 @@ namespace wildcatMicroFund.Data
         public DbSet<Role> Role { get; set; }
         public DbSet<Score> Score { get; set; }
         public DbSet<Status> Status { get; set; }
-        public DbSet<Survey> Survey { get; set; }
-        public DbSet<SurveyQuestion> SurveyQuestion { get; set; }
-        public DbSet<SurveyType> SurveyType { get; set; }
         public DbSet<User> User { get; set; }
         public DbSet<UserAssignment> UserAssignment { get; set; }
         public DbSet<UserRole> UserRole { get; set; }
