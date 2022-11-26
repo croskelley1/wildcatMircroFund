@@ -21,12 +21,9 @@ namespace wildcatMicroFund.Interfaces
         public IRepository<QuestionDetail> QuestionDetail { get; }
         public IRepository<QuestionUse> QuestionUse { get; }
         public IRepository<Response> Response { get; }
-        public IRepository<Role> Role { get; }
         public IRepository<Score> Score { get; }
         public IRepository<Status> Status { get; }
-        public IRepository<User> User { get; }
         public IRepository<UserAssignment> UserAssignment { get; }
-        public IRepository<UserRole> UserRole { get; }
         public IRepository<EmailTemplate> EmailTemplate { get; }
         public IRepository<ApplicationUser> ApplicationUser { get; }
 

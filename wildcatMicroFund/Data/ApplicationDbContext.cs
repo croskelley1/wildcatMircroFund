@@ -22,12 +22,9 @@ namespace wildcatMicroFund.Data
         public DbSet<QuestionDetail> QuestionDetail { get; set; }
         public DbSet<QuestionUse> QuestionUse { get; set; }
         public DbSet<Response> Response { get; set; }
-        public DbSet<Role> Role { get; set; }
         public DbSet<Score> Score { get; set; }
         public DbSet<Status> Status { get; set; }
-        public DbSet<User> User { get; set; }
         public DbSet<UserAssignment> UserAssignment { get; set; }
-        public DbSet<UserRole> UserRole { get; set; }
         public DbSet<EmailTemplate> EmailTemplate { get; set; }
         public DbSet<ApplicationUser> ApplicationUser { get; set; }
 
@@ -37,6 +34,6 @@ namespace wildcatMicroFund.Data
 
         }
 
-        
+
     }
 }

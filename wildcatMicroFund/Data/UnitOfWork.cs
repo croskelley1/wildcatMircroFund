@@ -177,16 +177,6 @@ namespace wildcatMicroFund.Data
             }
         }
 
-        private IRepository<Role> _Role;
-        public IRepository<Role> Role
-        {
-            get
-            {
-                _Role ??= new Repository<Role>(_dbContext);
-                return _Role;
-            }
-        }
-
         private IRepository<Score> _Score;
         public IRepository<Score> Score
         {
@@ -205,17 +195,7 @@ namespace wildcatMicroFund.Data
                 _Status ??= new Repository<Status>(_dbContext);
                 return _Status;
             }
-        }
-
-        private IRepository<User> _User;
-        public IRepository<User> User
-        {
-            get
-            {
-                _User ??= new Repository<User>(_dbContext);
-                return _User;
-            }
-        }
+        }              
 
         private IRepository<UserAssignment> _UserAssignment;
         public IRepository<UserAssignment> UserAssignment
@@ -225,17 +205,7 @@ namespace wildcatMicroFund.Data
                 _UserAssignment ??= new Repository<UserAssignment>(_dbContext);
                 return _UserAssignment;
             }
-        }
-
-        private IRepository<UserRole> _UserRole;
-        public IRepository<UserRole> UserRole
-        {
-            get
-            {
-                _UserRole ??= new Repository<UserRole>(_dbContext);
-                return _UserRole;
-            }
-        }
+        }       
 
         private IRepository<EmailTemplate> _EmailTemplate;
 

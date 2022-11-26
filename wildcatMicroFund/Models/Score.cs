@@ -7,7 +7,7 @@ namespace wildcatMicroFund.Models
         [Key]
         public int ScoreID { get; set; }
 
-        public int UserID { get; set; }
+        public string? UserID { get; set; }
 
         [Display(Name = "Score")]
         [Range(1, 10, ErrorMessage = "Score must be from 1 to 10.")]
