@@ -12,7 +12,7 @@ using wildcatMicroFund.Data;
 namespace wildcatMicroFund.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20221126001343_Reset")]
+    [Migration("20221126072406_Reset")]
     partial class Reset
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -472,13 +472,17 @@ namespace wildcatMicroFund.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("PitchEvAppID"), 1L, 1);
 
-                    b.Property<int>("PitchID")
+                    b.Property<int?>("PitchEventId")
                         .HasColumnType("int");
 
-                    b.Property<int>("UserAppID")
+                    b.Property<int?>("UserApplicationAssignmentId")
                         .HasColumnType("int");
 
                     b.HasKey("PitchEvAppID");
+
+                    b.HasIndex("PitchEventId");
+
+                    b.HasIndex("UserApplicationAssignmentId");
 
                     b.ToTable("PitchEventApplication");
                 });
@@ -608,10 +612,10 @@ namespace wildcatMicroFund.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("ScoreID"), 1L, 1);
 
-                    b.Property<int>("PitchEvAppID")
+                    b.Property<int>("PitchEventApplicationId")
                         .HasColumnType("int");
 
-                    b.Property<int>("ResponseID")
+                    b.Property<int>("ResponseId")
                         .HasColumnType("int");
 
                     b.Property<string>("ScoreComments")
@@ -620,10 +624,14 @@ namespace wildcatMicroFund.Migrations
                     b.Property<double>("ScoreValue")
                         .HasColumnType("float");
 
-                    b.Property<int>("UserID")
-                        .HasColumnType("int");
+                    b.Property<string>("UserID")
+                        .HasColumnType("nvarchar(max)");
 
                     b.HasKey("ScoreID");
+
+                    b.HasIndex("PitchEventApplicationId");
+
+                    b.HasIndex("ResponseId");
 
                     b.ToTable("Score");
                 });
@@ -790,6 +798,21 @@ namespace wildcatMicroFund.Migrations
                     b.Navigation("Status");
                 });
 
+            modelBuilder.Entity("wildcatMicroFund.Models.PitchEventApplication", b =>
+                {
+                    b.HasOne("wildcatMicroFund.Models.PitchEvent", "PitchEvent")
+                        .WithMany()
+                        .HasForeignKey("PitchEventId");
+
+                    b.HasOne("wildcatMicroFund.Models.UserAssignment", "UserAssignment")
+                        .WithMany()
+                        .HasForeignKey("UserApplicationAssignmentId");
+
+                    b.Navigation("PitchEvent");
+
+                    b.Navigation("UserAssignment");
+                });
+
             modelBuilder.Entity("wildcatMicroFund.Models.QuestionDetail", b =>
                 {
                     b.HasOne("wildcatMicroFund.Models.Question", "Question")
@@ -816,6 +839,25 @@ namespace wildcatMicroFund.Migrations
                     b.Navigation("QCategory");
 
                     b.Navigation("Question");
+                });
+
+            modelBuilder.Entity("wildcatMicroFund.Models.Score", b =>
+                {
+                    b.HasOne("wildcatMicroFund.Models.PitchEventApplication", "PitchEventApplication")
+                        .WithMany()
+                        .HasForeignKey("PitchEventApplicationId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("wildcatMicroFund.Models.Response", "Response")
+                        .WithMany()
+                        .HasForeignKey("ResponseId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("PitchEventApplication");
+
+                    b.Navigation("Response");
                 });
 
             modelBuilder.Entity("wildcatMicroFund.Models.UserAssignment", b =>

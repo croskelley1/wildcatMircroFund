@@ -199,20 +199,6 @@ namespace wildcatMicroFund.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "PitchEventApplication",
-                columns: table => new
-                {
-                    PitchEvAppID = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
-                    PitchID = table.Column<int>(type: "int", nullable: false),
-                    UserAppID = table.Column<int>(type: "int", nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_PitchEventApplication", x => x.PitchEvAppID);
-                });
-
-            migrationBuilder.CreateTable(
                 name: "QCategory",
                 columns: table => new
                 {
@@ -252,23 +238,6 @@ namespace wildcatMicroFund.Migrations
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Response", x => x.ResponseID);
-                });
-
-            migrationBuilder.CreateTable(
-                name: "Score",
-                columns: table => new
-                {
-                    ScoreID = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
-                    UserID = table.Column<int>(type: "int", nullable: false),
-                    ScoreValue = table.Column<double>(type: "float", nullable: false),
-                    ScoreComments = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    PitchEvAppID = table.Column<int>(type: "int", nullable: false),
-                    ResponseID = table.Column<int>(type: "int", nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_Score", x => x.ScoreID);
                 });
 
             migrationBuilder.CreateTable(
@@ -510,6 +479,59 @@ namespace wildcatMicroFund.Migrations
                         principalColumn: "UserApplicationAssignmentTypeId");
                 });
 
+            migrationBuilder.CreateTable(
+                name: "PitchEventApplication",
+                columns: table => new
+                {
+                    PitchEvAppID = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    PitchEventId = table.Column<int>(type: "int", nullable: true),
+                    UserApplicationAssignmentId = table.Column<int>(type: "int", nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_PitchEventApplication", x => x.PitchEvAppID);
+                    table.ForeignKey(
+                        name: "FK_PitchEventApplication_PitchEvent_PitchEventId",
+                        column: x => x.PitchEventId,
+                        principalTable: "PitchEvent",
+                        principalColumn: "Id");
+                    table.ForeignKey(
+                        name: "FK_PitchEventApplication_UserAssignment_UserApplicationAssignmentId",
+                        column: x => x.UserApplicationAssignmentId,
+                        principalTable: "UserAssignment",
+                        principalColumn: "UserAssignmentID");
+                });
+
+            migrationBuilder.CreateTable(
+                name: "Score",
+                columns: table => new
+                {
+                    ScoreID = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    UserID = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    ScoreValue = table.Column<double>(type: "float", nullable: false),
+                    ScoreComments = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    PitchEventApplicationId = table.Column<int>(type: "int", nullable: false),
+                    ResponseId = table.Column<int>(type: "int", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Score", x => x.ScoreID);
+                    table.ForeignKey(
+                        name: "FK_Score_PitchEventApplication_PitchEventApplicationId",
+                        column: x => x.PitchEventApplicationId,
+                        principalTable: "PitchEventApplication",
+                        principalColumn: "PitchEvAppID",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_Score_Response_ResponseId",
+                        column: x => x.ResponseId,
+                        principalTable: "Response",
+                        principalColumn: "ResponseID",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
             migrationBuilder.CreateIndex(
                 name: "IX_ApplicationStatus_ApplicationId",
                 table: "ApplicationStatus",
@@ -560,6 +582,16 @@ namespace wildcatMicroFund.Migrations
                 filter: "[NormalizedUserName] IS NOT NULL");
 
             migrationBuilder.CreateIndex(
+                name: "IX_PitchEventApplication_PitchEventId",
+                table: "PitchEventApplication",
+                column: "PitchEventId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_PitchEventApplication_UserApplicationAssignmentId",
+                table: "PitchEventApplication",
+                column: "UserApplicationAssignmentId");
+
+            migrationBuilder.CreateIndex(
                 name: "IX_QuestionDetail_QuestionID",
                 table: "QuestionDetail",
                 column: "QuestionID");
@@ -573,6 +605,16 @@ namespace wildcatMicroFund.Migrations
                 name: "IX_QuestionUse_QuestID",
                 table: "QuestionUse",
                 column: "QuestID");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Score_PitchEventApplicationId",
+                table: "Score",
+                column: "PitchEventApplicationId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Score_ResponseId",
+                table: "Score",
+                column: "ResponseId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_UserAssignment_ApplicationId",
@@ -635,25 +677,13 @@ namespace wildcatMicroFund.Migrations
                 name: "NoteType");
 
             migrationBuilder.DropTable(
-                name: "PitchEvent");
-
-            migrationBuilder.DropTable(
-                name: "PitchEventApplication");
-
-            migrationBuilder.DropTable(
                 name: "QuestionDetail");
 
             migrationBuilder.DropTable(
                 name: "QuestionUse");
 
             migrationBuilder.DropTable(
-                name: "Response");
-
-            migrationBuilder.DropTable(
                 name: "Score");
-
-            migrationBuilder.DropTable(
-                name: "UserAssignment");
 
             migrationBuilder.DropTable(
                 name: "Status");
@@ -666,6 +696,18 @@ namespace wildcatMicroFund.Migrations
 
             migrationBuilder.DropTable(
                 name: "Question");
+
+            migrationBuilder.DropTable(
+                name: "PitchEventApplication");
+
+            migrationBuilder.DropTable(
+                name: "Response");
+
+            migrationBuilder.DropTable(
+                name: "PitchEvent");
+
+            migrationBuilder.DropTable(
+                name: "UserAssignment");
 
             migrationBuilder.DropTable(
                 name: "Application");
