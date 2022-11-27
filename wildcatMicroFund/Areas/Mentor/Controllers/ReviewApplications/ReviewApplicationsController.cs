@@ -30,18 +30,33 @@ public class ReviewApplicationsController : Controller
     {
         
         var stati = _unitOfWork.Status.List();
+        var mentorList = _unitOfWork.ApplicationUser.List();
+        var judgeList = _unitOfWork.ApplicationUser.List();
+
+        var ent = _unitOfWork.UserAssignment.Get(e => e.ApplicationAssignmentType.UserApplicationAssignmentDesc == "Entrepreneur" && e.Application.Id == appId);
+        var mentor = _unitOfWork.UserAssignment.Get(m => m.ApplicationAssignmentType.UserApplicationAssignmentDesc == "Mentor" && m.Application.Id == appId);
+        //var judge = _unitOfWork.UserAssignment.Get(j => j.ApplicationAssignmentType.UserApplicationAssignmentDesc == "Judge" && j.Application.Id == appId);
+        var appStatus = new ApplicationStatus();
+        var app = _unitOfWork.Application.Get(a => a.Id == appId);
+        var status = _unitOfWork.Status.Get(s => s.StatusID == statId);
+        //var userAssignment = _unitOfWork.UserApplicationAssignmentType.Get(u => u.UserApplicationAssignmentTypeId == ent.ApplicationAssignmentType.UserApplicationAssignmentTypeId);
 
         ReviewApplicationObj = new ReviewApplicationVM
         {
-            ReviewApplication = new ApplicationStatus(),
-            Application = _unitOfWork.Application.Get(a => a.Id == appId),
-            Status = _unitOfWork.Status.Get(s => s.StatusID == statId),
-            StatusList = stati.Select(f => new SelectListItem { Value = f.StatusID.ToString(), Text = f.StatusDesc })
+            //UserApplicationAssignmentType = userAssignment,
+            Entrepreneur = ent,
+            Mentor = mentor,
+            //Judge = judge,
+            ApplicationStatus = appStatus,
+            Application = app,
+            Status = status,
+            StatusList = stati.Select(f => new SelectListItem { Value = f.StatusID.ToString(), Text = f.StatusDesc }),
+            MentorList = mentorList.Select(m => new SelectListItem { Value = m.Id.ToString(), Text=m.FullName.ToString() })
         };
 
         if (id != null)
         {
-            ReviewApplicationObj.ReviewApplication = _unitOfWork.ApplicationStatus.Get(u => u.AppStatId == id, true);
+            ReviewApplicationObj.Entrepreneur = _unitOfWork.UserAssignment.Get(u => u.UserAssignmentID == id, true);
             if (ReviewApplicationObj == null)
             {
                 return NotFound();
@@ -61,7 +76,7 @@ public class ReviewApplicationsController : Controller
         }
 
                                         
-        _unitOfWork.ApplicationStatus.Update(ReviewApplicationObj.ReviewApplication);
+        _unitOfWork.UserAssignment.Update(ReviewApplicationObj.Entrepreneur);
         
         _unitOfWork.Commit();
         return RedirectToAction("Index");

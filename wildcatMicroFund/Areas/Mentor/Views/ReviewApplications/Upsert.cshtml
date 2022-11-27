@@ -19,14 +19,38 @@
                            <h3>@Model.Application.CompanyName</h3>
                     </div>
                 </div>
+                <div class="form-group row m-2">
+                    <div class="col-4">
+                        <h4>Entrepreneur</h4>
+                    </div>
+                    <div class="col-3">
+                        <h4>@Model.Entrepreneur.User.UserName</h4>
+                    </div>
+                </div>
+                <div class="form-group row m-2">
+                    <div class="col-4">
+                        <h4>Mentor</h4>
+                    </div>
+                    <div class="col-3">
+                        <h4>@Model.Mentor.ApplicationAssignmentType.UserApplicationAssignmentDesc</h4>
+                    </div>
+                </div>
+                <div class="form-group row m-2">
+                    <div class="col-4">
+                        <h4>Judge</h4>
+                    </div>
+                    <div class="col-3">
+                        <h4>@Model.Judge</h4>
+                    </div>
+                </div>
                 
                 <div class="form-group row ">
                     <div class="col-9">
                         @*These hide the values from the user, but allow the update button to pass the values back through the VM object*@
-                        <input readonly type="hidden" asp-for="ReviewApplication.AppStatId" />
-                        <input readonly type="hidden" asp-for="ReviewApplication.ApplicationId" />
-                        <input readonly type="hidden" asp-for="ReviewApplication.UserID" />                       
-                        <input readonly type="hidden" asp-for="ReviewApplication.StatusDate" />
+                        <input readonly type="hidden" asp-for="ApplicationStatus.AppStatId" />
+                        <input readonly type="hidden" asp-for="ApplicationStatus.ApplicationId" />
+                        <input readonly type="hidden" asp-for="ApplicationStatus.UserID" />
+                        <input readonly type="hidden" asp-for="ApplicationStatus.StatusDate" />
                         <input readonly type="hidden"  asp-for="Application.CompanyName" />
                         
 @*                        <input readyonly type="hidden" asp-for="ReviewApplication." />
@@ -43,14 +67,14 @@
 
                 <div class="form-group row m-2">
                     <div class="col-4">
-                        <label asp-for="ReviewApplication.StatusId"></label>
+                        <label asp-for="ApplicationStatus.StatusId"></label>
                     </div>
                     <div class="col-5">
-                        @Html.DropDownListFor(m => m.ReviewApplication.StatusId,
+                        @Html.DropDownListFor(m => m.ApplicationStatus.StatusId,
                         Model.StatusList,
                         " - Please select a new status - ",
                         new { @class = "form-control", @id="ddlStatus" })
-                        <span class="text-danger" asp-validation-for="ReviewApplication.StatusId"></span>
+                        <span class="text-danger" asp-validation-for="ApplicationStatus.StatusId"></span>
 
                     </div>
                 </div>

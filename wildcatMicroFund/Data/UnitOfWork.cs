@@ -227,7 +227,16 @@ namespace wildcatMicroFund.Data
                 return _ApplicationUser;
             }
         }
-
+        private IRepository<UserApplicationAssignmentType> _UserApplicationAssignmentType;
+        public IRepository<UserApplicationAssignmentType> UserApplicationAssignmentType
+        {
+            get
+            {
+                _UserApplicationAssignmentType ??= new Repository<UserApplicationAssignmentType>(_dbContext);
+                return _UserApplicationAssignmentType;
+            }
+        }
+       
         public async Task<int> CommitAsync()
         {
             return await _dbContext.SaveChangesAsync();

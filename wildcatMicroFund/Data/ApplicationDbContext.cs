@@ -24,6 +24,7 @@ namespace wildcatMicroFund.Data
         public DbSet<Response> Response { get; set; }
         public DbSet<Score> Score { get; set; }
         public DbSet<Status> Status { get; set; }
+        public DbSet<UserApplicationAssignmentType> UserApplicationAssignmentType { get; set; }
         public DbSet<UserAssignment> UserAssignment { get; set; }
         public DbSet<EmailTemplate> EmailTemplate { get; set; }
         public DbSet<ApplicationUser> ApplicationUser { get; set; }
