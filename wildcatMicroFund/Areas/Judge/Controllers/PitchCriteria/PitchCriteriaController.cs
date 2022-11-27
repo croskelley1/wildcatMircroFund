@@ -32,7 +32,7 @@ public class PitchCriteriaController : Controller
             QuestionDetailList = _unitOfWork.QuestionDetail.List(null, null, "Question"),
             QuestionList = _unitOfWork.Question.List(null, q => q.Id, null),//This needs to filter on QCategory == 4
             QCategoryList = QCategories.Select(c => new Microsoft.AspNetCore.Mvc.Rendering.SelectListItem { Value = c.QCategoryID.ToString(), Text = c.QCategoryDesc }),
-            QuestionUseList = _unitOfWork.QuestionUse.List(u => u.QCategory.QCategoryID == 4, u => u.QuestionUseID, "Question,QCategory")
+            QuestionUseList = _unitOfWork.QuestionUse.List(u => u.QCategory.QCategoryID == 4, u => u.QuestDisplayOrder, "Question,QCategory")
         };
 
         return View(PitchJudgeCriteriaList);
