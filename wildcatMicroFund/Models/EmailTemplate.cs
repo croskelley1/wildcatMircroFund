@@ -12,5 +12,6 @@ namespace wildcatMicroFund.Models
         [Required]
         [Display(Name = "TemplateContent")]
         public string? TemplateContent { get; set; }
+        public DateTime EditDate { get; set; }
     }
 }
