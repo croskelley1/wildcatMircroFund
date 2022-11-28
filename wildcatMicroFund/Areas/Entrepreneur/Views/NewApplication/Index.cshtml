@@ -1,4 +1,5 @@
-﻿@{
+﻿@model IEnumerable<UserAssignment>
+@{
     ViewData["Title"] = "New Applications";
 }
 
@@ -17,5 +18,26 @@
         <div class="col-2"></div>
         <a class="col-3 btn btn-secondary">Back to Home</a>
         <div class="col-2"></div>
+    </div>
+
+    <div class="row">
+        <h1 class="Display-5 row">Your applications:</h1>
+
+        @foreach (var item in Model)
+        {
+            <div class="card col">
+                <p class="card-header">@(
+            item.Application.CompanyName
+            )</p>
+                <p class="card-body">@(
+            item.Application.AppStatus
+            )</p>
+                <p class="card-footer">@(
+            item.Application.CreatedDate
+            )</p>
+            </div>
+        }
+        
+        
     </div>
 </div>
