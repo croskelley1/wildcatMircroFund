@@ -20,21 +20,15 @@
         <div class="col-2"></div>
     </div>
 
-    <div class="row">
+    <div class="row py-3">
         <h1 class="Display-5 row">Your applications:</h1>
 
         @foreach (var item in Model)
         {
-            <div class="card col">
-                <p class="card-header">@(
-            item.Application.CompanyName
-            )</p>
-                <p class="card-body">@(
-            item.Application.AppStatus
-            )</p>
-                <p class="card-footer">@(
-            item.Application.CreatedDate
-            )</p>
+            <div class="card col-2">
+                <p class="card-header">@(item.Application.CompanyName)</p>
+                @*<p class="card-body">@(item.Application.AppStatus)</p> ViewModel breaks everything, will be taken care of shortly*@
+                <p class="card-footer">@(item.Application.CreatedDate)</p>
             </div>
         }
         
