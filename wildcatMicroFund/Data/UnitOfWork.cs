@@ -19,7 +19,6 @@ namespace wildcatMicroFund.Data
         {
             get
             {
-
                 _Application ??= new Repository<Application>(_dbContext);
                 return _Application;
             }
@@ -31,23 +30,10 @@ namespace wildcatMicroFund.Data
         {
             get
             {
-
                 _ApplicationStatus ??= new Repository<ApplicationStatus>(_dbContext);
                 return _ApplicationStatus;
             }
-        }
-
-        private IRepository<ReviewApplication> _ReviewApplication;
-
-        public IRepository<ReviewApplication> ReviewApplication      
-        {
-            get
-            {
-
-                _ReviewApplication ??= new Repository<ReviewApplication>(_dbContext);
-                return _ReviewApplication;
-            }
-        }
+        }     
 
         private IRepository<Availability> _Availability;
 
@@ -55,7 +41,6 @@ namespace wildcatMicroFund.Data
         {
             get
             {
-
                 _Availability ??= new Repository<Availability>(_dbContext);
                 return _Availability;
             }
@@ -142,6 +127,16 @@ namespace wildcatMicroFund.Data
             }
         }
 
+        private IRepository<QCategory> _QCategory;
+        public IRepository<QCategory> QCategory
+        {
+            get
+            {
+                _QCategory ??= new Repository<QCategory>(_dbContext);
+                return _QCategory;
+            }
+        }
+
         private IRepository<Question> _Question;
         public IRepository<Question> Question
         {
@@ -152,6 +147,26 @@ namespace wildcatMicroFund.Data
             }
         }
 
+        private IRepository<QuestionDetail> _QuestionDetail;
+        public IRepository<QuestionDetail> QuestionDetail
+        {
+            get
+            {
+                _QuestionDetail ??= new Repository<QuestionDetail>(_dbContext);
+                return _QuestionDetail;
+            }
+        }
+
+        private IRepository<QuestionUse> _QuestionUse;
+        public IRepository<QuestionUse> QuestionUse
+        {
+            get
+            {
+                _QuestionUse ??= new Repository<QuestionUse>(_dbContext);
+                return _QuestionUse;
+            }
+        }
+
         private IRepository<Response> _Response;
         public IRepository<Response> Response
         {
@@ -159,16 +174,6 @@ namespace wildcatMicroFund.Data
             {
                 _Response ??= new Repository<Response>(_dbContext);
                 return _Response;
-            }
-        }
-
-        private IRepository<Role> _Role;
-        public IRepository<Role> Role
-        {
-            get
-            {
-                _Role ??= new Repository<Role>(_dbContext);
-                return _Role;
             }
         }
 
@@ -190,47 +195,7 @@ namespace wildcatMicroFund.Data
                 _Status ??= new Repository<Status>(_dbContext);
                 return _Status;
             }
-        }
-
-        private IRepository<Survey> _Survey;
-        public IRepository<Survey> Survey
-        {
-            get
-            {
-                _Survey ??= new Repository<Survey>(_dbContext);
-                return _Survey;
-            }
-        }
-
-        private IRepository<SurveyQuestion> _SurveyQuestion;
-        public IRepository<SurveyQuestion> SurveyQuestion
-        {
-            get
-            {
-                _SurveyQuestion ??= new Repository<SurveyQuestion>(_dbContext);
-                return _SurveyQuestion;
-            }
-        }
-
-        private IRepository<SurveyType> _SurveyType;
-        public IRepository<SurveyType> SurveyType
-        {
-            get
-            {
-                _SurveyType ??= new Repository<SurveyType>(_dbContext);
-                return _SurveyType;
-            }
-        }
-
-        private IRepository<User> _User;
-        public IRepository<User> User
-        {
-            get
-            {
-                _User ??= new Repository<User>(_dbContext);
-                return _User;
-            }
-        }
+        }              
 
         private IRepository<UserAssignment> _UserAssignment;
         public IRepository<UserAssignment> UserAssignment
@@ -240,18 +205,38 @@ namespace wildcatMicroFund.Data
                 _UserAssignment ??= new Repository<UserAssignment>(_dbContext);
                 return _UserAssignment;
             }
-        }
+        }       
 
-        private IRepository<UserRole> _UserRole;
-        public IRepository<UserRole> UserRole
+        private IRepository<EmailTemplate> _EmailTemplate;
+
+        public IRepository<EmailTemplate> EmailTemplate
         {
             get
             {
-                _UserRole ??= new Repository<UserRole>(_dbContext);
-                return _UserRole;
+
+                _EmailTemplate ??= new Repository<EmailTemplate>(_dbContext);
+                return _EmailTemplate;
             }
         }
-
+        private IRepository<ApplicationUser> _ApplicationUser;
+        public IRepository<ApplicationUser> ApplicationUser 
+        {
+            get 
+            {
+                _ApplicationUser ??= new Repository<ApplicationUser>(_dbContext);
+                return _ApplicationUser;
+            }
+        }
+        private IRepository<UserApplicationAssignmentType> _UserApplicationAssignmentType;
+        public IRepository<UserApplicationAssignmentType> UserApplicationAssignmentType
+        {
+            get
+            {
+                _UserApplicationAssignmentType ??= new Repository<UserApplicationAssignmentType>(_dbContext);
+                return _UserApplicationAssignmentType;
+            }
+        }
+       
         public async Task<int> CommitAsync()
         {
             return await _dbContext.SaveChangesAsync();

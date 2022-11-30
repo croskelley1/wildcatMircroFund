@@ -96,5 +96,5 @@ select * from SurveyQuestion;
 
 insert into SurveyType(SurveyTypeDesc)
 values 
-	('1 month follow-up');
+	('Initial'), ('Post-Initial'), ('Initial Score Criteria'), ('Post-Mentor'), ('Post-Pitch'), ('Pitch-Criteria'), ('Follow-Up-1');
 select * from SurveyType;

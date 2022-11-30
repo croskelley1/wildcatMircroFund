@@ -1,0 +1,97 @@
+﻿@model wildcatMicroFund.Areas.Mentor.ViewModels.ReviewApplicationVM
+@{
+    ViewData["Title"] = "Update Application";
+}
+<form method="post" asp-controller="ReviewApplications" asp-action="Upsert" enctype="multipart/form-data">
+    <div class="container">
+        <div class="row px-2 mx-2 backgroundWhite border">
+            @* All for Model validation and HTML validation *@
+            <div asp-validation-summary="All" class="text-danger"></div>
+            <div class="col-12 px-3" style="border-bottom:1px solid #325d88">
+                <h2 class="text-primary">Update Application</h2>
+            </div>
+            <div class="col-8 pt-3 offset-3">
+                <div class="form-group row m-2">
+                    <div class="col-4">
+                        <h3>Company Name</h3>
+                    </div>
+                    <div class="col-3">
+                           <h3>@Model.Application.CompanyName</h3>
+                    </div>
+                </div>
+                <div class="form-group row m-2">
+                    <div class="col-4">
+                        <h4>Entrepreneur</h4>
+                    </div>
+                    <div class="col-3">
+                        <h4>@Model.Entrepreneur.FullName</h4>
+                    </div>
+                </div>
+                <div class="form-group row m-2">
+                    <div class="col-4">
+                        <h4>Mentor</h4>
+                    </div>
+                    <div class="col-5">
+                        <h4>@(Model.Mentor.FullName == "" ? "None" : Model.Mentor.FullName)</h4>
+                    </div>
+                </div>
+                <div class="form-group row m-2">
+                    <div class="col-4">
+                        <h4>Judge</h4>
+                    </div>
+                    <div class="col-3">
+                        <h4>@Model.Judge</h4>
+                    </div>
+                </div>
+                
+                <div class="form-group row ">
+                    <div class="col-9">
+                        @*These hide the values from the user, but allow the update button to pass the values back through the VM object*@
+                        <input readonly type="hidden" asp-for="ApplicationStatus.AppStatId" />
+                        <input readonly type="hidden" asp-for="ApplicationStatus.ApplicationId" />
+                        <input readonly type="hidden" asp-for="ApplicationStatus.UserID" />
+                        <input readonly type="hidden" asp-for="ApplicationStatus.StatusDate" />
+                        <input readonly type="hidden"  asp-for="Application.CompanyName" />
+                        
+@*                        <input readyonly type="hidden" asp-for="ReviewApplication." />
+
+                        [Key]
+                        public int AppStatId { get; set; }
+                        public int UserID { get; set; }
+
+                        [Display(Name = "StatusDate")]
+                        public DateTime StatusDate { get; set; }
+
+*@                    </div>
+                </div>
+
+                <div class="form-group row m-2">
+                    <div class="col-4">
+                        <label asp-for="ApplicationStatus.StatusId"></label>
+                    </div>
+                    <div class="col-5">
+                        @Html.DropDownListFor(m => m.ApplicationStatus.StatusId,
+                        Model.StatusList,
+                        " - Please select a new status - ",
+                        new { @class = "form-control", @id="ddlStatus" })
+                        <span class="text-danger" asp-validation-for="ApplicationStatus.StatusId"></span>
+
+                    </div>
+                </div>
+                <div class="form-group row m-2">
+                    <div class="col-9" style="border-top:1px solid #325d88">
+                        <div class="row m-2">
+                            <div class="col-6">
+                                <button type="submit" class="btn btn-primary form-control">Update</button>
+                                                               
+                            </div>
+                            <div class="col-6">
+                                <a asp-controller="ReviewApplications" asp-action="Index" class="btn btn-success form-control">Back to List</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </>
+        </div>
+    </div>
+</form>
