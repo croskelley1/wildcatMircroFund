@@ -20,6 +20,9 @@
                 <th>
                     Template Name
                 </th>
+                <th>
+                    Last Modified
+                </th>
                 <th></th>
             </tr>
         </thead>
@@ -29,6 +32,9 @@
                 <tr>
                     <td width="50%">
                         @obj.EmailTemplateName
+                    </td>
+                    <td width="15%">
+                        @obj.ModifiedDate.ToString("MM/dd/yyyy")
                     </td>
                     <td>
                         <div class="w-75 btn-group" role="group">

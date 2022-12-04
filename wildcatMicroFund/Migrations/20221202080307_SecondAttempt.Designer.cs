@@ -12,8 +12,8 @@ using wildcatMicroFund.Data;
 namespace wildcatMicroFund.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20221204201938_NoteUpdates")]
-    partial class NoteUpdates
+    [Migration("20221202080307_SecondAttempt")]
+    partial class SecondAttempt
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -403,10 +403,6 @@ namespace wildcatMicroFund.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("TemplateSubject")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
                     b.HasKey("Id");
 
                     b.ToTable("EmailTemplate");
@@ -420,9 +416,6 @@ namespace wildcatMicroFund.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("NoteID"), 1L, 1);
 
-                    b.Property<DateTime>("CreatedDate")
-                        .HasColumnType("datetime2");
-
                     b.Property<string>("NoteContent")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
@@ -433,15 +426,10 @@ namespace wildcatMicroFund.Migrations
                     b.Property<bool>("NoteInternal")
                         .HasColumnType("bit");
 
-                    b.Property<int?>("NoteTypeId")
-                        .HasColumnType("int");
-
                     b.Property<int>("NoteVisibility")
                         .HasColumnType("int");
 
                     b.HasKey("NoteID");
-
-                    b.HasIndex("NoteTypeId");
 
                     b.ToTable("Note");
                 });
@@ -607,30 +595,30 @@ namespace wildcatMicroFund.Migrations
                     b.Property<DateTime>("CreatedDate")
                         .HasColumnType("datetime2");
 
+                    b.Property<string>("Email")
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<int>("EmailTemplateId")
                         .HasColumnType("int");
 
+                    b.Property<string>("FirstName")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("LastName")
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<string>("ReadyEmailContent")
-                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("ReadyEmailEmail")
-                        .IsRequired()
+                    b.Property<string>("TemplateName")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("ReadyEmailSubject")
-                        .IsRequired()
+                    b.Property<string>("template")
                         .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("UserID")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(450)");
 
                     b.HasKey("Id");
 
                     b.HasIndex("EmailTemplateId");
-
-                    b.HasIndex("UserID");
 
                     b.ToTable("ReadyEmail");
                 });
@@ -734,19 +722,19 @@ namespace wildcatMicroFund.Migrations
                     b.Property<int?>("ApplicationId")
                         .HasColumnType("int");
 
-                    b.Property<string>("ApplicationUserId")
-                        .HasColumnType("nvarchar(450)");
-
-                    b.Property<int?>("UserApplicationAssignmentTypeId")
+                    b.Property<int?>("UserApplicationAssignmentType")
                         .HasColumnType("int");
+
+                    b.Property<string>("UserId")
+                        .HasColumnType("nvarchar(450)");
 
                     b.HasKey("UserAssignmentID");
 
                     b.HasIndex("ApplicationId");
 
-                    b.HasIndex("ApplicationUserId");
+                    b.HasIndex("UserApplicationAssignmentType");
 
-                    b.HasIndex("UserApplicationAssignmentTypeId");
+                    b.HasIndex("UserId");
 
                     b.ToTable("UserAssignment");
                 });
@@ -852,15 +840,6 @@ namespace wildcatMicroFund.Migrations
                     b.Navigation("Status");
                 });
 
-            modelBuilder.Entity("wildcatMicroFund.Models.Note", b =>
-                {
-                    b.HasOne("wildcatMicroFund.Models.NoteType", "NoteType")
-                        .WithMany()
-                        .HasForeignKey("NoteTypeId");
-
-                    b.Navigation("NoteType");
-                });
-
             modelBuilder.Entity("wildcatMicroFund.Models.PitchEventApplication", b =>
                 {
                     b.HasOne("wildcatMicroFund.Models.PitchEvent", "PitchEvent")
@@ -912,15 +891,7 @@ namespace wildcatMicroFund.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("wildcatMicroFund.Models.ApplicationUser", "User")
-                        .WithMany()
-                        .HasForeignKey("UserID")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
                     b.Navigation("EmailTemplate");
-
-                    b.Navigation("User");
                 });
 
             modelBuilder.Entity("wildcatMicroFund.Models.Score", b =>
@@ -948,19 +919,19 @@ namespace wildcatMicroFund.Migrations
                         .WithMany()
                         .HasForeignKey("ApplicationId");
 
-                    b.HasOne("wildcatMicroFund.Models.ApplicationUser", "ApplicationUser")
+                    b.HasOne("wildcatMicroFund.Models.UserApplicationAssignmentType", "ApplicationAssignmentType")
                         .WithMany()
-                        .HasForeignKey("ApplicationUserId");
+                        .HasForeignKey("UserApplicationAssignmentType");
 
-                    b.HasOne("wildcatMicroFund.Models.UserApplicationAssignmentType", "UserApplicationAssignmentType")
+                    b.HasOne("Microsoft.AspNetCore.Identity.IdentityUser", "User")
                         .WithMany()
-                        .HasForeignKey("UserApplicationAssignmentTypeId");
+                        .HasForeignKey("UserId");
 
                     b.Navigation("Application");
 
-                    b.Navigation("ApplicationUser");
+                    b.Navigation("ApplicationAssignmentType");
 
-                    b.Navigation("UserApplicationAssignmentType");
+                    b.Navigation("User");
                 });
 #pragma warning restore 612, 618
         }

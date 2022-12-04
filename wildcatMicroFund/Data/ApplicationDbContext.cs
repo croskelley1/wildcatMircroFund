@@ -28,6 +28,7 @@ namespace wildcatMicroFund.Data
         public DbSet<UserAssignment> UserAssignment { get; set; }
         public DbSet<EmailTemplate> EmailTemplate { get; set; }
         public DbSet<ApplicationUser> ApplicationUser { get; set; }
+        public DbSet<ReadyEmail> ReadyEmail { get; set; }
 
         public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options)
             : base(options)

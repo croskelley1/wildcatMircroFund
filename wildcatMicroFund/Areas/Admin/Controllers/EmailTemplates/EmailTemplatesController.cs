@@ -54,6 +54,7 @@ public class EmailTemplatesController : Controller
     {
         if (ModelState.IsValid) 
         {
+            obj.ModifiedDate = DateTime.Now;
             _unitOfWork.EmailTemplate.Add(obj);
             _unitOfWork.Commit();
             TempData["success"] = "Email Template created Successfully";
@@ -67,7 +68,7 @@ public class EmailTemplatesController : Controller
     {
         if (ModelState.IsValid) 
         {
-            System.Diagnostics.Debug.WriteLine("Stuff: "+obj.Id + ":"+obj.EmailTemplateName+":"+obj.TemplateContent);
+            obj.ModifiedDate = DateTime.Now;
             _unitOfWork.EmailTemplate.Update(obj);
             _unitOfWork.Commit();
             TempData["success"] = "Email Template updated Successfully";
