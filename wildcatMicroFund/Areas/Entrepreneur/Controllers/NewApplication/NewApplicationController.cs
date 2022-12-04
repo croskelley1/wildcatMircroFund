@@ -20,7 +20,7 @@ public class NewApplicationController : Controller
         var claimID = (ClaimsIdentity)User.Identity;
         var claim = claimID.FindFirst(ClaimTypes.NameIdentifier);
         
-        var appList = _unitOfWork.UserAssignment.List(a => a.User.Id == claim.Value, a => a.UserAssignmentID, "Application");
+        var appList = _unitOfWork.UserAssignment.List(a => a.ApplicationUser.Id == claim.Value, a => a.UserAssignmentID, "Application");
         return View(appList);
 
     }
@@ -48,8 +48,8 @@ public class NewApplicationController : Controller
             // New UserAssignment entry created to tie Application and User
             var _UserAssignment = new UserAssignment();
             _UserAssignment.Application = _unitOfWork.Application.Get(a => a.CompanyName == obj.CompanyName && a.CreatedDate == obj.CreatedDate); // Get ApplicationID from application table
-            _UserAssignment.User = _unitOfWork.ApplicationUser.Get(a => a.Id == claim.Value);   // Get User object from users table
-            _UserAssignment.ApplicationAssignmentType = _unitOfWork.UserApplicationAssignmentType.GetById(4);   // Set App assignment type to Entrepreneur
+            _UserAssignment.ApplicationUser = _unitOfWork.ApplicationUser.Get(a => a.Id == claim.Value);   // Get User object from users table
+            _UserAssignment.UserApplicationAssignmentType = _unitOfWork.UserApplicationAssignmentType.GetById(4);   // Set App assignment type to Entrepreneur
 
             _unitOfWork.UserAssignment.Add(_UserAssignment); // internal add
 

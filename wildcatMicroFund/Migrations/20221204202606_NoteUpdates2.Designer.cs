@@ -12,8 +12,8 @@ using wildcatMicroFund.Data;
 namespace wildcatMicroFund.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20221126072406_Reset")]
-    partial class Reset
+    [Migration("20221204202606_NoteUpdates2")]
+    partial class NoteUpdates2
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -413,6 +413,12 @@ namespace wildcatMicroFund.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("NoteID"), 1L, 1);
 
+                    b.Property<int?>("ApplicationId")
+                        .HasColumnType("int");
+
+                    b.Property<DateTime>("CreatedDate")
+                        .HasColumnType("datetime2");
+
                     b.Property<string>("NoteContent")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
@@ -423,10 +429,17 @@ namespace wildcatMicroFund.Migrations
                     b.Property<bool>("NoteInternal")
                         .HasColumnType("bit");
 
+                    b.Property<int?>("NoteTypeId")
+                        .HasColumnType("int");
+
                     b.Property<int>("NoteVisibility")
                         .HasColumnType("int");
 
                     b.HasKey("NoteID");
+
+                    b.HasIndex("ApplicationId");
+
+                    b.HasIndex("NoteTypeId");
 
                     b.ToTable("Note");
                 });
@@ -680,19 +693,19 @@ namespace wildcatMicroFund.Migrations
                     b.Property<int?>("ApplicationId")
                         .HasColumnType("int");
 
-                    b.Property<int?>("UserApplicationAssignmentType")
-                        .HasColumnType("int");
-
-                    b.Property<string>("UserId")
+                    b.Property<string>("ApplicationUserId")
                         .HasColumnType("nvarchar(450)");
+
+                    b.Property<int?>("UserApplicationAssignmentTypeId")
+                        .HasColumnType("int");
 
                     b.HasKey("UserAssignmentID");
 
                     b.HasIndex("ApplicationId");
 
-                    b.HasIndex("UserApplicationAssignmentType");
+                    b.HasIndex("ApplicationUserId");
 
-                    b.HasIndex("UserId");
+                    b.HasIndex("UserApplicationAssignmentTypeId");
 
                     b.ToTable("UserAssignment");
                 });
@@ -798,6 +811,21 @@ namespace wildcatMicroFund.Migrations
                     b.Navigation("Status");
                 });
 
+            modelBuilder.Entity("wildcatMicroFund.Models.Note", b =>
+                {
+                    b.HasOne("wildcatMicroFund.Models.Application", "Application")
+                        .WithMany()
+                        .HasForeignKey("ApplicationId");
+
+                    b.HasOne("wildcatMicroFund.Models.NoteType", "NoteType")
+                        .WithMany()
+                        .HasForeignKey("NoteTypeId");
+
+                    b.Navigation("Application");
+
+                    b.Navigation("NoteType");
+                });
+
             modelBuilder.Entity("wildcatMicroFund.Models.PitchEventApplication", b =>
                 {
                     b.HasOne("wildcatMicroFund.Models.PitchEvent", "PitchEvent")
@@ -866,19 +894,19 @@ namespace wildcatMicroFund.Migrations
                         .WithMany()
                         .HasForeignKey("ApplicationId");
 
-                    b.HasOne("wildcatMicroFund.Models.UserApplicationAssignmentType", "ApplicationAssignmentType")
+                    b.HasOne("wildcatMicroFund.Models.ApplicationUser", "ApplicationUser")
                         .WithMany()
-                        .HasForeignKey("UserApplicationAssignmentType");
+                        .HasForeignKey("ApplicationUserId");
 
-                    b.HasOne("Microsoft.AspNetCore.Identity.IdentityUser", "User")
+                    b.HasOne("wildcatMicroFund.Models.UserApplicationAssignmentType", "UserApplicationAssignmentType")
                         .WithMany()
-                        .HasForeignKey("UserId");
+                        .HasForeignKey("UserApplicationAssignmentTypeId");
 
                     b.Navigation("Application");
 
-                    b.Navigation("ApplicationAssignmentType");
+                    b.Navigation("ApplicationUser");
 
-                    b.Navigation("User");
+                    b.Navigation("UserApplicationAssignmentType");
                 });
 #pragma warning restore 612, 618
         }

@@ -23,8 +23,22 @@ public class ReviewApplicationsController : Controller
     public ViewResult Index()
     {
         
-        IEnumerable<ApplicationStatus> ReviewApplication = _unitOfWork.ApplicationStatus.List(r => r.Status.StatusID == 2 || r.Status.StatusID == 5, r => r.Application.Id, "Application,Status");//WHERE, ORDERBY, JOIN
+        
+        IEnumerable<ApplicationStatus> ReviewApplication = _unitOfWork.ApplicationStatus.List(null, r => r.Application.Id, "Application,Status");//WHERE, ORDERBY, JOIN
         return View(ReviewApplication);
+    }
+
+    public ViewResult MentorIndex()
+    {
+        
+        ReviewApplicationObj = new ReviewApplicationVM
+        {
+            ApplicationStatuses = _unitOfWork.ApplicationStatus.List(null, r => r.Application.Id, "Application,Status"),//WHERE, ORDERBY, JOIN
+            AssignedUsers = _unitOfWork.UserAssignment.List(u => u.UserApplicationAssignmentType.UserApplicationAssignmentTypeId == 4, null, "Application,ApplicationUser,UserApplicationAssignmentType")
+
+        };
+        return View(ReviewApplicationObj);
+        
     }
 
     [HttpGet]
@@ -34,22 +48,20 @@ public class ReviewApplicationsController : Controller
         var stati = _unitOfWork.Status.List();
         var mentorList = _unitOfWork.ApplicationUser.List();
         var judgeList = _unitOfWork.ApplicationUser.List();
+        //var test = _unitOfWork.UserAssignment.GetAll(u => u.Application.Id == appId, includeProperties: "IdentityUser");
+        var assUsers = _unitOfWork.UserAssignment.List(u => u.Application.Id == appId, u => u.Application.Id, "Application,ApplicationUser,UserApplicationAssignmentType");
 
-        var ent = _unitOfWork.UserAssignment.Get(e => e.ApplicationAssignmentType.UserApplicationAssignmentDesc == "Entrepreneur" && e.Application.Id == appId);
-        var mentor = _unitOfWork.UserAssignment.Get(m => m.ApplicationAssignmentType.UserApplicationAssignmentDesc == "Mentor" && m.Application.Id == appId);
-        //var judge = _unitOfWork.UserAssignment.Get(j => j.ApplicationAssignmentType.UserApplicationAssignmentDesc == "Judge" && j.Application.Id == appId);
+
         var appStatus = new ApplicationStatus();
         var app = _unitOfWork.Application.Get(a => a.Id == appId);
         var status = _unitOfWork.Status.Get(s => s.StatusID == statId);
-        //var userAssignment = _unitOfWork.UserApplicationAssignmentType.Get(u => u.UserApplicationAssignmentTypeId == ent.ApplicationAssignmentType.UserApplicationAssignmentTypeId);
+        
 
         ReviewApplicationObj = new ReviewApplicationVM
         {
             
             UserAssignment = new UserAssignment(),
-            Entrepreneur = _unitOfWork.ApplicationUser.Get(e => e.Id == ent.User.Id),
-            Mentor = (mentor.UserAssignmentID == null ? null : _unitOfWork.ApplicationUser.Get(m=> m.Id == mentor.User.Id)),
-            //Judge = judge,
+            AssignedUsers = assUsers,
             ApplicationStatus = appStatus,
             Application = app,
             Status = _unitOfWork.Status.Get(s => s.StatusID == statId),

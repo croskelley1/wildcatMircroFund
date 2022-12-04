@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using wildcatMicroFund.Data;
 
@@ -11,9 +12,10 @@ using wildcatMicroFund.Data;
 namespace wildcatMicroFund.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20221204201938_NoteUpdates")]
+    partial class NoteUpdates
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -411,9 +413,6 @@ namespace wildcatMicroFund.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("NoteID"), 1L, 1);
 
-                    b.Property<int?>("ApplicationId")
-                        .HasColumnType("int");
-
                     b.Property<DateTime>("CreatedDate")
                         .HasColumnType("datetime2");
 
@@ -421,9 +420,8 @@ namespace wildcatMicroFund.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("NoteCreatorUserId")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                    b.Property<int>("NoteCreator")
+                        .HasColumnType("int");
 
                     b.Property<bool>("NoteInternal")
                         .HasColumnType("bit");
@@ -435,8 +433,6 @@ namespace wildcatMicroFund.Migrations
                         .HasColumnType("int");
 
                     b.HasKey("NoteID");
-
-                    b.HasIndex("ApplicationId");
 
                     b.HasIndex("NoteTypeId");
 
@@ -812,15 +808,9 @@ namespace wildcatMicroFund.Migrations
 
             modelBuilder.Entity("wildcatMicroFund.Models.Note", b =>
                 {
-                    b.HasOne("wildcatMicroFund.Models.Application", "Application")
-                        .WithMany()
-                        .HasForeignKey("ApplicationId");
-
                     b.HasOne("wildcatMicroFund.Models.NoteType", "NoteType")
                         .WithMany()
                         .HasForeignKey("NoteTypeId");
-
-                    b.Navigation("Application");
 
                     b.Navigation("NoteType");
                 });

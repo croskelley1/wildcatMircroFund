@@ -455,8 +455,8 @@ namespace wildcatMicroFund.Migrations
                 {
                     UserAssignmentID = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    UserApplicationAssignmentType = table.Column<int>(type: "int", nullable: true),
-                    UserId = table.Column<string>(type: "nvarchar(450)", nullable: true),
+                    UserApplicationAssignmentTypeId = table.Column<int>(type: "int", nullable: true),
+                    ApplicationUserId = table.Column<string>(type: "nvarchar(450)", nullable: true),
                     ApplicationId = table.Column<int>(type: "int", nullable: true)
                 },
                 constraints: table =>
@@ -468,13 +468,13 @@ namespace wildcatMicroFund.Migrations
                         principalTable: "Application",
                         principalColumn: "Id");
                     table.ForeignKey(
-                        name: "FK_UserAssignment_AspNetUsers_UserId",
-                        column: x => x.UserId,
+                        name: "FK_UserAssignment_AspNetUsers_ApplicationUserId",
+                        column: x => x.ApplicationUserId,
                         principalTable: "AspNetUsers",
                         principalColumn: "Id");
                     table.ForeignKey(
-                        name: "FK_UserAssignment_UserApplicationAssignmentType_UserApplicationAssignmentType",
-                        column: x => x.UserApplicationAssignmentType,
+                        name: "FK_UserAssignment_UserApplicationAssignmentType_UserApplicationAssignmentTypeId",
+                        column: x => x.UserApplicationAssignmentTypeId,
                         principalTable: "UserApplicationAssignmentType",
                         principalColumn: "UserApplicationAssignmentTypeId");
                 });
@@ -622,14 +622,14 @@ namespace wildcatMicroFund.Migrations
                 column: "ApplicationId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_UserAssignment_UserApplicationAssignmentType",
+                name: "IX_UserAssignment_ApplicationUserId",
                 table: "UserAssignment",
-                column: "UserApplicationAssignmentType");
+                column: "ApplicationUserId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_UserAssignment_UserId",
+                name: "IX_UserAssignment_UserApplicationAssignmentTypeId",
                 table: "UserAssignment",
-                column: "UserId");
+                column: "UserApplicationAssignmentTypeId");
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)

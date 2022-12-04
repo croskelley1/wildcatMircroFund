@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using wildcatMicroFund.Data;
 
@@ -11,9 +12,10 @@ using wildcatMicroFund.Data;
 namespace wildcatMicroFund.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20221204031056_Reset")]
+    partial class Reset
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -411,34 +413,20 @@ namespace wildcatMicroFund.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("NoteID"), 1L, 1);
 
-                    b.Property<int?>("ApplicationId")
-                        .HasColumnType("int");
-
-                    b.Property<DateTime>("CreatedDate")
-                        .HasColumnType("datetime2");
-
                     b.Property<string>("NoteContent")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("NoteCreatorUserId")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                    b.Property<int>("NoteCreator")
+                        .HasColumnType("int");
 
                     b.Property<bool>("NoteInternal")
                         .HasColumnType("bit");
-
-                    b.Property<int?>("NoteTypeId")
-                        .HasColumnType("int");
 
                     b.Property<int>("NoteVisibility")
                         .HasColumnType("int");
 
                     b.HasKey("NoteID");
-
-                    b.HasIndex("ApplicationId");
-
-                    b.HasIndex("NoteTypeId");
 
                     b.ToTable("Note");
                 });
@@ -808,21 +796,6 @@ namespace wildcatMicroFund.Migrations
                     b.Navigation("Application");
 
                     b.Navigation("Status");
-                });
-
-            modelBuilder.Entity("wildcatMicroFund.Models.Note", b =>
-                {
-                    b.HasOne("wildcatMicroFund.Models.Application", "Application")
-                        .WithMany()
-                        .HasForeignKey("ApplicationId");
-
-                    b.HasOne("wildcatMicroFund.Models.NoteType", "NoteType")
-                        .WithMany()
-                        .HasForeignKey("NoteTypeId");
-
-                    b.Navigation("Application");
-
-                    b.Navigation("NoteType");
                 });
 
             modelBuilder.Entity("wildcatMicroFund.Models.PitchEventApplication", b =>
