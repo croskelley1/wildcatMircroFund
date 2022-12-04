@@ -1,5 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using System.Linq.Expressions;
+using System.Text.RegularExpressions;
 using wildcatMicroFund.Data;
 using wildcatMicroFund.Interfaces;
 
@@ -230,7 +231,24 @@ namespace wildcatMicroFund.Models
                 }
             }
         }
-
+        public string InitializeEmail(ReadyEmail em) 
+        {
+            
+            Dictionary<string, string> param = new Dictionary<string, string>(StringComparer.OrdinalIgnoreCase);
+            param.Add("FirstName", em.User.FirstName);
+            param.Add("LastName", em.User.LastName);
+            param.Add("Email", em.User.Email);
+            param.Add("Street", em.User.StreetAddress);
+            param.Add("City", em.User.City);
+            param.Add("State", em.User.State);
+            param.Add("Zip", em.User.PostalCode);
+            param.Add("Phone", em.User.PhoneNumber);
+            string editedTemp = em.EmailTemplate.TemplateContent;
+            Regex re = new Regex(@"\[(\w+)\]", RegexOptions.Compiled);
+            string output = re.Replace(editedTemp, match => { return param.ContainsKey(match.Groups[1].Value) ? param[match.Groups[1].Value] : match.Value; });
+            //editedTemp = Regex.Replace(editedTemp, @"\[(.+?)\]", m => param[m.Groups[1].Value]);
+            return output;
+        }
         public void Update(T entity)
         {
             db_context.Entry(entity).State = EntityState.Modified;
