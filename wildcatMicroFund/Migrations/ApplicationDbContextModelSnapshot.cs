@@ -3,7 +3,6 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
-using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using wildcatMicroFund.Data;
 
@@ -12,10 +11,9 @@ using wildcatMicroFund.Data;
 namespace wildcatMicroFund.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20221204201938_NoteUpdates")]
-    partial class NoteUpdates
+    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
     {
-        protected override void BuildTargetModel(ModelBuilder modelBuilder)
+        protected override void BuildModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -280,6 +278,32 @@ namespace wildcatMicroFund.Migrations
                     b.ToTable("ApplicationStatus");
                 });
 
+            modelBuilder.Entity("wildcatMicroFund.Models.AssignedQuestion", b =>
+                {
+                    b.Property<int>("AssignedQuestionId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("AssignedQuestionId"), 1L, 1);
+
+                    b.Property<DateTime>("AppQuestionDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<int?>("ApplicationId")
+                        .HasColumnType("int");
+
+                    b.Property<int?>("QuestionId")
+                        .HasColumnType("int");
+
+                    b.HasKey("AssignedQuestionId");
+
+                    b.HasIndex("ApplicationId");
+
+                    b.HasIndex("QuestionId");
+
+                    b.ToTable("AssignedQuestion");
+                });
+
             modelBuilder.Entity("wildcatMicroFund.Models.Availability", b =>
                 {
                     b.Property<int>("AvailID")
@@ -420,6 +444,9 @@ namespace wildcatMicroFund.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("NoteID"), 1L, 1);
 
+                    b.Property<int?>("ApplicationId")
+                        .HasColumnType("int");
+
                     b.Property<DateTime>("CreatedDate")
                         .HasColumnType("datetime2");
 
@@ -427,8 +454,9 @@ namespace wildcatMicroFund.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int>("NoteCreator")
-                        .HasColumnType("int");
+                    b.Property<string>("NoteCreatorUserId")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<bool>("NoteInternal")
                         .HasColumnType("bit");
@@ -440,6 +468,8 @@ namespace wildcatMicroFund.Migrations
                         .HasColumnType("int");
 
                     b.HasKey("NoteID");
+
+                    b.HasIndex("ApplicationId");
 
                     b.HasIndex("NoteTypeId");
 
@@ -643,17 +673,15 @@ namespace wildcatMicroFund.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("ResponseID"), 1L, 1);
 
-                    b.Property<int>("AppID")
+                    b.Property<int?>("AssignedQuestionId")
                         .HasColumnType("int");
 
                     b.Property<string>("Responses")
-                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int>("SurveyQuestionID")
-                        .HasColumnType("int");
-
                     b.HasKey("ResponseID");
+
+                    b.HasIndex("AssignedQuestionId");
 
                     b.ToTable("Response");
                 });
@@ -852,11 +880,32 @@ namespace wildcatMicroFund.Migrations
                     b.Navigation("Status");
                 });
 
+            modelBuilder.Entity("wildcatMicroFund.Models.AssignedQuestion", b =>
+                {
+                    b.HasOne("wildcatMicroFund.Models.Application", "Application")
+                        .WithMany()
+                        .HasForeignKey("ApplicationId");
+
+                    b.HasOne("wildcatMicroFund.Models.Question", "Question")
+                        .WithMany()
+                        .HasForeignKey("QuestionId");
+
+                    b.Navigation("Application");
+
+                    b.Navigation("Question");
+                });
+
             modelBuilder.Entity("wildcatMicroFund.Models.Note", b =>
                 {
+                    b.HasOne("wildcatMicroFund.Models.Application", "Application")
+                        .WithMany()
+                        .HasForeignKey("ApplicationId");
+
                     b.HasOne("wildcatMicroFund.Models.NoteType", "NoteType")
                         .WithMany()
                         .HasForeignKey("NoteTypeId");
+
+                    b.Navigation("Application");
 
                     b.Navigation("NoteType");
                 });
@@ -921,6 +970,15 @@ namespace wildcatMicroFund.Migrations
                     b.Navigation("EmailTemplate");
 
                     b.Navigation("User");
+                });
+
+            modelBuilder.Entity("wildcatMicroFund.Models.Response", b =>
+                {
+                    b.HasOne("wildcatMicroFund.Models.AssignedQuestion", "AssignedQuestion")
+                        .WithMany()
+                        .HasForeignKey("AssignedQuestionId");
+
+                    b.Navigation("AssignedQuestion");
                 });
 
             modelBuilder.Entity("wildcatMicroFund.Models.Score", b =>
