@@ -19,15 +19,17 @@
                            <h3>@Model.Application.CompanyName</h3>
                     </div>
                 </div>
-                <div class="form-group row m-2">
-                    <div class="col-4">
-                        <h4>Entrepreneur</h4>
+                @foreach (var user in Model.AssignedUsers){
+                    <div class="form-group row m-2">
+                        <div class="col-4">
+                            <h4>@user.UserApplicationAssignmentType.UserApplicationAssignmentDesc</h4>
+                        </div>
+                        <div class="col-3">
+                            <h4>@user.ApplicationUser.FullName</h4>
+                        </div>
                     </div>
-                    <div class="col-3">
-                        <h4>@Model.Entrepreneur.FullName</h4>
-                    </div>
-                </div>
-                <div class="form-group row m-2">
+                }
+                @*<div class="form-group row m-2">
                     <div class="col-4">
                         <h4>Mentor</h4>
                     </div>
@@ -42,7 +44,7 @@
                     <div class="col-3">
                         <h4>@Model.Judge</h4>
                     </div>
-                </div>
+                </div>*@
                 
                 <div class="form-group row ">
                     <div class="col-9">
