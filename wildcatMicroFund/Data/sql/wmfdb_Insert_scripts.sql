@@ -13,6 +13,7 @@ GO
 --drop table AwardType;
 --drop table Document;
 --drop table DocumentType;
+--drop table ReadyEmail;
 --drop table EmailTemplate;
 --drop table Note;
 --drop table NoteType;
@@ -23,15 +24,15 @@ GO
 --drop table QuestionUse;
 --drop table QuestionDetail;
 --drop table QCategory;
---drop table Question;
 --drop table AssignedQuestion;
+--drop table Question;
 --drop table [Status];
 --drop table UserAssignment;
 --drop table UserApplicationAssignmentType;
 --drop table Application;
 --drop table AspNetUsers;
 
-SET IDENTITY_INSERT [dbo].[Application] ON 
+SET IDENTITY_INSERT [dbo].[Application] ON
 
 INSERT [dbo].[Application] ([Id], [CompanyName], [CreatedDate], [AppStatus]) VALUES (1, N'Wallys Bistro', CAST(N'2019-01-01T00:01:00.0000000' AS DateTime2), 1)
 INSERT [dbo].[Application] ([Id], [CompanyName], [CreatedDate], [AppStatus]) VALUES (2, N'Costco', CAST(N'2019-01-01T00:01:00.0000000' AS DateTime2), 2)
@@ -62,7 +63,7 @@ INSERT [dbo].[Status] ([StatusID], [StatusDesc]) VALUES (15, N'3 Year Follow-Up'
 SET IDENTITY_INSERT [dbo].[Status] OFF
 GO
 
-SET IDENTITY_INSERT [dbo].[ApplicationStatus] ON 
+SET IDENTITY_INSERT [dbo].[ApplicationStatus] ON
 
 INSERT [dbo].[ApplicationStatus] ([AppStatId], [UserID], [ApplicationId], [StatusId], [StatusDate]) VALUES (1, N'7e0b38c8-9d5b-45a5-b1b5-6b40385068b6', 1, 2, CAST(N'2022-12-03T01:15:14.4784382' AS DateTime2))
 INSERT [dbo].[ApplicationStatus] ([AppStatId], [UserID], [ApplicationId], [StatusId], [StatusDate]) VALUES (2, N'7e0b38c8-9d5b-45a5-b1b5-6b40385068b6', 2, 2, CAST(N'2022-12-03T01:15:33.0240016' AS DateTime2))
@@ -73,16 +74,16 @@ INSERT [dbo].[ApplicationStatus] ([AppStatId], [UserID], [ApplicationId], [Statu
 INSERT [dbo].[ApplicationStatus] ([AppStatId], [UserID], [ApplicationId], [StatusId], [StatusDate]) VALUES (7, N'fb086d38-22e4-4fc2-9ff7-49fcd22bd56c', 7, 1, CAST(N'2022-11-27T21:37:27.3185992' AS DateTime2))
 SET IDENTITY_INSERT [dbo].[ApplicationStatus] OFF
 GO
-INSERT [dbo].[AspNetUsers] ([Id], [Discriminator], [FirstName], [LastName], [StreetAddress], [City], [State], [PostalCode], [UserName], [NormalizedUserName], [Email], [NormalizedEmail], [EmailConfirmed], [PasswordHash], [SecurityStamp], [ConcurrencyStamp], [PhoneNumber], [PhoneNumberConfirmed], [TwoFactorEnabled], [LockoutEnd], [LockoutEnabled], [AccessFailedCount]) VALUES (N'7e0b38c8-9d5b-45a5-b1b5-6b40385068b6', N'ApplicationUser', N'Admin', N'Admin', N'Weber St', N'Odgen', N'UT', N'84405', N'Admin@gmail.com', N'ADMIN@GMAIL.COM', N'Admin@gmail.com', N'ADMIN@GMAIL.COM', 0, N'AQAAAAEAACcQAAAAEECubHYo82aWS8UM6q1alGKnv2jb9vN6rw1VqQbnO/v1p4i1DWMpdUQy1OFcVEz6fQ==', N'UQH5E3ZZTEPQLJWAY5UYU52XICDVIOLR', N'84dd6d2b-22a1-485d-9051-879f9b17d778', N'1234567890', 0, 0, NULL, 1, 0)
+INSERT [dbo].[AspNetUsers] ([Id], [Discriminator], [FirstName], [LastName], [StreetAddress], [City], [State], [PostalCode], [UserName], [NormalizedUserName], [Email], [NormalizedEmail], [EmailConfirmed], [PasswordHash], [SecurityStamp], [ConcurrencyStamp], [PhoneNumber], [PhoneNumberConfirmed], [TwoFactorEnabled], [LockoutEnd], [LockoutEnabled], [AccessFailedCount]) VALUES (N'7e0b38c8-9d5b-45a5-b1b5-6b40385068b6', N'ApplicationUser', N'Catherine', N'Clark', N'Weber St', N'Odgen', N'UT', N'84405', N'Admin@gmail.com', N'ADMIN@GMAIL.COM', N'Admin@gmail.com', N'ADMIN@GMAIL.COM', 0, N'AQAAAAEAACcQAAAAEECubHYo82aWS8UM6q1alGKnv2jb9vN6rw1VqQbnO/v1p4i1DWMpdUQy1OFcVEz6fQ==', N'UQH5E3ZZTEPQLJWAY5UYU52XICDVIOLR', N'84dd6d2b-22a1-485d-9051-879f9b17d778', N'1234567890', 0, 0, NULL, 1, 0)
 INSERT [dbo].[AspNetUsers] ([Id], [Discriminator], [FirstName], [LastName], [StreetAddress], [City], [State], [PostalCode], [UserName], [NormalizedUserName], [Email], [NormalizedEmail], [EmailConfirmed], [PasswordHash], [SecurityStamp], [ConcurrencyStamp], [PhoneNumber], [PhoneNumberConfirmed], [TwoFactorEnabled], [LockoutEnd], [LockoutEnabled], [AccessFailedCount]) VALUES (N'aab7d5db-54d0-45b3-8618-8ed48677cc93', N'ApplicationUser', N'Test', N'User', N'Weber St', N'Odgen', N'UT', N'84405', N'Test@gmail.com', N'TEST@GMAIL.COM', N'Test@gmail.com', N'TEST@GMAIL.COM', 0, N'AQAAAAEAACcQAAAAEB8ULRRDOhlRhgRsGlIcXF+D9KrIPdMWPpWdzG8F/0GgUMgy30SjoO3MTvXDNqi4TA==', N'CO7KXQBQ3IGLLW4G6TT4CCO45HAWOBAQ', N'02951891-96e8-4f5c-b5ce-7deefde2afc7', N'1234567890', 0, 0, NULL, 1, 0)
-INSERT [dbo].[AspNetUsers] ([Id], [Discriminator], [FirstName], [LastName], [StreetAddress], [City], [State], [PostalCode], [UserName], [NormalizedUserName], [Email], [NormalizedEmail], [EmailConfirmed], [PasswordHash], [SecurityStamp], [ConcurrencyStamp], [PhoneNumber], [PhoneNumberConfirmed], [TwoFactorEnabled], [LockoutEnd], [LockoutEnabled], [AccessFailedCount]) VALUES (N'd62f7c54-d9c9-4bb4-8169-1f0a5a7c20ad', N'ApplicationUser', N'Judge', N'Judge', N'Weber St', N'Odgen', N'UT', N'84405', N'Judge@gmail.com', N'JUDGE@GMAIL.COM', N'Judge@gmail.com', N'JUDGE@GMAIL.COM', 0, N'AQAAAAEAACcQAAAAEMfzRJb10rHlilLCTFb+xmaey5BXcG2Eiymy1GhZm0vDLxsIJqijiR2ieERQjdUVSA==', N'7D4ZMCA6LBSWJQPQHVNRS6ILNWEBQUYE', N'20072199-03de-40aa-b366-39dc5cf2409b', N'1234567890', 0, 0, NULL, 1, 0)
-INSERT [dbo].[AspNetUsers] ([Id], [Discriminator], [FirstName], [LastName], [StreetAddress], [City], [State], [PostalCode], [UserName], [NormalizedUserName], [Email], [NormalizedEmail], [EmailConfirmed], [PasswordHash], [SecurityStamp], [ConcurrencyStamp], [PhoneNumber], [PhoneNumberConfirmed], [TwoFactorEnabled], [LockoutEnd], [LockoutEnabled], [AccessFailedCount]) VALUES (N'db3e05c6-c885-437b-94f5-87cb3b4de9d3', N'ApplicationUser', N'Mentor', N'Mentor', N'Weber St', N'Odgen', N'UT', N'84405', N'Mentor@gmail.com', N'MENTOR@GMAIL.COM', N'Mentor@gmail.com', N'MENTOR@GMAIL.COM', 0, N'AQAAAAEAACcQAAAAEJCMfoJif7RGb+OoyUP9mfc9vl1Hf1zn8hUK6xV/MsrWt6QvC8gG7m/3I2/AG6QhzA==', N'OAW7XQVC55NY4QQ3P4V5WUC2XECVNP4E', N'cc27cf33-85b7-4b4c-9913-22e59ac0b901', N'1234567890', 0, 0, NULL, 1, 0)
-INSERT [dbo].[AspNetUsers] ([Id], [Discriminator], [FirstName], [LastName], [StreetAddress], [City], [State], [PostalCode], [UserName], [NormalizedUserName], [Email], [NormalizedEmail], [EmailConfirmed], [PasswordHash], [SecurityStamp], [ConcurrencyStamp], [PhoneNumber], [PhoneNumberConfirmed], [TwoFactorEnabled], [LockoutEnd], [LockoutEnabled], [AccessFailedCount]) VALUES (N'db3e05c6-c885-437b-94f5-87cb3b4de9d4', N'ApplicationUser', N'CHRIS', N'Roskelley', N'Weber St', N'Odgen', N'UT', N'84405', N'Chris@gmail.com', N'Chris@GMAIL.COM', N'CHRIS@gmail.com', N'CHRIS@GMAIL.COM', 0, N'AQAAAAEAACcQAAAAEABInNSrPYXrx8mpIMBxHY5/2tgb8JvkZ5djWkWYCD6rSmE4YpgOBGwyO+brLQ2vgA==', N'3ZIE4LRURURKD7S7L65NGUNDBDDJAPTG', N'93fa99cc-6e92-40a8-a5ea-f0c5e6d98de4', N'1234567890', 0, 0, NULL, 1, 0)
-INSERT [dbo].[AspNetUsers] ([Id], [Discriminator], [FirstName], [LastName], [StreetAddress], [City], [State], [PostalCode], [UserName], [NormalizedUserName], [Email], [NormalizedEmail], [EmailConfirmed], [PasswordHash], [SecurityStamp], [ConcurrencyStamp], [PhoneNumber], [PhoneNumberConfirmed], [TwoFactorEnabled], [LockoutEnd], [LockoutEnabled], [AccessFailedCount]) VALUES (N'fb086d38-22e4-4fc2-9ff7-49fcd22bd56c', N'ApplicationUser', N'Entrepreneur', N'Entrepreneur', N'Weber St', N'Odgen', N'UT', N'84405', N'Entrepreneur@gmail.com', N'ENTREPRENEUR@GMAIL.COM', N'Entrepreneur@gmail.com', N'ENTREPRENEUR@GMAIL.COM', 0, N'AQAAAAEAACcQAAAAEABInNSrPYXrx8mpIMBxHY5/2tgb8JvkZ5djWkWYCD6rSmE4YpgOBGwyO+brLQ2vgA==', N'3ZIE4LRURURKD7S7L65NGUNDBDDJAPTG', N'93fa99cc-6e92-40a8-a5ea-f0c5e6d98de4', N'1234567890', 0, 0, NULL, 1, 0)
-INSERT [dbo].[AspNetUsers] ([Id], [Discriminator], [FirstName], [LastName], [StreetAddress], [City], [State], [PostalCode], [UserName], [NormalizedUserName], [Email], [NormalizedEmail], [EmailConfirmed], [PasswordHash], [SecurityStamp], [ConcurrencyStamp], [PhoneNumber], [PhoneNumberConfirmed], [TwoFactorEnabled], [LockoutEnd], [LockoutEnabled], [AccessFailedCount]) VALUES (N'fb086d38-22e4-4fc2-9ff7-49fcd22bd56d', N'ApplicationUser', N'Entrepreneur2', N'Entrepreneur2', N'Weber St', N'Odgen', N'UT', N'84405', N'Entrepreneur2@gmail.com', N'ENTREPRENEUR2@GMAIL.COM', N'Entrepreneu2r@gmail.com', N'ENTREPRENEUR2@GMAIL.COM', 0, N'AQAAAAEAACcQAAAAEABInNSrPYXrx8mpIMBxHY5/2tgb8JvkZ5djWkWYCD6rSmE4YpgOBGwyO+brLQ2vgA==', N'3ZIE4LRURURKD7S7L65NGUNDBDDJAPTG', N'93fa99cc-6e92-40a8-a5ea-f0c5e6d98de4', N'1234567890', 0, 0, NULL, 1, 0)
+INSERT [dbo].[AspNetUsers] ([Id], [Discriminator], [FirstName], [LastName], [StreetAddress], [City], [State], [PostalCode], [UserName], [NormalizedUserName], [Email], [NormalizedEmail], [EmailConfirmed], [PasswordHash], [SecurityStamp], [ConcurrencyStamp], [PhoneNumber], [PhoneNumberConfirmed], [TwoFactorEnabled], [LockoutEnd], [LockoutEnabled], [AccessFailedCount]) VALUES (N'd62f7c54-d9c9-4bb4-8169-1f0a5a7c20ad', N'ApplicationUser', N'Judy', N'Blum', N'Weber St', N'Odgen', N'UT', N'84405', N'Judge@gmail.com', N'JUDGE@GMAIL.COM', N'Judge@gmail.com', N'JUDGE@GMAIL.COM', 0, N'AQAAAAEAACcQAAAAEMfzRJb10rHlilLCTFb+xmaey5BXcG2Eiymy1GhZm0vDLxsIJqijiR2ieERQjdUVSA==', N'7D4ZMCA6LBSWJQPQHVNRS6ILNWEBQUYE', N'20072199-03de-40aa-b366-39dc5cf2409b', N'1234567890', 0, 0, NULL, 1, 0)
+INSERT [dbo].[AspNetUsers] ([Id], [Discriminator], [FirstName], [LastName], [StreetAddress], [City], [State], [PostalCode], [UserName], [NormalizedUserName], [Email], [NormalizedEmail], [EmailConfirmed], [PasswordHash], [SecurityStamp], [ConcurrencyStamp], [PhoneNumber], [PhoneNumberConfirmed], [TwoFactorEnabled], [LockoutEnd], [LockoutEnabled], [AccessFailedCount]) VALUES (N'db3e05c6-c885-437b-94f5-87cb3b4de9d3', N'ApplicationUser', N'Kaley', N'Smith', N'Weber St', N'Odgen', N'UT', N'84405', N'Mentor@gmail.com', N'MENTOR@GMAIL.COM', N'Mentor@gmail.com', N'MENTOR@GMAIL.COM', 0, N'AQAAAAEAACcQAAAAEJCMfoJif7RGb+OoyUP9mfc9vl1Hf1zn8hUK6xV/MsrWt6QvC8gG7m/3I2/AG6QhzA==', N'OAW7XQVC55NY4QQ3P4V5WUC2XECVNP4E', N'cc27cf33-85b7-4b4c-9913-22e59ac0b901', N'1234567890', 0, 0, NULL, 1, 0)
+INSERT [dbo].[AspNetUsers] ([Id], [Discriminator], [FirstName], [LastName], [StreetAddress], [City], [State], [PostalCode], [UserName], [NormalizedUserName], [Email], [NormalizedEmail], [EmailConfirmed], [PasswordHash], [SecurityStamp], [ConcurrencyStamp], [PhoneNumber], [PhoneNumberConfirmed], [TwoFactorEnabled], [LockoutEnd], [LockoutEnabled], [AccessFailedCount]) VALUES (N'db3e05c6-c885-437b-94f5-87cb3b4de9d4', N'ApplicationUser', N'Chris', N'Roskelley', N'Weber St', N'Odgen', N'UT', N'84405', N'Chris@gmail.com', N'Chris@GMAIL.COM', N'CHRIS@gmail.com', N'CHRIS@GMAIL.COM', 0, N'AQAAAAEAACcQAAAAEABInNSrPYXrx8mpIMBxHY5/2tgb8JvkZ5djWkWYCD6rSmE4YpgOBGwyO+brLQ2vgA==', N'3ZIE4LRURURKD7S7L65NGUNDBDDJAPTG', N'93fa99cc-6e92-40a8-a5ea-f0c5e6d98de4', N'1234567890', 0, 0, NULL, 1, 0)
+INSERT [dbo].[AspNetUsers] ([Id], [Discriminator], [FirstName], [LastName], [StreetAddress], [City], [State], [PostalCode], [UserName], [NormalizedUserName], [Email], [NormalizedEmail], [EmailConfirmed], [PasswordHash], [SecurityStamp], [ConcurrencyStamp], [PhoneNumber], [PhoneNumberConfirmed], [TwoFactorEnabled], [LockoutEnd], [LockoutEnabled], [AccessFailedCount]) VALUES (N'fb086d38-22e4-4fc2-9ff7-49fcd22bd56c', N'ApplicationUser', N'Waldo', N'Wildcat', N'Weber St', N'Odgen', N'UT', N'84405', N'Entrepreneur@gmail.com', N'ENTREPRENEUR@GMAIL.COM', N'Entrepreneur@gmail.com', N'ENTREPRENEUR@GMAIL.COM', 0, N'AQAAAAEAACcQAAAAEABInNSrPYXrx8mpIMBxHY5/2tgb8JvkZ5djWkWYCD6rSmE4YpgOBGwyO+brLQ2vgA==', N'3ZIE4LRURURKD7S7L65NGUNDBDDJAPTG', N'93fa99cc-6e92-40a8-a5ea-f0c5e6d98de4', N'1234567890', 0, 0, NULL, 1, 0)
+INSERT [dbo].[AspNetUsers] ([Id], [Discriminator], [FirstName], [LastName], [StreetAddress], [City], [State], [PostalCode], [UserName], [NormalizedUserName], [Email], [NormalizedEmail], [EmailConfirmed], [PasswordHash], [SecurityStamp], [ConcurrencyStamp], [PhoneNumber], [PhoneNumberConfirmed], [TwoFactorEnabled], [LockoutEnd], [LockoutEnabled], [AccessFailedCount]) VALUES (N'fb086d38-22e4-4fc2-9ff7-49fcd22bd56d', N'ApplicationUser', N'Jack', N'Black', N'Weber St', N'Odgen', N'UT', N'84405', N'Entrepreneur2@gmail.com', N'ENTREPRENEUR2@GMAIL.COM', N'Entrepreneu2r@gmail.com', N'ENTREPRENEUR2@GMAIL.COM', 0, N'AQAAAAEAACcQAAAAEABInNSrPYXrx8mpIMBxHY5/2tgb8JvkZ5djWkWYCD6rSmE4YpgOBGwyO+brLQ2vgA==', N'3ZIE4LRURURKD7S7L65NGUNDBDDJAPTG', N'93fa99cc-6e92-40a8-a5ea-f0c5e6d98de4', N'1234567890', 0, 0, NULL, 1, 0)
 INSERT [dbo].[AspNetUsers] ([Id], [Discriminator], [FirstName], [LastName], [StreetAddress], [City], [State], [PostalCode], [UserName], [NormalizedUserName], [Email], [NormalizedEmail], [EmailConfirmed], [PasswordHash], [SecurityStamp], [ConcurrencyStamp], [PhoneNumber], [PhoneNumberConfirmed], [TwoFactorEnabled], [LockoutEnd], [LockoutEnabled], [AccessFailedCount]) VALUES (N'fb086d38-22e4-4fc2-9ff7-49fcd22bd56e', N'ApplicationUser', N'Jaden', N'Roskelley', N'Weber St', N'Odgen', N'UT', N'84405', N'Jaden@gmail.com', N'JADEN@GMAIL.COM', N'Jaden@gmail.com', N'JADEN@GMAIL.COM', 0, N'AQAAAAEAACcQAAAAEABInNSrPYXrx8mpIMBxHY5/2tgb8JvkZ5djWkWYCD6rSmE4YpgOBGwyO+brLQ2vgA==', N'3ZIE4LRURURKD7S7L65NGUNDBDDJAPTG', N'93fa99cc-6e92-40a8-a5ea-f0c5e6d98de4', N'1234567890', 0, 0, NULL, 1, 0)
 GO
-SET IDENTITY_INSERT [dbo].[UserApplicationAssignmentType] ON 
+SET IDENTITY_INSERT [dbo].[UserApplicationAssignmentType] ON
 
 INSERT [dbo].[UserApplicationAssignmentType] ([UserApplicationAssignmentTypeId], [UserApplicationAssignmentDesc]) VALUES (1, N'Admin')
 INSERT [dbo].[UserApplicationAssignmentType] ([UserApplicationAssignmentTypeId], [UserApplicationAssignmentDesc]) VALUES (2, N'Mentor')
@@ -90,7 +91,7 @@ INSERT [dbo].[UserApplicationAssignmentType] ([UserApplicationAssignmentTypeId],
 INSERT [dbo].[UserApplicationAssignmentType] ([UserApplicationAssignmentTypeId], [UserApplicationAssignmentDesc]) VALUES (4, N'Entrepreneur')
 SET IDENTITY_INSERT [dbo].[UserApplicationAssignmentType] OFF
 GO
-SET IDENTITY_INSERT [dbo].[UserAssignment] ON 
+SET IDENTITY_INSERT [dbo].[UserAssignment] ON
 
 INSERT [dbo].[UserAssignment] ([UserAssignmentID], [UserApplicationAssignmentTypeId], [ApplicationUserId], [ApplicationId]) VALUES (1, 4, N'fb086d38-22e4-4fc2-9ff7-49fcd22bd56c', 1)
 INSERT [dbo].[UserAssignment] ([UserAssignmentID], [UserApplicationAssignmentTypeId], [ApplicationUserId], [ApplicationId]) VALUES (2, 4, N'fb086d38-22e4-4fc2-9ff7-49fcd22bd56c', 2)
@@ -115,7 +116,7 @@ INSERT [dbo].[AspNetUserRoles] ([UserId], [RoleId]) VALUES (N'fb086d38-22e4-4fc2
 INSERT [dbo].[AspNetUserRoles] ([UserId], [RoleId]) VALUES (N'db3e05c6-c885-437b-94f5-87cb3b4de9d3', N'fcb3d3b4-d324-4612-9e81-910a6b2ec12c')
 INSERT [dbo].[AspNetUserRoles] ([UserId], [RoleId]) VALUES (N'db3e05c6-c885-437b-94f5-87cb3b4de9d4', N'fcb3d3b4-d324-4612-9e81-910a6b2ec12c')
 GO
-SET IDENTITY_INSERT [dbo].[EmailTemplate] ON 
+SET IDENTITY_INSERT [dbo].[EmailTemplate] ON
 
 INSERT [dbo].[EmailTemplate] ([Id], [EmailTemplateName], [TemplateContent], [ModifiedDate], [TemplateSubject]) VALUES (2, N'Welcome Email', N'<p>Hello [FirstName] [LastName],</p>
 <p>Welcome to the Wildcat Micro Fund community.</p>
@@ -124,12 +125,12 @@ INSERT [dbo].[EmailTemplate] ([Id], [EmailTemplateName], [TemplateContent], [Mod
 <p>Admin</p>', CAST(N'2022-12-04T02:36:33.6196033' AS DateTime2), N'Hello and Welcome to the WMF!')
 SET IDENTITY_INSERT [dbo].[EmailTemplate] OFF
 GO
-SET IDENTITY_INSERT [dbo].[PitchEvent] ON 
+SET IDENTITY_INSERT [dbo].[PitchEvent] ON
 
 INSERT [dbo].[PitchEvent] ([Id], [PitchEventDate]) VALUES (1, CAST(N'2023-02-01T00:01:00.0000000' AS DateTime2))
 SET IDENTITY_INSERT [dbo].[PitchEvent] OFF
 GO
-SET IDENTITY_INSERT [dbo].[QCategory] ON 
+SET IDENTITY_INSERT [dbo].[QCategory] ON
 
 INSERT [dbo].[QCategory] ([QCategoryID], [QCategoryDesc]) VALUES (1, N'Initial Submission Criterion')
 INSERT [dbo].[QCategory] ([QCategoryID], [QCategoryDesc]) VALUES (2, N'Initial Entrepreneur Survey')
@@ -137,7 +138,7 @@ INSERT [dbo].[QCategory] ([QCategoryID], [QCategoryDesc]) VALUES (3, N'Mentorshi
 INSERT [dbo].[QCategory] ([QCategoryID], [QCategoryDesc]) VALUES (4, N'Pitch Event Judge Criterion')
 SET IDENTITY_INSERT [dbo].[QCategory] OFF
 GO
-SET IDENTITY_INSERT [dbo].[Question] ON 
+SET IDENTITY_INSERT [dbo].[Question] ON
 
 INSERT [dbo].[Question] ([Id], [QuestionSummary], [QuestIsActive]) VALUES (1, N'Explanation & Validation of Market Problem or Opportunity', 1)
 INSERT [dbo].[Question] ([Id], [QuestionSummary], [QuestIsActive]) VALUES (2, N'Value Proposition', 1)
@@ -151,7 +152,7 @@ INSERT [dbo].[Question] ([Id], [QuestionSummary], [QuestIsActive]) VALUES (9, N'
 INSERT [dbo].[Question] ([Id], [QuestionSummary], [QuestIsActive]) VALUES (10, N'Do you have a Prototype?', 1)
 SET IDENTITY_INSERT [dbo].[Question] OFF
 GO
-SET IDENTITY_INSERT [dbo].[QuestionUse] ON 
+SET IDENTITY_INSERT [dbo].[QuestionUse] ON
 
 INSERT [dbo].[QuestionUse] ([QuestionUseID], [QuestID], [QCategoryID], [QuestDisplayOrder], [QuestIsScored], [QuestUseIsActive], [QuestPointValue]) VALUES (1, 1, 4, 1, 1, 1, 20)
 INSERT [dbo].[QuestionUse] ([QuestionUseID], [QuestID], [QCategoryID], [QuestDisplayOrder], [QuestIsScored], [QuestUseIsActive], [QuestPointValue]) VALUES (2, 2, 4, 2, 1, 1, 10)
@@ -165,7 +166,7 @@ INSERT [dbo].[QuestionUse] ([QuestionUseID], [QuestID], [QCategoryID], [QuestDis
 INSERT [dbo].[QuestionUse] ([QuestionUseID], [QuestID], [QCategoryID], [QuestDisplayOrder], [QuestIsScored], [QuestUseIsActive], [QuestPointValue]) VALUES (10, 10, 1, 5, 0, 1, 0)
 SET IDENTITY_INSERT [dbo].[QuestionUse] OFF
 GO
-SET IDENTITY_INSERT [dbo].[QuestionDetail] ON 
+SET IDENTITY_INSERT [dbo].[QuestionDetail] ON
 
 INSERT [dbo].[QuestionDetail] ([QuestionDetailId], [QuestionDetailInfo], [QuestionID]) VALUES (1, N'Explain that there is a real and significant problem or opportunity.', 1)
 INSERT [dbo].[QuestionDetail] ([QuestionDetailId], [QuestionDetailInfo], [QuestionID]) VALUES (2, N'How does your product solve the problem/improve the situation?', 2)
@@ -186,34 +187,36 @@ INSERT [dbo].[QuestionDetail] ([QuestionDetailId], [QuestionDetailInfo], [Questi
 SET IDENTITY_INSERT [dbo].[QuestionDetail] OFF
 GO
 
-SET IDENTITY_INSERT [dbo].[Award] ON 
+SET IDENTITY_INSERT [dbo].[Award] ON
 
 INSERT [dbo].[Award] ([AwardId], [AppID], [AwardTypeID], [AwardAmount], [AwardDate], [WasRecieved]) VALUES (1, 1, 1, 1000, CAST(N'2019-03-01T00:01:00.0000000' AS DateTime2), 1)
 SET IDENTITY_INSERT [dbo].[Award] OFF
 GO
-SET IDENTITY_INSERT [dbo].[AwardType] ON 
+SET IDENTITY_INSERT [dbo].[AwardType] ON
 
 INSERT [dbo].[AwardType] ([AwardTypeId], [AwardTypeDesc]) VALUES (1, N'Cash')
 SET IDENTITY_INSERT [dbo].[AwardType] OFF
 GO
-SET IDENTITY_INSERT [dbo].[Document] ON 
+SET IDENTITY_INSERT [dbo].[Document] ON
 
 INSERT [dbo].[Document] ([DocID], [AppID], [DocFile]) VALUES (1, 1, N'test.txt')
 SET IDENTITY_INSERT [dbo].[Document] OFF
 GO
-SET IDENTITY_INSERT [dbo].[DocumentType] ON 
+SET IDENTITY_INSERT [dbo].[DocumentType] ON
 
 INSERT [dbo].[DocumentType] ([DocTypeID], [DocTypeDesc]) VALUES (1, N'Text file')
 SET IDENTITY_INSERT [dbo].[DocumentType] OFF
 GO
-SET IDENTITY_INSERT [dbo].[Note] ON 
 
-INSERT [dbo].[Note] ([NoteID], [NoteContent], [NoteVisibility], [NoteInternal], [NoteCreator]) VALUES (N'Called Jaden to set up our first appointment for 12/04/2022', 1, 1, N'db3e05c6-c885-437b-94f5-87cb3b4de9d4', N'2022-12-01 00:00:00', 2, 4)
-INSERT [dbo].[Note] ([NoteID], [NoteContent], [NoteVisibility], [NoteInternal], [NoteCreator]) VALUES (N'Met in person with Jaden today, went over his business model and came up with an action plan on how to proceed.', 1, 1, N'db3e05c6-c885-437b-94f5-87cb3b4de9d4', N'2022-12-04 13:53:53', 2, 4)
-SET IDENTITY_INSERT [dbo].[Note] OFF
-GO
-SET IDENTITY_INSERT [dbo].[NoteType] ON 
+SET IDENTITY_INSERT [dbo].[NoteType] ON
 
 INSERT [dbo].[NoteType] ([NoteTypeID], [NoteTypeDesc]) VALUES (1, N'General Update')
 SET IDENTITY_INSERT [dbo].[NoteType] OFF
+GO
+
+SET IDENTITY_INSERT [dbo].[Note] ON
+
+INSERT [dbo].[Note] ([NoteID], [NoteContent], [NoteVisibility], [NoteInternal], [NoteCreatorUserId], [CreatedDate], [ApplicationId], [NoteTypeId]) VALUES (1, N'Called Jaden to set up our first appointment for 12/04/2022', 1, 1, N'db3e05c6-c885-437b-94f5-87cb3b4de9d4', N'2022-12-01 00:00:00', 2, 1)
+INSERT [dbo].[Note] ([NoteID], [NoteContent], [NoteVisibility], [NoteInternal], [NoteCreatorUserId], [CreatedDate], [ApplicationId], [NoteTypeId]) VALUES (2, N'Met in person with Jaden today, went over his business model and came up with an action plan on how to proceed.', 1, 1, N'db3e05c6-c885-437b-94f5-87cb3b4de9d4', N'2022-12-04 13:53:53', 2, 1)
+SET IDENTITY_INSERT [dbo].[Note] OFF
 GO
