@@ -1,4 +1,5 @@
 ﻿using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace wildcatMicroFund.Models
 {
@@ -6,10 +7,11 @@ namespace wildcatMicroFund.Models
     {
         [Key]
         public int ResponseID { get; set; }
-        public int SurveyQuestionID { get; set; }
-        public int AppID { get; set; }
-        [Required]
+       
         [Display(Name = "Response")]
         public string? Responses { get; set; }
+
+        [ForeignKey("AssignedQuestionId")]
+        public virtual AssignedQuestion? AssignedQuestion { get; set; }
     }
 }
