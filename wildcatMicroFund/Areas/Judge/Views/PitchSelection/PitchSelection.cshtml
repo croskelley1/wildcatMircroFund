@@ -1,0 +1,22 @@
+﻿@model IEnumerable<ApplicationStatus>
+
+<div class="row py-3">
+    <h1 class="Display-5 row">Need Judgement:</h1>
+
+    @foreach (var item in Model)
+    {
+        
+        <div class="card col-2">
+            <p class="card-header">@(item.Application.CompanyName)</p>
+            @*<p class="card-body">@(item.Application.AppStatus)</p> ViewModel breaks everything, will be taken care of shortly*@
+            <p>
+                <br><br>@(item.Status.StatusDesc)<br>
+                <br><br>Application created on:<br>
+            @(item.Application.CreatedDate)</p>
+            <a class="btn btn-primary" style="border-radius:2px;" asp-area="Judge" asp-controller="PitchCriteria" asp-action="PitchCriteria" asp-route-AppID="@item.Application.Id">Exact Judgement</a>
+        </div>
+
+    }
+
+
+</div>

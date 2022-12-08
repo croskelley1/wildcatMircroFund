@@ -177,8 +177,7 @@ namespace wildcatMicroFund.Models
                 if (orderBy == null)
                 {
 
-                    return queryable.OrderBy(orderBy).ToList().AsEnumerable();
-
+                    return queryable.Where(predicate).ToList().AsEnumerable();
                 }
                 else
                 {

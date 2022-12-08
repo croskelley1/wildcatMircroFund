@@ -9,6 +9,7 @@ namespace wildcatMicroFund.Areas.Judge.ViewModels
         //public QuestionUse? PitchCriteria { get; set; }
         //public IEnumerable<SelectListItem> QuestionList { get; set; }
         //public IEnumerable<SelectListItem> QCategory { get; set; }
+        public int appID { get; set; }
 
         public QuestionUse? PitchCriteria { get; set; }
         public Question? Question { get; set; }

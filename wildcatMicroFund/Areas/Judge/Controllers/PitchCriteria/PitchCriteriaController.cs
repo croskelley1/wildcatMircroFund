@@ -16,7 +16,7 @@ public class PitchCriteriaController : Controller
         _unitOfWork = unitOfWork;
     }
 
-    public ViewResult PitchCriteria()
+    public ViewResult PitchCriteria(int AppID) // Capture the passed ID
     {
         //IEnumerable<QuestionUse> PitchJudgeCriteriaList = _unitOfWork.QuestionUse.List(u => u.QCategory.QCategoryID == 4, u => u.QuestionUseID, "Question,QCategory"); //_unitOfWork is the database, Applications is the table, GetAll puts rows in a list
         //return View(PitchJudgeCriteriaList);
@@ -26,6 +26,7 @@ public class PitchCriteriaController : Controller
 
         PitchJudgeCriteriaList = new PitchCriteriaVM
         {
+            appID = AppID,
             PitchCriteria = new QuestionUse(),
             Question = _unitOfWork.Question.Get(a => a.Id == 2),
             Category = _unitOfWork.QCategory.Get(c => c.QCategoryID == 4),
