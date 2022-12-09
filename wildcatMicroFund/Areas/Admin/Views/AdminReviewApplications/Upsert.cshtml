@@ -8,24 +8,24 @@
             @* All for Model validation and HTML validation *@
             <div asp-validation-summary="All" class="text-danger"></div>
             <div class="col-12 px-3" style="border-bottom:1px solid #325d88">
-                <h2 class="text-primary">Update Application</h2>
+                <h2 class="text-primary">Update Application - @Model.Application.CompanyName</h2>
             </div>
-            <div class="col-8 pt-3 offset-3">
+            <div class="col-11 pt-3 offset-1">
                 <div class="form-group row m-2">
                     <div class="col-4">
-                        <h3>Company Name</h3>
+                        <h4>Company Name:</h4>
                     </div>
-                    <div class="col-3">
-                           <h3>@Model.Application.CompanyName</h3>
+                    <div class="col-6">
+                        <h4>@Model.Application.CompanyName</h4>
                     </div>
                 </div>
                 @foreach (var user in Model.AssignedUsers)
                 {
                     <div class="form-group row m-2">
                         <div class="col-4">
-                            <h4>@user.UserApplicationAssignmentType.UserApplicationAssignmentDesc</h4>
+                            <h4>@user.UserApplicationAssignmentType.UserApplicationAssignmentDesc Name:</h4>
                         </div>
-                        <div class="col-3">
+                        <div class="col-6">
                             <h4>@user.ApplicationUser.FullName</h4>
                         </div>
                     </div>
@@ -43,9 +43,9 @@
 
                 <div class="form-group row m-2">
                     <div class="col-4">
-                        <label asp-for="ReviewApplication.StatusId"></label>
+                        <h4><label asp-for="ReviewApplication.StatusId">Status:</label></h4>
                     </div>
-                    <div class="col-5">
+                    <div class="col-3">
                         @Html.DropDownListFor(m => m.ReviewApplication.StatusId,
                         Model.StatusList,
                         " - Please select a new status - ",
@@ -53,17 +53,29 @@
                         <span class="text-danger" asp-validation-for="ReviewApplication.StatusId"></span>
                     </div>
                 </div>
+                @*<div class="form-group row m-2">
+                    <div class="col-4">
+                        <label asp-for="UserAssignment.ApplicationUser"></label>
+                    </div>
+                    <div class="col-5">
+                        @Html.DropDownListFor(m => m.UserAssignment.ApplicationUser,
+                        Model.MentorList,
+                        " - Please select a new mentor - ",
+                        new { @class = "form-control", @id="ddlUserAssignment" })
+                        <span class="text-danger" asp-validation-for="UserAssignment.ApplicationUser"></span>
+                    </div>
+                </div>*@
                 <div class="form-group row m-2">
-                    <div class="col-9" style="border-top:1px solid #325d88">
+                    <div class="col-12" style="border-top:1px solid #325d88">
                         <div class="row m-2">
-                            <div class="col-4">
+                            <div class="col-2 offset-3">
                                 <button type="submit" class="btn btn-primary form-control">Update</button>
                                                                
                             </div>
-                            <div class="col-4">
+                            <div class="col-3">
                                 <a asp-controller="AdminReviewApplications" asp-action="Index" class="btn btn-success form-control">Back to List</a>
                             </div>
-                            <div class="col-4">
+                            <div class="col-2">
                                 <a asp-area="Mentor" asp-controller="MentorNotes" asp-action="Index" asp-route-appId="@Model.Application.Id" class="btn btn-primary">Notes</a>
                             </div>
                         </div>

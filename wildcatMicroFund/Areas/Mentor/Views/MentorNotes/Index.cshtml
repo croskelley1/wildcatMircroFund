@@ -50,4 +50,13 @@
         </tbody>
 
     </table>
+    <div class="col-3 offset-5">
+        @if (User.IsInRole("Admin"))
+        {
+            <a asp-area="Admin" asp-controller="AdminReviewApplications" asp-action="Index"class="btn btn-success">Back</a>
+        }
+        else{
+            <a asp-area="Mentor" asp-controller="ReviewApplications" asp-action="Index" class="btn btn-success">Back</a>
+        }
+    </div>
 </div>
