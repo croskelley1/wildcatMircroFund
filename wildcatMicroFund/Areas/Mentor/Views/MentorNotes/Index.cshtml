@@ -2,14 +2,21 @@
 
 @{
     ViewData["Title"] = "Mentor Notes";
+    var appId = (int) TempData.Peek("tempAppId");
 }
 
 <div class="container p-3">
     <div class="row pt-4">
-        <div class="col-6">
-            <h2 class="text-primary">Application List</h2>
+        <div class="col-5">
+            <h2 class="text-primary">Notes</h2>
         </div>
+        <div class="col-12 text-end">
+            <a asp-controller="MentorNotes" asp-action="Create" asp-route-appId="@appId" class="btn btn-primary">
+                <i class="bi bi-plus-circle"></i> &nbsp; Add New Note
+            </a>
+     </div>
     </div>
+    
     <br /><br />
 
     <table class="table table-bordered table-striped" style="width:100%">
@@ -34,10 +41,9 @@
                         @obj.CreatedDate
                     </td>
                     <td>
-                        @*<div class="w-75 btn-group" role="group">
-                            <a asp-controller="ReviewApplications" asp-action="Upsert" asp-route-id="@obj.AppStatId" asp-route-appId="@obj.Application.Id" asp-route-statId="@obj.Status.StatusID"
-                           class="btn btn-primary mx-2"> <i class="bi bi-pencil-square"></i>Review</a>
-                        </div>*@
+                        <div class="w-75 btn-group" role="group">
+                            <a asp-controller="MentorNotes" asp-action="Edit" asp-route-noteId="@obj.NoteID" class="btn btn-primary mx-2"> <i class="bi bi-pencil-square"></i>Edit</a>
+                        </div>
                     </td>
                 </tr>
             }

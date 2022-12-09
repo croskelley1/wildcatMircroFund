@@ -19,6 +19,17 @@
                            <h3>@Model.Application.CompanyName</h3>
                     </div>
                 </div>
+                @foreach (var user in Model.AssignedUsers)
+                {
+                    <div class="form-group row m-2">
+                        <div class="col-4">
+                            <h4>@user.UserApplicationAssignmentType.UserApplicationAssignmentDesc</h4>
+                        </div>
+                        <div class="col-3">
+                            <h4>@user.ApplicationUser.FullName</h4>
+                        </div>
+                    </div>
+                }
                 
                 <div class="form-group row ">
                     <div class="col-9">
@@ -45,12 +56,15 @@
                 <div class="form-group row m-2">
                     <div class="col-9" style="border-top:1px solid #325d88">
                         <div class="row m-2">
-                            <div class="col-6">
+                            <div class="col-4">
                                 <button type="submit" class="btn btn-primary form-control">Update</button>
                                                                
                             </div>
-                            <div class="col-6">
+                            <div class="col-4">
                                 <a asp-controller="AdminReviewApplications" asp-action="Index" class="btn btn-success form-control">Back to List</a>
+                            </div>
+                            <div class="col-4">
+                                <a asp-area="Mentor" asp-controller="MentorNotes" asp-action="Index" asp-route-appId="@Model.Application.Id" class="btn btn-primary">Notes</a>
                             </div>
                         </div>
                     </div>

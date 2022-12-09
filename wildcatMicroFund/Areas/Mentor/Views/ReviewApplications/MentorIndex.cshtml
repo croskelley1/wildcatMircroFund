@@ -1,4 +1,4 @@
-﻿@model wildcatMicroFund.Areas.Mentor.ViewModels.ReviewApplicationVM
+﻿@model IEnumerable<ApplicationStatus>
 
 @{
     ViewData["Title"] = "Review Application";
@@ -19,28 +19,18 @@
                     Company Name
                 </th>
                 <th>
-                    Entrepreneur
-                </th>
-                <th>
                     Status
                 </th>
             </tr>
         </thead>
         <tbody>
-            @foreach (var obj in Model.ApplicationStatuses)
+            @foreach (var obj in Model)
             {
                 <tr>
                     <td width="50%">
                         @obj.Application.CompanyName
                     </td>
-                    <td width="30%">
-                        @foreach(var user in Model.AssignedUsers){
-                            @if(user.Application.Id == obj.ApplicationId){
-                                @user.ApplicationUser.FullName
-                            }
-                        }
-                    </td>
-                    <td width="20%">
+                    <td width="40%">
                         @obj.Status.StatusDesc
                     </td>
                     <td>

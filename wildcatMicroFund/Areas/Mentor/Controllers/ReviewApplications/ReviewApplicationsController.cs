@@ -1,7 +1,9 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
+using System.Linq;
 using System.Security.Claims;
 using wildcatMicroFund.Areas.Mentor.ViewModels;
+using wildcatMicroFund.Data;
 using wildcatMicroFund.Interfaces;
 using wildcatMicroFund.Models;
 
@@ -10,6 +12,7 @@ public class ReviewApplicationsController : Controller
 {
     [BindProperty]
     public ReviewApplicationVM ReviewApplicationObj { get; set; }
+
 
     private readonly IUnitOfWork _unitOfWork;
     private readonly IWebHostEnvironment _hostEnvironment;
@@ -22,58 +25,34 @@ public class ReviewApplicationsController : Controller
 
     public ViewResult Index()
     {
-        
-        
-        IEnumerable<ApplicationStatus> ReviewApplication = _unitOfWork.ApplicationStatus.List(null, r => r.Application.Id, "Application,Status");//WHERE, ORDERBY, JOIN
-        return View(ReviewApplication);
-    }
-
-    public ViewResult MentorIndex()
-    {
-        
-        ReviewApplicationObj = new ReviewApplicationVM
-        {
-            ApplicationStatuses = _unitOfWork.ApplicationStatus.List(null, r => r.Application.Id, "Application,Status"),//WHERE, ORDERBY, JOIN
-            AssignedUsers = _unitOfWork.UserAssignment.List(u => u.UserApplicationAssignmentType.UserApplicationAssignmentTypeId == 4, null, "Application,ApplicationUser,UserApplicationAssignmentType")
-
-        };
-        return View(ReviewApplicationObj);
-        
+        var claimsIdentity = (ClaimsIdentity)User.Identity;
+        var claim = claimsIdentity.FindFirst(ClaimTypes.NameIdentifier);
+           
+        IEnumerable<ApplicationStatus> AdminReviewApplication = _unitOfWork.ApplicationStatus.List(a => a.Status.StatusDesc == "Mentor Phase", null, "Application,Status");//WHERE, ORDERBY, JOIN
+        return View(AdminReviewApplication);
     }
 
     [HttpGet]
-    public IActionResult Upsert(int? id, int? appId, int? statId) //optional id needed with edit mode vs create
+    public IActionResult Upsert(int? id, int? appId) //optional id needed with edit mode vs create
     {
-        
+
         var stati = _unitOfWork.Status.List();
-        var mentorList = _unitOfWork.ApplicationUser.List();
-        var judgeList = _unitOfWork.ApplicationUser.List();
-        //var test = _unitOfWork.UserAssignment.GetAll(u => u.Application.Id == appId, includeProperties: "IdentityUser");
-        var assUsers = _unitOfWork.UserAssignment.List(u => u.Application.Id == appId, u => u.Application.Id, "Application,ApplicationUser,UserApplicationAssignmentType");
-
-
-        var appStatus = new ApplicationStatus();
-        var app = _unitOfWork.Application.Get(a => a.Id == appId);
-        var status = _unitOfWork.Status.Get(s => s.StatusID == statId);
-        
+        var mentors = _unitOfWork.ApplicationUser.List(null, null, "AspNetRoles");
 
         ReviewApplicationObj = new ReviewApplicationVM
         {
-            
             UserAssignment = new UserAssignment(),
-            AssignedUsers = assUsers,
-            ApplicationStatus = appStatus,
-            Application = app,
-            Status = _unitOfWork.Status.Get(s => s.StatusID == statId),
+            AssignedUsers = _unitOfWork.UserAssignment.List(u => u.Application.Id == appId, u => u.Application.Id, "Application,ApplicationUser,UserApplicationAssignmentType"),
+            ReviewApplication = new ApplicationStatus(),
+            Application = _unitOfWork.Application.Get(a => a.Id == appId),
+            Status = _unitOfWork.Status.Get(s => s.StatusID == id),
             StatusList = stati.Select(f => new SelectListItem { Value = f.StatusID.ToString(), Text = f.StatusDesc }),
-            MentorList = mentorList.Select(m => new SelectListItem { Value = m.Id.ToString(), Text=m.FullName.ToString() })
-
-            
+            MentorList = mentors.Select(m => new SelectListItem { Value = m.Id, Text = m.FullName})
         };
 
         if (id != null)
         {
-            //ReviewApplicationObj.Entrepreneur = _unitOfWork.ApplicationUser.Get(u => u. == id, true);
+            ReviewApplicationObj.ReviewApplication = _unitOfWork.ApplicationStatus.Get(u => u.AppStatId == id, true);
             if (ReviewApplicationObj == null)
             {
                 return NotFound();
@@ -86,15 +65,18 @@ public class ReviewApplicationsController : Controller
     [HttpPost]
     public IActionResult Upsert()
     {
-        
+
         if (!ModelState.IsValid)
         {
             return View();
         }
+        var claimsIdentity = (ClaimsIdentity)User.Identity;
+        var claim = claimsIdentity.FindFirst(ClaimTypes.NameIdentifier);
 
-                                        
-        _unitOfWork.UserAssignment.Update(ReviewApplicationObj.UserAssignment);
-        
+        ReviewApplicationObj.ReviewApplication.StatusDate = DateTime.Now;
+        ReviewApplicationObj.ReviewApplication.UserID = claim.Value;
+        _unitOfWork.ApplicationStatus.Update(ReviewApplicationObj.ReviewApplication);
+
         _unitOfWork.Commit();
         return RedirectToAction("Index");
     }
