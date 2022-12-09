@@ -96,7 +96,7 @@ public class ReadyEmailsController : Controller
     [HttpGet]
     public async Task<IActionResult> Send(int? id)
     {
-        //Currently Just deletes when sent
+        //Currently deletes when sent (no visual confirmation)
         var obj = _unitOfWork.ReadyEmail.Get(c => c.Id == id);
         if (obj == null)
         {
@@ -105,7 +105,7 @@ public class ReadyEmailsController : Controller
         await _emailSender.SendEmailAsync(obj.ReadyEmailEmail, obj.ReadyEmailSubject, obj.ReadyEmailContent);
         _unitOfWork.ReadyEmail.Delete(obj);
         _unitOfWork.Commit();
-        TempData["success"] = "ReadyEmail was deleted Successfully";
+        TempData["success"] = "ReadyEmail was deleted successfully";
         return RedirectToAction("Index");
     }
 

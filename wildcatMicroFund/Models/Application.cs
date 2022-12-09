@@ -17,5 +17,7 @@ namespace wildcatMicroFund.Models
         [Display(Name = "App Status")]
         public int AppStatus { get; set; }
 
+        // How to get applicant and mentor?
+
     }
 }
