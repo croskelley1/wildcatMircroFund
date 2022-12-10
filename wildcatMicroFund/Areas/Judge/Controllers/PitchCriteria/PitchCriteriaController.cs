@@ -11,10 +11,27 @@ public class PitchCriteriaController : Controller
 
     private readonly IUnitOfWork _unitOfWork;
     public PitchCriteriaVM PitchJudgeCriteriaList { get; set; }
+    public ScoredAppVM ScoredAppVM { get; set; }
 
     public PitchCriteriaController(IUnitOfWork unitOfWork)//Dependency Injection
     {
         _unitOfWork = unitOfWork;
+    }
+
+    public ViewResult ScoredApp(int AppID)
+    {
+        ScoredAppVM = new ScoredAppVM
+        {
+            appID = AppID,
+            Application = _unitOfWork.Application.GetById(AppID),
+            AssignedQuestions = _unitOfWork.AssignedQuestion.List(a => a.Application.Id == AppID, null, "QuestionUse,Application"),
+            Score = _unitOfWork.Score.List(),
+            QuestionUseList = _unitOfWork.QuestionUse.List(u => u.QCategory.QCategoryID == 4, u => u.QuestDisplayOrder, "Question,QCategory"),
+            QuestionDetailList = _unitOfWork.QuestionDetail.List(null, null, "Question")
+
+        };
+
+        return View(ScoredAppVM);
     }
 
     [HttpGet]
@@ -140,10 +157,12 @@ public class PitchCriteriaController : Controller
 
         _unitOfWork.Commit();
 
+        var routeValues = new RouteValueDictionary {
+          { "AppID", appID}
+        };
 
 
-
-        return RedirectToAction("PitchSelection");
+        return RedirectToAction("ScoredApp", routeValues);
     }
 }
 

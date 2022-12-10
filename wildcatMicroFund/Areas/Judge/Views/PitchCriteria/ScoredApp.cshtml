@@ -1,0 +1,41 @@
+﻿@*
+    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+*@
+@model wildcatMicroFund.Areas.Judge.ViewModels.ScoredAppVM
+@{
+    ViewData["Title"] = "Question";
+    var totalScore = 0;
+}
+
+<div class="col-12">
+    <div class="col-5">
+        @foreach (var obj in Model.AssignedQuestions){
+            <div class="form-group row m-2">
+                <div class="col-8">
+                        <h5>@obj.QuestionUse.Question.QuestionSummary</h5>
+                </div>
+                
+                @foreach(var score in Model.Score){
+                
+                
+                    @if(score.AssignedQuestion.AssignedQuestionId == obj.AssignedQuestionId ){
+                        <div class="col-2">
+                            <h5>@score.ScoreValue</h5>
+                            <p hidden>@(totalScore += score.ScoreValue)</p>
+                        </div>
+
+                    }
+                }
+            </div>
+        }
+    </div>
+    <div class="row m-3">
+
+        <div class="col-4">
+            <h1>Total Score:</h1>
+        </div>
+        <div class="col-2">
+            <h1>@totalScore</h1>
+        </div>
+    </div>
+</div>
