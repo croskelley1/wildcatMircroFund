@@ -11,6 +11,11 @@
             <input asp-for="EmailTemplateName" class="form-control" />
             <span asp-validation-for="EmailTemplateName" class="text-danger"></span>
         </div>
+                <div class="mb-3">
+            <label asp-for="TemplateSubject"></label>
+            <input asp-for="TemplateSubject" class="form-control" />
+            <span asp-validation-for="TemplateSubject" class="text-danger"></span>
+        </div>
         <div class="mb-3">
             <label asp-for="TemplateContent"></label>
             @*<input asp-for="TemplateContent" class="form-control" />*@

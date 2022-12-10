@@ -8,90 +8,68 @@
             @* All for Model validation and HTML validation *@
             <div asp-validation-summary="All" class="text-danger"></div>
             <div class="col-12 px-3" style="border-bottom:1px solid #325d88">
-                <h2 class="text-primary">Update Application</h2>
+                <h2 class="text-primary">Update Application - @Model.Application.CompanyName</h2>
             </div>
-            <div class="col-8 pt-3 offset-3">
+            <div class="col-11 pt-3 offset-1">
                 <div class="form-group row m-2">
                     <div class="col-4">
-                        <h3>Company Name</h3>
+                        <h4>Company Name:</h4>
                     </div>
-                    <div class="col-3">
-                           <h3>@Model.Application.CompanyName</h3>
-                    </div>
-                </div>
-                <div class="form-group row m-2">
-                    <div class="col-4">
-                        <h4>Entrepreneur</h4>
-                    </div>
-                    <div class="col-3">
-                        <h4>@Model.Entrepreneur.FullName</h4>
+                    <div class="col-6">
+                        <h4>@Model.Application.CompanyName</h4>
                     </div>
                 </div>
-                <div class="form-group row m-2">
-                    <div class="col-4">
-                        <h4>Mentor</h4>
+                @foreach (var user in Model.AssignedUsers)
+                {
+                    <div class="form-group row m-2">
+                        <div class="col-4">
+                            <h4>@user.UserApplicationAssignmentType.UserApplicationAssignmentDesc Name:</h4>
+                        </div>
+                        <div class="col-6">
+                            <h4>@user.ApplicationUser.FullName</h4>
+                        </div>
                     </div>
-                    <div class="col-5">
-                        <h4>@(Model.Mentor.FullName == "" ? "None" : Model.Mentor.FullName)</h4>
-                    </div>
-                </div>
-                <div class="form-group row m-2">
-                    <div class="col-4">
-                        <h4>Judge</h4>
-                    </div>
-                    <div class="col-3">
-                        <h4>@Model.Judge</h4>
-                    </div>
-                </div>
-                
+                }
+
                 <div class="form-group row ">
                     <div class="col-9">
                         @*These hide the values from the user, but allow the update button to pass the values back through the VM object*@
-                        <input readonly type="hidden" asp-for="ApplicationStatus.AppStatId" />
-                        <input readonly type="hidden" asp-for="ApplicationStatus.ApplicationId" />
-                        <input readonly type="hidden" asp-for="ApplicationStatus.UserID" />
-                        <input readonly type="hidden" asp-for="ApplicationStatus.StatusDate" />
-                        <input readonly type="hidden"  asp-for="Application.CompanyName" />
-                        
-@*                        <input readyonly type="hidden" asp-for="ReviewApplication." />
-
-                        [Key]
-                        public int AppStatId { get; set; }
-                        public int UserID { get; set; }
-
-                        [Display(Name = "StatusDate")]
-                        public DateTime StatusDate { get; set; }
-
-*@                    </div>
+                        <input readonly type="hidden" asp-for="ReviewApplication.AppStatId" />
+                        <input readonly type="hidden" asp-for="ReviewApplication.ApplicationId" />
+                        <input readonly type="hidden" asp-for="ReviewApplication.UserID" />
+                        <input readonly type="hidden" asp-for="ReviewApplication.StatusDate" />
+                    </div>
                 </div>
 
                 <div class="form-group row m-2">
                     <div class="col-4">
-                        <label asp-for="ApplicationStatus.StatusId"></label>
+                        <h4><label asp-for="ReviewApplication.StatusId">Status:</label></h4>
                     </div>
-                    <div class="col-5">
-                        @Html.DropDownListFor(m => m.ApplicationStatus.StatusId,
+                    <div class="col-3">
+                        @Html.DropDownListFor(m => m.ReviewApplication.StatusId,
                         Model.StatusList,
                         " - Please select a new status - ",
                         new { @class = "form-control", @id="ddlStatus" })
-                        <span class="text-danger" asp-validation-for="ApplicationStatus.StatusId"></span>
-
+                        <span class="text-danger" asp-validation-for="ReviewApplication.StatusId"></span>
                     </div>
                 </div>
                 <div class="form-group row m-2">
                     <div class="col-9" style="border-top:1px solid #325d88">
                         <div class="row m-2">
-                            <div class="col-6">
+                            <div class="col-2 offset-3">
                                 <button type="submit" class="btn btn-primary form-control">Update</button>
-                                                               
+
                             </div>
-                            <div class="col-6">
+                            <div class="col-3">
                                 <a asp-controller="ReviewApplications" asp-action="Index" class="btn btn-success form-control">Back to List</a>
+                            </div>
+                            <div class="col-2">
+                                <a asp-area="Mentor" asp-controller="MentorNotes" asp-action="Index" asp-route-appId="@Model.Application.Id" class="btn btn-primary">Notes</a>
                             </div>
                         </div>
                     </div>
                 </div>
-            </>
+                </>
+            </div>
         </div>
-    </div>
 </form>

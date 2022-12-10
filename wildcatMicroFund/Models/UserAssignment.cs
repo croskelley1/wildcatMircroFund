@@ -9,11 +9,11 @@ namespace wildcatMicroFund.Models
         [Key]
         public int UserAssignmentID { get; set; }
 
-        [ForeignKey("UserApplicationAssignmentType")]
-        public virtual UserApplicationAssignmentType? ApplicationAssignmentType { get; set; }
+        [ForeignKey("UserApplicationAssignmentTypeId")]
+        public virtual UserApplicationAssignmentType? UserApplicationAssignmentType { get; set; }
 
-        [ForeignKey("UserId")]
-        public virtual IdentityUser? User { get; set; }
+        [ForeignKey("ApplicationUserId")]
+        public virtual ApplicationUser? ApplicationUser { get; set; }
 
         [ForeignKey("ApplicationId")]
         public virtual Application? Application { get; set; }

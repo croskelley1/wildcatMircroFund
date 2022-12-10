@@ -27,6 +27,7 @@ namespace wildcatMicroFund.Interfaces
         public IRepository<UserAssignment> UserAssignment { get; }
         public IRepository<EmailTemplate> EmailTemplate { get; }
         public IRepository<ApplicationUser> ApplicationUser { get; }
+        public IRepository<ReadyEmail> ReadyEmail { get; }
 
         //save changes to data source
         void Commit();

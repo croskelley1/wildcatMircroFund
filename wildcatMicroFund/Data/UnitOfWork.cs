@@ -23,7 +23,15 @@ namespace wildcatMicroFund.Data
                 return _Application;
             }
         }
-
+        private IRepository<ReadyEmail> _ReadyEmail;
+        public IRepository<ReadyEmail> ReadyEmail 
+        {
+            get 
+            {
+                _ReadyEmail ??= new Repository<ReadyEmail>(_dbContext);
+                return _ReadyEmail;
+            }
+        }
         private IRepository<ApplicationStatus> _ApplicationStatus;
 
         public IRepository<ApplicationStatus> ApplicationStatus

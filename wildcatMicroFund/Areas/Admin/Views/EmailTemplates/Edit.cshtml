@@ -3,7 +3,7 @@
 <form method="post">
     <div class="border p-3 mt-4">
         <div class="row pb-2">
-            <h2 class="text-primary">Edit Category</h2>
+            <h2 class="text-primary">Edit Template</h2>
             <hr />
         </div>
         @*<div asp-validation-summary="All"></div>*@
@@ -11,6 +11,11 @@
             <label asp-for="EmailTemplateName"></label>
             <input asp-for="EmailTemplateName" class="form-control" />
             <span asp-validation-for="EmailTemplateName" class="text-danger"></span>
+        </div>
+        <div class="mb-3">
+            <label asp-for="TemplateSubject"></label>
+            <input asp-for="TemplateSubject" class="form-control" />
+            <span asp-validation-for="TemplateSubject" class="text-danger"></span>
         </div>
         <div class="mb-3">
             <label asp-for="TemplateContent"></label>

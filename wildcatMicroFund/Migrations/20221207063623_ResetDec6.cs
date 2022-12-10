@@ -5,7 +5,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace wildcatMicroFund.Migrations
 {
-    public partial class Reset : Migration
+    public partial class ResetDec6 : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -149,27 +149,13 @@ namespace wildcatMicroFund.Migrations
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
                     EmailTemplateName = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    TemplateContent = table.Column<string>(type: "nvarchar(max)", nullable: false)
+                    TemplateContent = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    TemplateSubject = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    ModifiedDate = table.Column<DateTime>(type: "datetime2", nullable: false)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_EmailTemplate", x => x.Id);
-                });
-
-            migrationBuilder.CreateTable(
-                name: "Note",
-                columns: table => new
-                {
-                    NoteID = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
-                    NoteContent = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    NoteVisibility = table.Column<int>(type: "int", nullable: false),
-                    NoteInternal = table.Column<bool>(type: "bit", nullable: false),
-                    NoteCreator = table.Column<int>(type: "int", nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_Note", x => x.NoteID);
                 });
 
             migrationBuilder.CreateTable(
@@ -223,21 +209,6 @@ namespace wildcatMicroFund.Migrations
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Question", x => x.Id);
-                });
-
-            migrationBuilder.CreateTable(
-                name: "Response",
-                columns: table => new
-                {
-                    ResponseID = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
-                    SurveyQuestionID = table.Column<int>(type: "int", nullable: false),
-                    AppID = table.Column<int>(type: "int", nullable: false),
-                    Responses = table.Column<string>(type: "nvarchar(max)", nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_Response", x => x.ResponseID);
                 });
 
             migrationBuilder.CreateTable(
@@ -373,6 +344,90 @@ namespace wildcatMicroFund.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "ReadyEmail",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    CreatedDate = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    ReadyEmailEmail = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    ReadyEmailSubject = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    ReadyEmailContent = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    EmailTemplateId = table.Column<int>(type: "int", nullable: false),
+                    UserID = table.Column<string>(type: "nvarchar(450)", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_ReadyEmail", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_ReadyEmail_AspNetUsers_UserID",
+                        column: x => x.UserID,
+                        principalTable: "AspNetUsers",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_ReadyEmail_EmailTemplate_EmailTemplateId",
+                        column: x => x.EmailTemplateId,
+                        principalTable: "EmailTemplate",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "Note",
+                columns: table => new
+                {
+                    NoteID = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    NoteContent = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    NoteVisibility = table.Column<int>(type: "int", nullable: false),
+                    NoteInternal = table.Column<bool>(type: "bit", nullable: false),
+                    NoteCreatorUserId = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    CreatedDate = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    ApplicationId = table.Column<int>(type: "int", nullable: true),
+                    NoteTypeId = table.Column<int>(type: "int", nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Note", x => x.NoteID);
+                    table.ForeignKey(
+                        name: "FK_Note_Application_ApplicationId",
+                        column: x => x.ApplicationId,
+                        principalTable: "Application",
+                        principalColumn: "Id");
+                    table.ForeignKey(
+                        name: "FK_Note_NoteType_NoteTypeId",
+                        column: x => x.NoteTypeId,
+                        principalTable: "NoteType",
+                        principalColumn: "NoteTypeID");
+                });
+
+            migrationBuilder.CreateTable(
+                name: "AssignedQuestion",
+                columns: table => new
+                {
+                    AssignedQuestionId = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    AppQuestionDate = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    QuestionId = table.Column<int>(type: "int", nullable: true),
+                    ApplicationId = table.Column<int>(type: "int", nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_AssignedQuestion", x => x.AssignedQuestionId);
+                    table.ForeignKey(
+                        name: "FK_AssignedQuestion_Application_ApplicationId",
+                        column: x => x.ApplicationId,
+                        principalTable: "Application",
+                        principalColumn: "Id");
+                    table.ForeignKey(
+                        name: "FK_AssignedQuestion_Question_QuestionId",
+                        column: x => x.QuestionId,
+                        principalTable: "Question",
+                        principalColumn: "Id");
+                });
+
+            migrationBuilder.CreateTable(
                 name: "QuestionDetail",
                 columns: table => new
                 {
@@ -455,8 +510,8 @@ namespace wildcatMicroFund.Migrations
                 {
                     UserAssignmentID = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    UserApplicationAssignmentType = table.Column<int>(type: "int", nullable: true),
-                    UserId = table.Column<string>(type: "nvarchar(450)", nullable: true),
+                    UserApplicationAssignmentTypeId = table.Column<int>(type: "int", nullable: true),
+                    ApplicationUserId = table.Column<string>(type: "nvarchar(450)", nullable: true),
                     ApplicationId = table.Column<int>(type: "int", nullable: true)
                 },
                 constraints: table =>
@@ -468,15 +523,34 @@ namespace wildcatMicroFund.Migrations
                         principalTable: "Application",
                         principalColumn: "Id");
                     table.ForeignKey(
-                        name: "FK_UserAssignment_AspNetUsers_UserId",
-                        column: x => x.UserId,
+                        name: "FK_UserAssignment_AspNetUsers_ApplicationUserId",
+                        column: x => x.ApplicationUserId,
                         principalTable: "AspNetUsers",
                         principalColumn: "Id");
                     table.ForeignKey(
-                        name: "FK_UserAssignment_UserApplicationAssignmentType_UserApplicationAssignmentType",
-                        column: x => x.UserApplicationAssignmentType,
+                        name: "FK_UserAssignment_UserApplicationAssignmentType_UserApplicationAssignmentTypeId",
+                        column: x => x.UserApplicationAssignmentTypeId,
                         principalTable: "UserApplicationAssignmentType",
                         principalColumn: "UserApplicationAssignmentTypeId");
+                });
+
+            migrationBuilder.CreateTable(
+                name: "Response",
+                columns: table => new
+                {
+                    ResponseID = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    Responses = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    AssignedQuestionId = table.Column<int>(type: "int", nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Response", x => x.ResponseID);
+                    table.ForeignKey(
+                        name: "FK_Response_AssignedQuestion_AssignedQuestionId",
+                        column: x => x.AssignedQuestionId,
+                        principalTable: "AssignedQuestion",
+                        principalColumn: "AssignedQuestionId");
                 });
 
             migrationBuilder.CreateTable(
@@ -582,6 +656,26 @@ namespace wildcatMicroFund.Migrations
                 filter: "[NormalizedUserName] IS NOT NULL");
 
             migrationBuilder.CreateIndex(
+                name: "IX_AssignedQuestion_ApplicationId",
+                table: "AssignedQuestion",
+                column: "ApplicationId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_AssignedQuestion_QuestionId",
+                table: "AssignedQuestion",
+                column: "QuestionId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Note_ApplicationId",
+                table: "Note",
+                column: "ApplicationId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Note_NoteTypeId",
+                table: "Note",
+                column: "NoteTypeId");
+
+            migrationBuilder.CreateIndex(
                 name: "IX_PitchEventApplication_PitchEventId",
                 table: "PitchEventApplication",
                 column: "PitchEventId");
@@ -607,6 +701,21 @@ namespace wildcatMicroFund.Migrations
                 column: "QuestID");
 
             migrationBuilder.CreateIndex(
+                name: "IX_ReadyEmail_EmailTemplateId",
+                table: "ReadyEmail",
+                column: "EmailTemplateId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_ReadyEmail_UserID",
+                table: "ReadyEmail",
+                column: "UserID");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Response_AssignedQuestionId",
+                table: "Response",
+                column: "AssignedQuestionId");
+
+            migrationBuilder.CreateIndex(
                 name: "IX_Score_PitchEventApplicationId",
                 table: "Score",
                 column: "PitchEventApplicationId");
@@ -622,14 +731,14 @@ namespace wildcatMicroFund.Migrations
                 column: "ApplicationId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_UserAssignment_UserApplicationAssignmentType",
+                name: "IX_UserAssignment_ApplicationUserId",
                 table: "UserAssignment",
-                column: "UserApplicationAssignmentType");
+                column: "ApplicationUserId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_UserAssignment_UserId",
+                name: "IX_UserAssignment_UserApplicationAssignmentTypeId",
                 table: "UserAssignment",
-                column: "UserId");
+                column: "UserApplicationAssignmentTypeId");
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)
@@ -668,19 +777,16 @@ namespace wildcatMicroFund.Migrations
                 name: "DocumentType");
 
             migrationBuilder.DropTable(
-                name: "EmailTemplate");
-
-            migrationBuilder.DropTable(
                 name: "Note");
-
-            migrationBuilder.DropTable(
-                name: "NoteType");
 
             migrationBuilder.DropTable(
                 name: "QuestionDetail");
 
             migrationBuilder.DropTable(
                 name: "QuestionUse");
+
+            migrationBuilder.DropTable(
+                name: "ReadyEmail");
 
             migrationBuilder.DropTable(
                 name: "Score");
@@ -692,10 +798,13 @@ namespace wildcatMicroFund.Migrations
                 name: "AspNetRoles");
 
             migrationBuilder.DropTable(
+                name: "NoteType");
+
+            migrationBuilder.DropTable(
                 name: "QCategory");
 
             migrationBuilder.DropTable(
-                name: "Question");
+                name: "EmailTemplate");
 
             migrationBuilder.DropTable(
                 name: "PitchEventApplication");
@@ -710,13 +819,19 @@ namespace wildcatMicroFund.Migrations
                 name: "UserAssignment");
 
             migrationBuilder.DropTable(
-                name: "Application");
+                name: "AssignedQuestion");
 
             migrationBuilder.DropTable(
                 name: "AspNetUsers");
 
             migrationBuilder.DropTable(
                 name: "UserApplicationAssignmentType");
+
+            migrationBuilder.DropTable(
+                name: "Application");
+
+            migrationBuilder.DropTable(
+                name: "Question");
         }
     }
 }

@@ -1,0 +1,45 @@
+﻿@model ReadyEmail
+
+<form method="post">
+    <div class="border p-3 mt-4">
+        <div class="row pb-2">
+            <h2 class="text-primary">Edit Template</h2>
+            <hr />
+        </div>
+        @Html.HiddenFor(m => m.EmailTemplateId)
+        @Html.HiddenFor(m => m.UserID)
+        @*<div asp-validation-summary="All"></div>*@
+        <div class="mb-3">
+            <label asp-for="ReadyEmailEmail"></label>
+            <input asp-for="ReadyEmailEmail" class="form-control" />
+            <span asp-validation-for="ReadyEmailEmail" class="text-danger"></span>
+        </div>
+        <div class="mb-3">
+            <label asp-for="ReadyEmailSubject"></label>
+            <input asp-for="ReadyEmailSubject" class="form-control" />
+            <span asp-validation-for="ReadyEmailSubject" class="text-danger"></span>
+        </div>
+        <div class="mb-3">
+            <label asp-for="ReadyEmailContent"></label>
+            @*<input asp-for="TemplateContent" class="form-control" />*@
+            <textarea id="mytextarea" class="form-control" style="height:200px;" asp-for="ReadyEmailContent"></textarea>
+            <span asp-validation-for="ReadyEmailContent" class="text-danger"></span>
+        </div>
+        <button type="submit" class="btn btn-primary" style="width:150px">Update</button>
+        <a asp-controller="ReadyEmails" asp-action="Index" class="btn btn-secondary" style="width:150px">
+            Back to List
+        </a>
+    </div>
+</form>
+
+@section Scripts{
+    @{
+        <partial name="_ValidationScriptsPartial" />
+                    <script>
+      tinymce.init({
+        selector: '#mytextarea'
+      });
+    </script>
+    }
+    }
+    
