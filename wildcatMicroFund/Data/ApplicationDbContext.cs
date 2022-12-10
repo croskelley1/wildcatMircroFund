@@ -8,6 +8,7 @@ namespace wildcatMicroFund.Data
     {
         public DbSet<Application> Application { get; set; }
         public DbSet<ApplicationStatus> ApplicationStatus { get; set; }
+        public DbSet<AssignedQuestion> AssignedQuestion { get; set; }
         public DbSet<Availability> Availability { get; set; }
         public DbSet<Award> Award { get; set; }
         public DbSet<AwardType> AwardType { get; set; }

@@ -11,16 +11,15 @@ namespace wildcatMicroFund.Models
         public string? UserID { get; set; }
 
         [Display(Name = "Score")]
-        [Range(1, 10, ErrorMessage = "Score must be from 1 to 10.")]
-        public double ScoreValue { get; set; }
+        public int ScoreValue { get; set; }
 
         [Display(Name = "Score Comments")]
         public string? ScoreComments { get; set; }
         
-        [ForeignKey("PitchEventApplicationId")]
-        public virtual PitchEventApplication PitchEventApplication { get; set; }
+        //[ForeignKey("PitchEventApplicationId")]
+        //public virtual PitchEventApplication PitchEventApplication { get; set; }
 
-        [ForeignKey("ResponseId")]
-        public virtual Response Response { get; set; }
+        [ForeignKey("AssignedQuestionId")]
+        public virtual AssignedQuestion AssignedQuestion { get; set; }
     }
 }

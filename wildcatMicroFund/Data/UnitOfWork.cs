@@ -41,7 +41,18 @@ namespace wildcatMicroFund.Data
                 _ApplicationStatus ??= new Repository<ApplicationStatus>(_dbContext);
                 return _ApplicationStatus;
             }
-        }     
+        }
+
+        private IRepository<AssignedQuestion> _AssignedQuestion;
+
+        public IRepository<AssignedQuestion> AssignedQuestion
+        {
+            get
+            {
+                _AssignedQuestion ??= new Repository<AssignedQuestion>(_dbContext);
+                return _AssignedQuestion;
+            }
+        }
 
         private IRepository<Availability> _Availability;
 

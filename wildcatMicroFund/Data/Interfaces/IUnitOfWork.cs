@@ -7,6 +7,7 @@ namespace wildcatMicroFund.Interfaces
         //Data Accessors
         public IRepository<Application> Application { get; }
         public IRepository<ApplicationStatus> ApplicationStatus { get; }
+        public IRepository<AssignedQuestion> AssignedQuestion { get; }
         public IRepository<Availability> Availability { get; }
         public IRepository<Award> Award { get; }
         public IRepository<AwardType> AwardType { get; }

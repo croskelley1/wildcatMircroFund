@@ -11,9 +11,9 @@ namespace wildcatMicroFund.Models
 
         public DateTime AppQuestionDate { get; set; }
 
-        [ForeignKey("QuestionId")]
-        public virtual Question? Question { get; set; }
+        [ForeignKey("QuestionUseId")]
+        public virtual QuestionUse? QuestionUse { get; set; }
         [ForeignKey("ApplicationId")]
-        public virtual Application? Application { get; set; }  
+        public virtual Application? Application { get; set; }
     }
 }
