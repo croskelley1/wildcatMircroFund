@@ -1,4 +1,5 @@
 using System.Linq.Expressions;
+using wildcatMicroFund.Models;
 
 namespace wildcatMicroFund.Interfaces
 {
@@ -43,6 +44,8 @@ namespace wildcatMicroFund.Interfaces
 
         // Updates all changes to an object
         void Update(T entity);
+        // Returns an Initialized version of ReadyEmail
+        string InitializeEmail(ReadyEmail em);
 
     }
 }

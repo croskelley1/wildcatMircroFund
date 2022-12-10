@@ -35,6 +35,7 @@ public class AdminReviewApplicationsController : Controller
 
         ReviewApplicationObj = new ReviewApplicationVM
         {
+            AssignedUsers = _unitOfWork.UserAssignment.List(u => u.Application.Id == appId, u => u.Application.Id, "Application,ApplicationUser,UserApplicationAssignmentType"),
             ReviewApplication = new ApplicationStatus(),            
             Application = _unitOfWork.Application.Get(a => a.Id == appId),
             Status = _unitOfWork.Status.Get(s => s.StatusID == id),
