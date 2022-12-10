@@ -3,61 +3,38 @@
 *@
 @model wildcatMicroFund.Areas.Judge.ViewModels.PitchCriteriaVM
 @{
-    ViewData["Title"] = "Question";
+	ViewData["Title"] = "Question";
 }
 
+<form method="post" asp-controller="PitchCriteria" asp-action="PitchCriteria" enctype="multipart/form-data">
+	<div class="container p-3">
+		<div class="row pt-4">
+			<div class="col-12">
+				<h1 class="text-primary">Pitch Judging Criteria for Application ID: @Model.appID</h1>
+			</div>
+		</div>
+		<br /><br />
 
-<div class="container p-3">
-    <div class="row pt-4">
-        <div class="col-12">
-            <h1 class="text-primary">Pitch Judging Criteria for Application ID: @Model.appID</h1>
-        </div>
-    </div>
-    <br /><br />
+		@foreach (var question in Model.QuestionUseList @*Model.QuestionList*@)
+		{
+			<div class="row container pb-3 backgroundWhite border rounded my-3">
+				<h2>@question.Question.QuestionSummary</h2>
 
-    @foreach (var question in Model.QuestionUseList @*Model.QuestionList*@)
-    {
-        <div class="row container pb-3 backgroundWhite border rounded my-3">
-            <h2>@question.Question.QuestionSummary</h2>
-
-            @* I WAS GOING TO ITERATE THROUGH THE LIST OF QUESTION DETAILS, BUT IT CAN'T MAKE THE QUERY AS IS. NEED TO LOOK AT THE CONTROLLER AND MAKE OUR INDEX LOOK MORE LIKE DEMO/AREAS/'*@
-
-            <div>
-                @foreach (var detail in Model.QuestionDetailList.Where(d => d.Question.Id == question.Question.Id))
-                {
-                    <div class="ml-4"><h4>&emsp;- @detail.QuestionDetailInfo</h4></div>
-                }
-            </div>
-            <p>Enter score out of @question.QuestPointValue points: <input type="text"/> </p>
-        </div>
-    }
-
-
-    @*<table class="table table-bordered table-striped" style="width:100%">
-        <thead>
-            <tr>
-                <th>
-                    Question
-                </th>
-                <th>
-                    Am I needed??
-                </th>
-                <th></th>
-            </tr>
-        </thead>
-        <tbody>
-            @foreach (var obj in Model)
-            {
-                <tr>
-                    <td width="50%">
-                        @obj.Question.QuestionSummary;
-                    </td>
-                    <td width="30%">
-                        
-                    </td>
-                </tr>
-            }
-        </tbody>
-
-    </table>*@
-</div>
+				<div>
+					@foreach (var detail in Model.QuestionDetailList.Where(d => d.Question.Id == question.Question.Id))
+					{
+						<div class="ml-4"><h4>&emsp;- @detail.QuestionDetailInfo</h4></div>
+					}
+				</div>
+				
+				<p>Enter score out of @question.QuestPointValue points: <input type="text" name="Quest_@question.Question.Id"/> </p>
+			</div>
+			<div hidden>
+				<input readonly value="@question.QuestionUseID" name="qu_@question.QuestionUseID" />
+			</div>
+		}
+		<input hidden readonly asp-for="appID" />
+		
+		<button type="submit" class="btn btn-primary form-control">Submit</button>
+	</div>
+</form>

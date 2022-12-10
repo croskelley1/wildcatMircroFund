@@ -16,7 +16,8 @@ public class PitchCriteriaController : Controller
         _unitOfWork = unitOfWork;
     }
 
-    public ViewResult PitchCriteria(int AppID) // Capture the passed ID
+    [HttpGet]
+    public IActionResult PitchCriteria(int AppID) // Capture the passed ID
     {
         //IEnumerable<QuestionUse> PitchJudgeCriteriaList = _unitOfWork.QuestionUse.List(u => u.QCategory.QCategoryID == 4, u => u.QuestionUseID, "Question,QCategory"); //_unitOfWork is the database, Applications is the table, GetAll puts rows in a list
         //return View(PitchJudgeCriteriaList);
@@ -37,6 +38,16 @@ public class PitchCriteriaController : Controller
         };
 
         return View(PitchJudgeCriteriaList);
+    }
+
+    [HttpPost]
+    public IActionResult PitchCriteria(int Quest_1, int Quest_2, int Quest_3, int Quest_4, int Quest_5, int qu_1, int qu_2, int qu_3, int qu_4, int qu_5)
+    {
+        //var assignedQuestion = new AssignedQuestion
+
+
+
+        return RedirectToAction("PitchSelection");
     }
 }
 
