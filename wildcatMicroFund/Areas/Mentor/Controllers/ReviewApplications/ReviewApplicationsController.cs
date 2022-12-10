@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Identity.UI.Services;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using System.Linq;
 using System.Security.Claims;
@@ -16,10 +17,12 @@ public class ReviewApplicationsController : Controller
 
     private readonly IUnitOfWork _unitOfWork;
     private readonly IWebHostEnvironment _hostEnvironment;
-    public ReviewApplicationsController(IUnitOfWork unitOfWork, IWebHostEnvironment hostEnvironment)//Dependency Injection & path to wwwroot folder
+    private readonly IEmailSender _emailSender;
+    public ReviewApplicationsController(IUnitOfWork unitOfWork, IWebHostEnvironment hostEnvironment, IEmailSender emailSender)//Dependency Injection & path to wwwroot folder
     {
         _unitOfWork = unitOfWork;
         _hostEnvironment = hostEnvironment;
+        _emailSender = emailSender;
     }
 
 
@@ -78,6 +81,14 @@ public class ReviewApplicationsController : Controller
         _unitOfWork.ApplicationStatus.Update(ReviewApplicationObj.ReviewApplication);
 
         _unitOfWork.Commit();
+
+        // Send an email
+        var appInfo = _unitOfWork.Application.GetById(ReviewApplicationObj.ReviewApplication.ApplicationId);
+        var newStatus = ReviewApplicationObj.ReviewApplication.StatusId;
+        if (newStatus == 4)
+        {
+            _emailSender.SendEmailAsync("wildcatmicrofund@yahoo.com", "Application Ready To Pitch", "The " + appInfo.CompanyName + " application is now ready for pitch event assignment.\nReview applications here:\nhttp://wildcatmicrofund-001-site1.gtempurl.com/Admin/AdminReviewApplications");
+        }
         return RedirectToAction("Index");
     }
 }

@@ -1,17 +1,22 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Identity.UI.Services;
+using Microsoft.AspNetCore.Mvc;
 using System.Diagnostics;
 using System.Security.Claims;
+using wildcatMicroFund.Areas.Admin.ViewModels;
 using wildcatMicroFund.Interfaces;
 using wildcatMicroFund.Models;
+using wildcatMicroFund.Utilities;
 
 [Area("Entrepreneur")]
 public class NewApplicationController : Controller
 {
     private readonly IUnitOfWork _unitOfWork;
+    private readonly IEmailSender _emailSender;
 
-    public NewApplicationController(IUnitOfWork unitOfWork)//Dependency Injection
+    public NewApplicationController(IUnitOfWork unitOfWork, IEmailSender emailSender)//Dependency Injection
     {
         _unitOfWork = unitOfWork;
+        _emailSender = emailSender;
 
     }
 
@@ -65,6 +70,9 @@ public class NewApplicationController : Controller
 
             _unitOfWork.Commit(); //physical commit to DB table
             TempData["success"] = "Application created Successfully";
+
+            // Send an email
+            _emailSender.SendEmailAsync("wildcatmicrofund@yahoo.com", "New Application Submitted", "A new application for " + obj.CompanyName + " has been submitted.\nReview applications here:\nhttp://wildcatmicrofund-001-site1.gtempurl.com/Admin/AdminReviewApplications");
             return RedirectToAction("Index");
         }
         return View(obj);
