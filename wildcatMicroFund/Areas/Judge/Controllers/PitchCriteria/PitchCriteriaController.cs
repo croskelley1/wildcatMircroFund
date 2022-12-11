@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Identity.UI.Services;
+using Microsoft.AspNetCore.Mvc;
 using System.Collections.Generic;
 using System.Security.Claims;
 using wildcatMicroFund.Areas.Judge.ViewModels;
@@ -8,13 +9,31 @@ using wildcatMicroFund.Models;
 [Area("Judge")]
 public class PitchCriteriaController : Controller
 {
-
+    private readonly IEmailSender _emailSender;
     private readonly IUnitOfWork _unitOfWork;
     public PitchCriteriaVM PitchJudgeCriteriaList { get; set; }
+    public ScoredAppVM ScoredAppVM { get; set; }
 
-    public PitchCriteriaController(IUnitOfWork unitOfWork)//Dependency Injection
+    public PitchCriteriaController(IUnitOfWork unitOfWork, IEmailSender emailSender)//Dependency Injection
     {
+        _emailSender = emailSender;
         _unitOfWork = unitOfWork;
+    }
+
+    public ViewResult ScoredApp(int AppID)
+    {
+        ScoredAppVM = new ScoredAppVM
+        {
+            appID = AppID,
+            Application = _unitOfWork.Application.GetById(AppID),
+            AssignedQuestions = _unitOfWork.AssignedQuestion.List(a => a.Application.Id == AppID, null, "QuestionUse,Application"),
+            Score = _unitOfWork.Score.List(),
+            QuestionUseList = _unitOfWork.QuestionUse.List(u => u.QCategory.QCategoryID == 4, u => u.QuestDisplayOrder, "Question,QCategory"),
+            QuestionDetailList = _unitOfWork.QuestionDetail.List(null, null, "Question")
+
+        };
+
+        return View(ScoredAppVM);
     }
 
     [HttpGet]
@@ -140,10 +159,13 @@ public class PitchCriteriaController : Controller
 
         _unitOfWork.Commit();
 
+        var routeValues = new RouteValueDictionary {
+          { "AppID", appID}
+        };
 
+        _emailSender.SendEmailAsync("wildcatmicrofund@yahoo.com", "Application Judged", "An application for " + app.CompanyName + " has been Judged. Sorry we don't have a link.  :D ");
 
-
-        return RedirectToAction("PitchSelection");
+        return RedirectToAction("ScoredApp", routeValues);
     }
 }
 
