@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Mvc;
 using System.Diagnostics;
 using System.Security.Claims;
 using wildcatMicroFund.Areas.Admin.ViewModels;
+using wildcatMicroFund.Areas.Entrepreneur.ViewModels;
 using wildcatMicroFund.Interfaces;
 using wildcatMicroFund.Models;
 using wildcatMicroFund.Utilities;
@@ -12,7 +13,7 @@ public class NewApplicationController : Controller
 {
     private readonly IUnitOfWork _unitOfWork;
     private readonly IEmailSender _emailSender;
-
+    public AppStatusVM AppStatusVM { get; set; }
     public NewApplicationController(IUnitOfWork unitOfWork, IEmailSender emailSender)//Dependency Injection
     {
         _unitOfWork = unitOfWork;
@@ -24,9 +25,14 @@ public class NewApplicationController : Controller
     {
         var claimID = (ClaimsIdentity)User.Identity;
         var claim = claimID.FindFirst(ClaimTypes.NameIdentifier);
-        
-        var appList = _unitOfWork.UserAssignment.List(a => a.ApplicationUser.Id == claim.Value, a => a.UserAssignmentID, "Application");
-        return View(appList);
+
+        // var appList = _unitOfWork.UserAssignment.List(a => a.ApplicationUser.Id == claim.Value, a => a.UserAssignmentID, "Application");
+        AppStatusVM = new AppStatusVM
+        {
+            userAssignments = _unitOfWork.UserAssignment.List(a => a.ApplicationUser.Id == claim.Value, a => a.UserAssignmentID, "Application"),
+            status = _unitOfWork.Status.List(null, null, null)
+        };
+        return View(AppStatusVM);
 
     }
 

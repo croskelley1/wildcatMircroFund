@@ -8,8 +8,7 @@ namespace wildcatMicroFund.Areas.Entrepreneur.ViewModels
     /// </summary>
     public class AppStatusVM
     {
-        public IEnumerable<Application>? applications { get; set; }
         public IEnumerable<UserAssignment>? userAssignments { get; set; }
-        public IEnumerable<SelectListItem>? statusDesc { get; set; }
+        public IEnumerable<Status>? status{ get; set; }
     }
 }
