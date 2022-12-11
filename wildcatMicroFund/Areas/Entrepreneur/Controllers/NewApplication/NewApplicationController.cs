@@ -84,4 +84,71 @@ public class NewApplicationController : Controller
         }
         return View(obj);
     }
+
+    [HttpGet]
+    public IActionResult FillApp()
+    {
+
+        return View();
+    }
+
+    [HttpPost]    
+    public IActionResult FillApp(IntakeApplicationVM iA) //iA short for intakeApplication
+    {
+
+        if (ModelState.IsValid)
+        {
+            // User data
+            var claimID = (ClaimsIdentity)User.Identity;
+            var claim = claimID.FindFirst(ClaimTypes.NameIdentifier);
+            var user = new ApplicationUser();
+            user = _unitOfWork.ApplicationUser.Get(a => a.Id == claim.Value);
+
+            //Validate plain Application object
+            iA.Application.CreatedDate = DateTime.Now;
+            iA.Application.AppStatus = _unitOfWork.Status.Get(a => a.StatusID == 1).StatusID;  // sets the Application Status as 'submitted'
+
+            _unitOfWork.Application.Add(iA.Application); //internal add
+
+            // New UserAssignment entry created to tie Application and User
+            var _UserAssignment = new UserAssignment();
+            _UserAssignment.Application = _unitOfWork.Application.Get(a => a.CompanyName == iA.Application.CompanyName && a.CreatedDate == iA.Application.CreatedDate); // Get ApplicationID from application table
+            _UserAssignment.ApplicationUser = _unitOfWork.ApplicationUser.Get(a => a.Id == claim.Value);   // Get User object from users table
+            _UserAssignment.UserApplicationAssignmentType = _unitOfWork.UserApplicationAssignmentType.GetById(4);   // Set App assignment type to Entrepreneur
+
+            _unitOfWork.UserAssignment.Add(_UserAssignment); // internal add
+
+            // Inserting new entry into ApplicationStatus table
+            var _AppStatus = new ApplicationStatus();
+            _AppStatus.UserID = claim.Value;    // This takes just a userID instead of a user object, so claim.Value is just used here
+            _AppStatus.ApplicationId = _UserAssignment.Application.Id;   // Pull Application ID from _UserAssignment since already queried
+            _AppStatus.StatusId = iA.Application.AppStatus;    // Already pulled statusID for obj...
+            _AppStatus.StatusDate = iA.Application.CreatedDate;   // pretty self explanitory...
+
+            _unitOfWork.ApplicationStatus.Add(_AppStatus);
+
+
+            iA.Question1.applicationId = _UserAssignment.Application.Id;
+            iA.Question2.applicationId = _UserAssignment.Application.Id;
+            iA.Question3.applicationId = _UserAssignment.Application.Id;
+            iA.Question4.applicationId = _UserAssignment.Application.Id;
+            iA.Question5.applicationId = _UserAssignment.Application.Id;
+
+            _unitOfWork.Response.Add(iA.Question1);
+            _unitOfWork.Response.Add(iA.Question2);
+            _unitOfWork.Response.Add(iA.Question3);
+            _unitOfWork.Response.Add(iA.Question4);
+            _unitOfWork.Response.Add(iA.Question5);
+
+            _unitOfWork.Commit(); //physical commit to DB table
+            TempData["success"] = 1;
+
+            // Send an email
+            
+            _emailSender.SendEmailAsync("wildcatmicrofund@yahoo.com", "[WMF] Received a new application", " < p>" + user.FullName + "submitted a new WMF application.&nbsp;</p>\r\n<p>Review all applications here:&nbsp;</p>\r\n<p>http://wildcatmicrofund-001-site1.gtempurl.com/Admin/AdminReviewApplications</p>");
+            return RedirectToAction("Index");
+        }
+        TempData["success"] = 0;
+        return RedirectToAction("Index");
+    }
 }
