@@ -36,10 +36,11 @@ public class AdminReviewApplicationsController : Controller
         ReviewApplicationObj = new ReviewApplicationVM
         {
             AssignedUsers = _unitOfWork.UserAssignment.List(u => u.Application.Id == appId, u => u.Application.Id, "Application,ApplicationUser,UserApplicationAssignmentType"),
-            ReviewApplication = new ApplicationStatus(),            
+            ReviewApplication = new ApplicationStatus(),
             Application = _unitOfWork.Application.Get(a => a.Id == appId),
             Status = _unitOfWork.Status.Get(s => s.StatusID == id),
-            StatusList = stati.Select(f => new SelectListItem { Value = f.StatusID.ToString(), Text = f.StatusDesc })
+            StatusList = stati.Select(f => new SelectListItem { Value = f.StatusID.ToString(), Text = f.StatusDesc }),
+            Responses = _unitOfWork.Response.List(r => r.applicationId == appId, null, null)
         };
 
         if (id != null)

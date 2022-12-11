@@ -10,8 +10,8 @@
             <div class="col-12 px-3" style="border-bottom:1px solid #325d88">
                 <h2 class="text-primary">Update Application - @Model.Application.CompanyName</h2>
             </div>
-            <div class="col-11 pt-3 offset-1">
-                <div class="form-group row m-2">
+            <div class="col-10 pt-3 offset-2">
+                <div class="form-group row">
                     <div class="col-4">
                         <h4>Company Name:</h4>
                     </div>
@@ -21,7 +21,7 @@
                 </div>
                 @foreach (var user in Model.AssignedUsers)
                 {
-                    <div class="form-group row m-2">
+                    <div class="form-group row">
                         <div class="col-4">
                             <h4>@user.UserApplicationAssignmentType.UserApplicationAssignmentDesc Name:</h4>
                         </div>
@@ -30,6 +30,43 @@
                         </div>
                     </div>
                 }
+
+
+                <div class="form-group row mt-2 border-top">
+                    <div class="col-6">
+                        <div class="row">
+                            <h5>
+                                What is the status of your business?
+                            </h5>
+                        </div>
+                        <div class="row">
+                            <h5>
+                                Tell us about your product/service.
+                            </h5>
+                        </div>
+                        <div class="row">
+                            <h5>
+                                What industry is your business in?
+                            </h5>
+                        </div>
+                        <div class="row">
+                            <h5>Do you have a website?</h5>
+                        </div>
+                        <div class="row">
+                            <h5>
+                                Do you have a Prototype?
+                            </h5>
+                        </div>
+                    </div>
+                    <div class="col-6">
+                        @foreach(var answer in Model.Responses)
+                        {
+                            <div class="row">
+                                <h5>@answer.Responses</h5>
+                            </div>
+                        }
+                    </div>
+                </div>
                 
                 <div class="form-group row ">
                     <div class="col-9">
@@ -53,18 +90,7 @@
                         <span class="text-danger" asp-validation-for="ReviewApplication.StatusId"></span>
                     </div>
                 </div>
-                @*<div class="form-group row m-2">
-                    <div class="col-4">
-                        <label asp-for="UserAssignment.ApplicationUser"></label>
-                    </div>
-                    <div class="col-5">
-                        @Html.DropDownListFor(m => m.UserAssignment.ApplicationUser,
-                        Model.MentorList,
-                        " - Please select a new mentor - ",
-                        new { @class = "form-control", @id="ddlUserAssignment" })
-                        <span class="text-danger" asp-validation-for="UserAssignment.ApplicationUser"></span>
-                    </div>
-                </div>*@
+                
                 <div class="form-group row m-2">
                     <div class="col-12" style="border-top:1px solid #325d88">
                         <div class="row m-2">
@@ -81,7 +107,8 @@
                         </div>
                     </div>
                 </div>
-            </>
+            
+            </div>
         </div>
     </div>
 </form>
