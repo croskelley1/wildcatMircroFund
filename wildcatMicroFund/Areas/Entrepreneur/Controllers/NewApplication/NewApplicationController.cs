@@ -4,6 +4,7 @@ using System.Diagnostics;
 using System.Security.Claims;
 using wildcatMicroFund.Areas.Admin.ViewModels;
 using wildcatMicroFund.Areas.Entrepreneur.ViewModels;
+using wildcatMicroFund.Data;
 using wildcatMicroFund.Interfaces;
 using wildcatMicroFund.Models;
 using wildcatMicroFund.Utilities;
@@ -14,11 +15,11 @@ public class NewApplicationController : Controller
     private readonly IUnitOfWork _unitOfWork;
     private readonly IEmailSender _emailSender;
     public AppStatusVM AppStatusVM { get; set; }
+    public ApplicationFormVM AppFormVM { get; set; }
     public NewApplicationController(IUnitOfWork unitOfWork, IEmailSender emailSender)//Dependency Injection
     {
         _unitOfWork = unitOfWork;
         _emailSender = emailSender;
-
     }
 
     public ViewResult Index()
@@ -33,17 +34,29 @@ public class NewApplicationController : Controller
             status = _unitOfWork.Status.List(null, null, null)
         };
         return View(AppStatusVM);
-
     }
 
     public ViewResult ApplicationForm()
     {
-        return View();
+        AppFormVM = new ApplicationFormVM
+        {
+            Questions = _unitOfWork.Question.List(),
+            QCategories = _unitOfWork.QCategory.List(),
+            QuestionUses = _unitOfWork.QuestionUse.List(),
+            QuestionDetails = _unitOfWork.QuestionDetail.List()
+        };
+        return View(AppFormVM);
     }
 
+    /// <summary>
+    /// Creates new entries in the database tables for Application, User Assignments, and App Status. 
+    /// Also stores user answered questions from the form in a, for now, unknown table. 
+    /// </summary>
+    /// <param name="obj">ApplicationFormVM object</param>
+    /// <returns></returns>
     [HttpPost]
     [ValidateAntiForgeryToken]
-    public IActionResult Create(Application obj)
+    public IActionResult Create(ApplicationFormVM obj)
     {
 
         if (ModelState.IsValid)
@@ -52,13 +65,13 @@ public class NewApplicationController : Controller
             var claimID = (ClaimsIdentity)User.Identity;
             var claim = claimID.FindFirst(ClaimTypes.NameIdentifier);
 
-            obj.AppStatus = _unitOfWork.Status.Get(a => a.StatusID == 1).StatusID;  // sets the Application Status as 'submitted'
+            obj.Application.AppStatus = _unitOfWork.Status.Get(a => a.StatusID == 1).StatusID;  // sets the Application Status as 'submitted'
             
-            _unitOfWork.Application.Add(obj); //internal add
+            _unitOfWork.Application.Add(obj.Application); //internal add
 
             // New UserAssignment entry created to tie Application and User
             var _UserAssignment = new UserAssignment();
-            _UserAssignment.Application = _unitOfWork.Application.Get(a => a.CompanyName == obj.CompanyName && a.CreatedDate == obj.CreatedDate); // Get ApplicationID from application table
+            _UserAssignment.Application = _unitOfWork.Application.Get(a => a.CompanyName == obj.Application.CompanyName && a.CreatedDate == obj.Application.CreatedDate); // Get ApplicationID from application table
             _UserAssignment.ApplicationUser = _unitOfWork.ApplicationUser.Get(a => a.Id == claim.Value);   // Get User object from users table
             _UserAssignment.UserApplicationAssignmentType = _unitOfWork.UserApplicationAssignmentType.GetById(4);   // Set App assignment type to Entrepreneur
 
@@ -68,7 +81,7 @@ public class NewApplicationController : Controller
             var _AppStatus = new ApplicationStatus();
             _AppStatus.UserID = claim.Value;    // This takes just a userID instead of a user object, so claim.Value is just used here
             _AppStatus.ApplicationId = _UserAssignment.Application.Id;   // Pull Application ID from _UserAssignment since already queried
-            _AppStatus.StatusId = obj.AppStatus;    // Already pulled statusID for obj...
+            _AppStatus.StatusId = obj.Application.AppStatus;    // Already pulled statusID for obj...
             _AppStatus.StatusDate = DateTime.Now;   // pretty self explanitory...
 
             _unitOfWork.ApplicationStatus.Add(_AppStatus);
@@ -78,7 +91,7 @@ public class NewApplicationController : Controller
             TempData["success"] = "Application created Successfully";
 
             // Send an email
-            _emailSender.SendEmailAsync("wildcatmicrofund@yahoo.com", "New Application Submitted", "A new application for " + obj.CompanyName + " has been submitted.\nReview applications here:\nhttp://wildcatmicrofund-001-site1.gtempurl.com/Admin/AdminReviewApplications");
+            _emailSender.SendEmailAsync("wildcatmicrofund@yahoo.com", "New Application Submitted", "A new application for " + obj.Application.CompanyName + " has been submitted.\nReview applications here:\nhttp://wildcatmicrofund-001-site1.gtempurl.com/Admin/AdminReviewApplications");
             return RedirectToAction("Index");
         }
         return View(obj);
