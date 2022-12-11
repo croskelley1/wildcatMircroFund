@@ -23,9 +23,7 @@
     <table class="table table-bordered table-striped" style="width:100%">
         <thead>
             <tr>
-                <th>Application</th>
-                <th>Entrepreneur</th>
-                <th>Mentor</th>
+                <th>Application</th>                
                 <th>Status</th>
                 <th></th>
             </tr>
@@ -35,11 +33,7 @@
             {
                 <tr class="info-row status-@{WriteLiteral(@obj.Status.StatusDesc.ToLower().Replace(' ', '-'));}">
                     <td>@obj.Application.CompanyName</td>
-
-                    <td>@*Entrepreneur Name Here*@</td>
-
-                    <td>@*Mentor Name Here*@</td>
-
+                                        
                     <td style="width:0px; white-space:nowrap;">
                         @if (@obj.Status.StatusDesc == "Submitted") @*Highlight whatever statuses you want here*@
                         {

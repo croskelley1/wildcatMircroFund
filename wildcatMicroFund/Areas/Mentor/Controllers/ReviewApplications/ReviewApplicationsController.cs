@@ -87,7 +87,7 @@ public class ReviewApplicationsController : Controller
         var newStatus = ReviewApplicationObj.ReviewApplication.StatusId;
         if (newStatus == 4)
         {
-            _emailSender.SendEmailAsync("wildcatmicrofund@yahoo.com", "Application Ready To Pitch", "The " + appInfo.CompanyName + " application is now ready for pitch event assignment.\nReview applications here:\nhttp://wildcatmicrofund-001-site1.gtempurl.com/Admin/AdminReviewApplications");
+            _emailSender.SendEmailAsync("wildcatmicrofund@yahoo.com", "[WMF] Application Ready for Pitch Event", "<p>The " + appInfo.CompanyName + " application is now ready for pitch event assignment.</p>&nbsp;<p>Review applications here:&nbsp;</p><p>http://wildcatmicrofund-001-site1.gtempurl.com/Admin/AdminReviewApplications</p>");
         }
         return RedirectToAction("Index");
     }

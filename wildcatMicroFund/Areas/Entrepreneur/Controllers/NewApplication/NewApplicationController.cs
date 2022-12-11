@@ -45,6 +45,8 @@ public class NewApplicationController : Controller
             // User data
             var claimID = (ClaimsIdentity)User.Identity;
             var claim = claimID.FindFirst(ClaimTypes.NameIdentifier);
+            var user = new ApplicationUser();
+            user = _unitOfWork.ApplicationUser.Get(a => a.Id == claim.Value);
 
             obj.AppStatus = _unitOfWork.Status.Get(a => a.StatusID == 1).StatusID;  // sets the Application Status as 'submitted'
             
@@ -68,11 +70,16 @@ public class NewApplicationController : Controller
             _unitOfWork.ApplicationStatus.Add(_AppStatus);
 
 
+            var submissionEmail = new EmailTemplate();
+            submissionEmail = _unitOfWork.EmailTemplate.Get(e => e.TemplateSubject == "[WMF] Received a new application");
+
+
+
             _unitOfWork.Commit(); //physical commit to DB table
             TempData["success"] = "Application created Successfully";
 
             // Send an email
-            _emailSender.SendEmailAsync("wildcatmicrofund@yahoo.com", "New Application Submitted", "A new application for " + obj.CompanyName + " has been submitted.\nReview applications here:\nhttp://wildcatmicrofund-001-site1.gtempurl.com/Admin/AdminReviewApplications");
+            _emailSender.SendEmailAsync("wildcatmicrofund@yahoo.com", submissionEmail.TemplateSubject, "<p>" + user.FullName +"submitted a new WMF application.&nbsp;</p>\r\n<p>Review all applications here:&nbsp;</p>\r\n<p>http://wildcatmicrofund-001-site1.gtempurl.com/Admin/AdminReviewApplications</p>");
             return RedirectToAction("Index");
         }
         return View(obj);
