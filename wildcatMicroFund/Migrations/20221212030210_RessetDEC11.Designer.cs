@@ -12,8 +12,8 @@ using wildcatMicroFund.Data;
 namespace wildcatMicroFund.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20221210211153_AssignedQuestionScoreUpdate")]
-    partial class AssignedQuestionScoreUpdate
+    [Migration("20221212030210_RessetDEC11")]
+    partial class RessetDEC11
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -681,6 +681,9 @@ namespace wildcatMicroFund.Migrations
                     b.Property<string>("Responses")
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<int>("applicationId")
+                        .HasColumnType("int");
+
                     b.HasKey("ResponseID");
 
                     b.HasIndex("AssignedQuestionId");
@@ -707,6 +710,9 @@ namespace wildcatMicroFund.Migrations
 
                     b.Property<string>("UserID")
                         .HasColumnType("nvarchar(max)");
+
+                    b.Property<int?>("applicationId")
+                        .HasColumnType("int");
 
                     b.HasKey("ScoreID");
 
