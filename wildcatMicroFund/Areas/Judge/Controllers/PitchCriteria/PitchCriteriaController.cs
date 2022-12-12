@@ -27,7 +27,7 @@ public class PitchCriteriaController : Controller
             appID = AppID,
             Application = _unitOfWork.Application.GetById(AppID),
             AssignedQuestions = _unitOfWork.AssignedQuestion.List(a => a.Application.Id == AppID, null, "QuestionUse,Application"),
-            Score = _unitOfWork.Score.List(),
+            Score = _unitOfWork.Score.List(s => s.applicationId == AppID, null, null),
             QuestionUseList = _unitOfWork.QuestionUse.List(u => u.QCategory.QCategoryID == 4, u => u.QuestDisplayOrder, "Question,QCategory"),
             QuestionDetailList = _unitOfWork.QuestionDetail.List(null, null, "Question")
 
@@ -135,26 +135,31 @@ public class PitchCriteriaController : Controller
         score1.UserID = claim.Value;
         score1.ScoreValue = Quest_1;
         score1.AssignedQuestion = assignedQuestion1;
+        score1.applicationId = appID;
         _unitOfWork.Score.Add(score1);
 
         score2.UserID = claim.Value;
         score2.ScoreValue = Quest_2;
         score2.AssignedQuestion = assignedQuestion2;
+        score2.applicationId = appID;
         _unitOfWork.Score.Add(score2);
 
         score3.UserID = claim.Value;
         score3.ScoreValue = Quest_3;
         score3.AssignedQuestion = assignedQuestion3;
+        score3.applicationId = appID;
         _unitOfWork.Score.Add(score3);
 
         score4.UserID = claim.Value;
         score4.ScoreValue = Quest_4;
         score4.AssignedQuestion = assignedQuestion4;
+        score4.applicationId = appID;
         _unitOfWork.Score.Add(score4);
 
         score5.UserID = claim.Value;
         score5.ScoreValue = Quest_5;
         score5.AssignedQuestion = assignedQuestion5;
+        score5.applicationId = appID;
         _unitOfWork.Score.Add(score5);
 
         _unitOfWork.Commit();
