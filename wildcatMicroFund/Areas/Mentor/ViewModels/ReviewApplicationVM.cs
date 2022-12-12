@@ -14,6 +14,7 @@ namespace wildcatMicroFund.Areas.Mentor.ViewModels
         public IEnumerable<SelectListItem>? StatusList { get; set; }
         public IEnumerable<SelectListItem>? MentorList { get; set; }
         public IEnumerable<SelectListItem>? JudgeList { get; set; }
+        public IEnumerable<Response>? Responses { get; set; }
 
     }
 }
