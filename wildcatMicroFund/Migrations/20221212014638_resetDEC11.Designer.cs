@@ -12,8 +12,8 @@ using wildcatMicroFund.Data;
 namespace wildcatMicroFund.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20221210211153_AssignedQuestionScoreUpdate")]
-    partial class AssignedQuestionScoreUpdate
+    [Migration("20221212014638_resetDEC11")]
+    partial class resetDEC11
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -559,7 +559,8 @@ namespace wildcatMicroFund.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
 
-                    b.Property<bool>("QuestIsActive")
+                    b.Property<bool?>("QuestIsActive")
+                        .IsRequired()
                         .HasColumnType("bit");
 
                     b.Property<string>("QuestionSummary")
@@ -675,15 +676,13 @@ namespace wildcatMicroFund.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("ResponseID"), 1L, 1);
 
-                    b.Property<int?>("AssignedQuestionId")
+                    b.Property<int?>("QuestionID")
                         .HasColumnType("int");
 
                     b.Property<string>("Responses")
                         .HasColumnType("nvarchar(max)");
 
                     b.HasKey("ResponseID");
-
-                    b.HasIndex("AssignedQuestionId");
 
                     b.ToTable("Response");
                 });
@@ -967,15 +966,6 @@ namespace wildcatMicroFund.Migrations
                     b.Navigation("EmailTemplate");
 
                     b.Navigation("User");
-                });
-
-            modelBuilder.Entity("wildcatMicroFund.Models.Response", b =>
-                {
-                    b.HasOne("wildcatMicroFund.Models.AssignedQuestion", "AssignedQuestion")
-                        .WithMany()
-                        .HasForeignKey("AssignedQuestionId");
-
-                    b.Navigation("AssignedQuestion");
                 });
 
             modelBuilder.Entity("wildcatMicroFund.Models.Score", b =>

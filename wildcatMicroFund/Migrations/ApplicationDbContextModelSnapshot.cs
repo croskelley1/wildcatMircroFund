@@ -557,7 +557,8 @@ namespace wildcatMicroFund.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
 
-                    b.Property<bool>("QuestIsActive")
+                    b.Property<bool?>("QuestIsActive")
+                        .IsRequired()
                         .HasColumnType("bit");
 
                     b.Property<string>("QuestionSummary")
@@ -673,15 +674,13 @@ namespace wildcatMicroFund.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("ResponseID"), 1L, 1);
 
-                    b.Property<int?>("AssignedQuestionId")
+                    b.Property<int?>("QuestionID")
                         .HasColumnType("int");
 
                     b.Property<string>("Responses")
                         .HasColumnType("nvarchar(max)");
 
                     b.HasKey("ResponseID");
-
-                    b.HasIndex("AssignedQuestionId");
 
                     b.ToTable("Response");
                 });
@@ -965,15 +964,6 @@ namespace wildcatMicroFund.Migrations
                     b.Navigation("EmailTemplate");
 
                     b.Navigation("User");
-                });
-
-            modelBuilder.Entity("wildcatMicroFund.Models.Response", b =>
-                {
-                    b.HasOne("wildcatMicroFund.Models.AssignedQuestion", "AssignedQuestion")
-                        .WithMany()
-                        .HasForeignKey("AssignedQuestionId");
-
-                    b.Navigation("AssignedQuestion");
                 });
 
             modelBuilder.Entity("wildcatMicroFund.Models.Score", b =>

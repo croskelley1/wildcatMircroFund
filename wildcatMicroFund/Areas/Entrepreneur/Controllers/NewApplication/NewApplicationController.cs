@@ -2,12 +2,19 @@
 using Microsoft.AspNetCore.Mvc;
 using System.Diagnostics;
 using System.Security.Claims;
+using System.Collections;
 using wildcatMicroFund.Areas.Admin.ViewModels;
 using wildcatMicroFund.Areas.Entrepreneur.ViewModels;
 using wildcatMicroFund.Data;
 using wildcatMicroFund.Interfaces;
 using wildcatMicroFund.Models;
 using wildcatMicroFund.Utilities;
+using System.Data.SqlClient;
+using System.Security.Cryptography.X509Certificates;
+using Microsoft.Data.SqlClient;
+using System.Data;
+using wildcatMicroFund.Areas.Entrepreneur;
+using NuGet.Protocol;
 
 [Area("Entrepreneur")]
 public class NewApplicationController : Controller
@@ -38,14 +45,17 @@ public class NewApplicationController : Controller
 
     public ViewResult ApplicationForm()
     {
-        AppFormVM = new ApplicationFormVM
+        List<Question> questions = DataHandling.GetQuestions();
+        List<Response> responses = new List<Response>();
+        
+        ApplicationFormVM AppForm = new ApplicationFormVM
         {
-            Questions = _unitOfWork.Question.List(),
-            QCategories = _unitOfWork.QCategory.List(),
-            QuestionUses = _unitOfWork.QuestionUse.List(),
-            QuestionDetails = _unitOfWork.QuestionDetail.List()
+            Questions = questions,
+            rawResponses = new string[questions.Count],
+            Responses = responses
         };
-        return View(AppFormVM);
+
+        return View(AppForm);
     }
 
     /// <summary>
@@ -58,15 +68,17 @@ public class NewApplicationController : Controller
     [ValidateAntiForgeryToken]
     public IActionResult Create(ApplicationFormVM obj)
     {
-
         if (ModelState.IsValid)
         {
+            ApplicationFormVM asdf = obj;
+            asdf.Questions = DataHandling.GetQuestions();
             // User data
-            var claimID = (ClaimsIdentity)User.Identity;
+            var claimID = (ClaimsIdentity)User.Identity; 
             var claim = claimID.FindFirst(ClaimTypes.NameIdentifier);
 
             obj.Application.AppStatus = _unitOfWork.Status.Get(a => a.StatusID == 1).StatusID;  // sets the Application Status as 'submitted'
-            
+            obj.Application.CreatedDate = DateTime.Now;            
+
             _unitOfWork.Application.Add(obj.Application); //internal add
 
             // New UserAssignment entry created to tie Application and User
@@ -86,6 +98,21 @@ public class NewApplicationController : Controller
 
             _unitOfWork.ApplicationStatus.Add(_AppStatus);
 
+            List<Response> temp_responses = new List<Response>();
+            // Inserting user responses to questions
+            for(int i = 0; i < obj.rawResponses.Count(); i++)
+            {
+                Response temp = new Response();
+                temp.QuestionID = asdf.Questions[i].Id;
+                temp.Responses = obj.rawResponses[i];
+
+                temp_responses.Add(temp);
+            }
+
+            foreach (var r in temp_responses)
+            {
+                _unitOfWork.Response.Add(r);
+            }
 
             _unitOfWork.Commit(); //physical commit to DB table
             TempData["success"] = "Application created Successfully";

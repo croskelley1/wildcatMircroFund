@@ -6,9 +6,8 @@ namespace wildcatMicroFund.Areas.Entrepreneur.ViewModels
     public class ApplicationFormVM
     {
         public Application? Application { get; set; }
-        public IEnumerable<Question>? Questions { get; set; }
-        public IEnumerable<QCategory>? QCategories { get; set; }
-        public IEnumerable<QuestionDetail>? QuestionDetails { get; set; }
-        public IEnumerable<QuestionUse>? QuestionUses { get; set; }
+        public List<Question>? Questions { get; set; }
+        public string[]? rawResponses { get; set; }
+        public List<Response>? Responses { get; set; }
     }
 }
