@@ -6,11 +6,11 @@
 	ViewData["Title"] = "Question";
 }
 
-<form method="post" asp-controller="PitchCriteria" asp-action="PitchCriteria" enctype="multipart/form-data">
+<form class="needs-validation" novalidate method="post" asp-controller="PitchCriteria" asp-action="PitchCriteria" enctype="multipart/form-data">
 	<div class="container p-3">
 		<div class="row pt-4">
 			<div class="col-12">
-				<h1 class="text-primary">Pitch Judging Criteria for Application ID: @Model.appID</h1>
+				<h1 class="text-primary">Pitch Judging Criteria for: @Model.Application.CompanyName</h1>
 			</div>
 		</div>
 		<br /><br />
@@ -18,7 +18,7 @@
 		@foreach (var question in Model.QuestionUseList @*Model.QuestionList*@)
 		{
 			<div class="row container pb-3 backgroundWhite border rounded my-3">
-				<h2>@question.Question.QuestionSummary</h2>
+				<h2 class="mt-2">@question.Question.QuestionSummary</h2>
 
 				<div>
 					@foreach (var detail in Model.QuestionDetailList.Where(d => d.Question.Id == question.Question.Id))
@@ -27,7 +27,7 @@
 					}
 				</div>
 				
-				<p>Enter score out of @question.QuestPointValue points: <input type="text" name="Quest_@question.Question.Id"/> </p>
+				<p class="mt-2">Enter score out of @question.QuestPointValue points: <input pattern="[0-9]{1,2}" required type="text" name="Quest_@question.Question.Id"/> </p>
 			</div>
 			<div hidden>
 				<input readonly value="@question.QuestionUseID" name="qu_@question.QuestionUseID" />

@@ -48,6 +48,7 @@ public class PitchCriteriaController : Controller
         PitchJudgeCriteriaList = new PitchCriteriaVM
         {
             appID = AppID,
+            Application = _unitOfWork.Application.GetById(AppID),
             PitchCriteria = new QuestionUse(),
             Question = _unitOfWork.Question.Get(a => a.Id == 2),
             Category = _unitOfWork.QCategory.Get(c => c.QCategoryID == 4),

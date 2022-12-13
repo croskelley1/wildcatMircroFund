@@ -14,6 +14,7 @@ namespace wildcatMicroFund.Areas.Judge.ViewModels
         public QuestionUse? PitchCriteria { get; set; }
         public Question? Question { get; set; }
         public QCategory? Category { get; set; }
+        public Application? Application { get; set; }
 
         public IEnumerable<QuestionDetail> QuestionDetailList { get; set; }
         public IEnumerable<Question> QuestionList { get; set; }
