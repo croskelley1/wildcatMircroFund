@@ -35,7 +35,7 @@
                     </td>
                     <td>
                         <div class="w-75 btn-group" role="group">
-                            <a asp-controller="ReviewApplications" asp-action="Upsert" asp-route-id="@obj.AppStatId" asp-route-appId="@obj.Application.Id" asp-route-statId="@obj.Status.StatusID"
+                            <a asp-area="Mentor" asp-controller="ReviewApplications" asp-action="Upsert" asp-route-id="@obj.AppStatId" asp-route-appId="@obj.Application.Id" asp-route-statId="@obj.Status.StatusID"
                            class="btn btn-primary mx-2"> <i class="bi bi-pencil-square"></i>Review</a>
                         </div>
                     </td>
