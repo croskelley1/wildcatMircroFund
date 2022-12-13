@@ -1,5 +1,4 @@
-USE [db_a90062_test]
-GO
+
 --drop table __EFMigrationsHistory;
 --drop table ApplicationStatus;
 --drop table AspNetUserRoles;
@@ -21,11 +20,11 @@ GO
 --drop table PitchEventApplication;
 --drop table Response;
 --drop table PitchEvent;
---drop table QuestionUse;
 --drop table QuestionDetail;
---drop table QCategory;
 --drop table AssignedQuestion;
+--drop table QuestionUse;
 --drop table Question;
+--drop table QCategory;
 --drop table [Status];
 --drop table UserAssignment;
 --drop table UserApplicationAssignmentType;
@@ -33,14 +32,22 @@ GO
 --drop table AspNetUsers;
 
 SET IDENTITY_INSERT [dbo].[Application] ON
-
-INSERT [dbo].[Application] ([Id], [CompanyName], [CreatedDate], [AppStatus]) VALUES (1, N'Wallys Bistro', CAST(N'2019-01-01T00:01:00.0000000' AS DateTime2), 1)
-INSERT [dbo].[Application] ([Id], [CompanyName], [CreatedDate], [AppStatus]) VALUES (2, N'Costco', CAST(N'2019-01-01T00:01:00.0000000' AS DateTime2), 2)
+INSERT [dbo].[Application] ([Id], [CompanyName], [CreatedDate], [AppStatus]) VALUES (1, N'Wally''s Bistro', CAST(N'2019-01-01T00:01:00.0000000' AS DateTime2), 1)
+INSERT [dbo].[Application] ([Id], [CompanyName], [CreatedDate], [AppStatus]) VALUES (2, N'Microsoft', CAST(N'2019-01-01T00:01:00.0000000' AS DateTime2), 2)
 INSERT [dbo].[Application] ([Id], [CompanyName], [CreatedDate], [AppStatus]) VALUES (3, N'Lenovo', CAST(N'2019-01-01T00:01:00.0000000' AS DateTime2), 3)
 INSERT [dbo].[Application] ([Id], [CompanyName], [CreatedDate], [AppStatus]) VALUES (4, N'Playstation', CAST(N'2019-01-01T00:01:00.0000000' AS DateTime2), 4)
 INSERT [dbo].[Application] ([Id], [CompanyName], [CreatedDate], [AppStatus]) VALUES (5, N'Nintento', CAST(N'2019-01-01T00:00:00.0000000' AS DateTime2), 5)
-INSERT [dbo].[Application] ([Id], [CompanyName], [CreatedDate], [AppStatus]) VALUES (6, N'John Deere', CAST(N'2022-11-27T21:37:00.0000000' AS DateTime2), 1)
-INSERT [dbo].[Application] ([Id], [CompanyName], [CreatedDate], [AppStatus]) VALUES (7, N'TykesTrucks', CAST(N'2022-11-27T22:37:00.0000000' AS DateTime2), 1)
+INSERT [dbo].[Application] ([Id], [CompanyName], [CreatedDate], [AppStatus]) VALUES (6, N'XBOX', CAST(N'2022-11-27T21:37:00.0000000' AS DateTime2), 1)
+INSERT [dbo].[Application] ([Id], [CompanyName], [CreatedDate], [AppStatus]) VALUES (7, N'John Deere', CAST(N'2022-11-27T22:37:00.0000000' AS DateTime2), 1)
+INSERT [dbo].[Application] ([Id], [CompanyName], [CreatedDate], [AppStatus]) VALUES (8, N'Willy Wonka', CAST(N'2022-11-27T22:37:00.0000000' AS DateTime2), 1)
+INSERT [dbo].[Application] ([Id], [CompanyName], [CreatedDate], [AppStatus]) VALUES (9, N'Mountain America', CAST(N'2022-11-27T22:37:00.0000000' AS DateTime2), 1)
+INSERT [dbo].[Application] ([Id], [CompanyName], [CreatedDate], [AppStatus]) VALUES (10, N'America First', CAST(N'2022-11-27T22:37:00.0000000' AS DateTime2), 1)
+INSERT [dbo].[Application] ([Id], [CompanyName], [CreatedDate], [AppStatus]) VALUES (11, N'Wells Fargo', CAST(N'2022-11-27T22:37:00.0000000' AS DateTime2), 1)
+INSERT [dbo].[Application] ([Id], [CompanyName], [CreatedDate], [AppStatus]) VALUES (12, N'Wasatch Brewing Co.', CAST(N'2022-11-27T22:37:00.0000000' AS DateTime2), 1)
+INSERT [dbo].[Application] ([Id], [CompanyName], [CreatedDate], [AppStatus]) VALUES (13, N'The Hive Winery', CAST(N'2022-11-27T22:37:00.0000000' AS DateTime2), 1)
+INSERT [dbo].[Application] ([Id], [CompanyName], [CreatedDate], [AppStatus]) VALUES (14, N'Ogden''s Own Distillery', CAST(N'2022-11-27T22:37:00.0000000' AS DateTime2), 1)
+INSERT [dbo].[Application] ([Id], [CompanyName], [CreatedDate], [AppStatus]) VALUES (15, N'Fisher''s Brewery', CAST(N'2022-11-27T22:37:00.0000000' AS DateTime2), 1)
+
 SET IDENTITY_INSERT [dbo].[Application] OFF
 GO
 
@@ -65,13 +72,21 @@ GO
 
 SET IDENTITY_INSERT [dbo].[ApplicationStatus] ON
 
-INSERT [dbo].[ApplicationStatus] ([AppStatId], [UserID], [ApplicationId], [StatusId], [StatusDate]) VALUES (1, N'7e0b38c8-9d5b-45a5-b1b5-6b40385068b6', 1, 2, CAST(N'2022-12-03T01:15:14.4784382' AS DateTime2))
-INSERT [dbo].[ApplicationStatus] ([AppStatId], [UserID], [ApplicationId], [StatusId], [StatusDate]) VALUES (2, N'7e0b38c8-9d5b-45a5-b1b5-6b40385068b6', 2, 2, CAST(N'2022-12-03T01:15:33.0240016' AS DateTime2))
-INSERT [dbo].[ApplicationStatus] ([AppStatId], [UserID], [ApplicationId], [StatusId], [StatusDate]) VALUES (3, N'7e0b38c8-9d5b-45a5-b1b5-6b40385068b6', 3, 2, CAST(N'2022-12-03T01:15:37.5469006' AS DateTime2))
-INSERT [dbo].[ApplicationStatus] ([AppStatId], [UserID], [ApplicationId], [StatusId], [StatusDate]) VALUES (4, N'fb086d38-22e4-4fc2-9ff7-49fcd22bd56c', 4, 6, CAST(N'2019-01-20T00:00:00.0000000' AS DateTime2))
-INSERT [dbo].[ApplicationStatus] ([AppStatId], [UserID], [ApplicationId], [StatusId], [StatusDate]) VALUES (5, N'fb086d38-22e4-4fc2-9ff7-49fcd22bd56e', 5, 1, CAST(N'2019-01-20T00:00:00.0000000' AS DateTime2))
-INSERT [dbo].[ApplicationStatus] ([AppStatId], [UserID], [ApplicationId], [StatusId], [StatusDate]) VALUES (6, N'fb086d38-22e4-4fc2-9ff7-49fcd22bd56c', 6, 1, CAST(N'2022-11-27T20:37:27.9406685' AS DateTime2))
-INSERT [dbo].[ApplicationStatus] ([AppStatId], [UserID], [ApplicationId], [StatusId], [StatusDate]) VALUES (7, N'fb086d38-22e4-4fc2-9ff7-49fcd22bd56c', 7, 1, CAST(N'2022-11-27T21:37:27.3185992' AS DateTime2))
+INSERT [dbo].[ApplicationStatus] ([AppStatId], [UserID], [ApplicationId], [StatusId], [StatusDate]) VALUES (1, N'fb086d38-22e4-4fc2-9ff7-49fcd22bd56c', 1, 1, CAST(N'2022-12-03T01:15:14.4784382' AS DateTime2))
+INSERT [dbo].[ApplicationStatus] ([AppStatId], [UserID], [ApplicationId], [StatusId], [StatusDate]) VALUES (2, N'fb086d38-22e4-4fc2-9ff7-49fcd22bd56c', 2, 1, CAST(N'2022-12-03T01:15:33.0240016' AS DateTime2))
+INSERT [dbo].[ApplicationStatus] ([AppStatId], [UserID], [ApplicationId], [StatusId], [StatusDate]) VALUES (3, N'fb086d38-22e4-4fc2-9ff7-49fcd22bd56c', 3, 2, CAST(N'2022-12-03T01:15:37.5469006' AS DateTime2))
+INSERT [dbo].[ApplicationStatus] ([AppStatId], [UserID], [ApplicationId], [StatusId], [StatusDate]) VALUES (4, N'fb086d38-22e4-4fc2-9ff7-49fcd22bd56c', 4, 2, CAST(N'2019-01-20T00:00:00.0000000' AS DateTime2))
+INSERT [dbo].[ApplicationStatus] ([AppStatId], [UserID], [ApplicationId], [StatusId], [StatusDate]) VALUES (5, N'fb086d38-22e4-4fc2-9ff7-49fcd22bd56c', 5, 2, CAST(N'2019-01-20T00:00:00.0000000' AS DateTime2))
+INSERT [dbo].[ApplicationStatus] ([AppStatId], [UserID], [ApplicationId], [StatusId], [StatusDate]) VALUES (6, N'fb086d38-22e4-4fc2-9ff7-49fcd22bd56c', 6, 2, CAST(N'2022-11-27T20:37:27.9406685' AS DateTime2))
+INSERT [dbo].[ApplicationStatus] ([AppStatId], [UserID], [ApplicationId], [StatusId], [StatusDate]) VALUES (7, N'fb086d38-22e4-4fc2-9ff7-49fcd22bd56c', 7, 3, CAST(N'2022-11-27T21:37:27.3185992' AS DateTime2))
+INSERT [dbo].[ApplicationStatus] ([AppStatId], [UserID], [ApplicationId], [StatusId], [StatusDate]) VALUES (8, N'fb086d38-22e4-4fc2-9ff7-49fcd22bd56c', 8, 3, CAST(N'2022-11-27T21:37:27.3185992' AS DateTime2))
+INSERT [dbo].[ApplicationStatus] ([AppStatId], [UserID], [ApplicationId], [StatusId], [StatusDate]) VALUES (9, N'fb086d38-22e4-4fc2-9ff7-49fcd22bd56c', 9, 3, CAST(N'2022-11-27T21:37:27.3185992' AS DateTime2))
+INSERT [dbo].[ApplicationStatus] ([AppStatId], [UserID], [ApplicationId], [StatusId], [StatusDate]) VALUES (10, N'fb086d38-22e4-4fc2-9ff7-49fcd22bd56c', 10, 4, CAST(N'2022-11-27T21:37:27.3185992' AS DateTime2))
+INSERT [dbo].[ApplicationStatus] ([AppStatId], [UserID], [ApplicationId], [StatusId], [StatusDate]) VALUES (11, N'fb086d38-22e4-4fc2-9ff7-49fcd22bd56c', 11, 4, CAST(N'2022-11-27T21:37:27.3185992' AS DateTime2))
+INSERT [dbo].[ApplicationStatus] ([AppStatId], [UserID], [ApplicationId], [StatusId], [StatusDate]) VALUES (12, N'fb086d38-22e4-4fc2-9ff7-49fcd22bd56d', 12, 4, CAST(N'2022-11-27T21:37:27.3185992' AS DateTime2))
+INSERT [dbo].[ApplicationStatus] ([AppStatId], [UserID], [ApplicationId], [StatusId], [StatusDate]) VALUES (13, N'fb086d38-22e4-4fc2-9ff7-49fcd22bd56d', 13, 6, CAST(N'2022-11-27T21:37:27.3185992' AS DateTime2))
+INSERT [dbo].[ApplicationStatus] ([AppStatId], [UserID], [ApplicationId], [StatusId], [StatusDate]) VALUES (14, N'fb086d38-22e4-4fc2-9ff7-49fcd22bd56d', 14, 6, CAST(N'2022-11-27T21:37:27.3185992' AS DateTime2))
+INSERT [dbo].[ApplicationStatus] ([AppStatId], [UserID], [ApplicationId], [StatusId], [StatusDate]) VALUES (15, N'fb086d38-22e4-4fc2-9ff7-49fcd22bd56d', 15, 6, CAST(N'2022-11-27T21:37:27.3185992' AS DateTime2))
 SET IDENTITY_INSERT [dbo].[ApplicationStatus] OFF
 GO
 INSERT [dbo].[AspNetUsers] ([Id], [Discriminator], [FirstName], [LastName], [StreetAddress], [City], [State], [PostalCode], [UserName], [NormalizedUserName], [Email], [NormalizedEmail], [EmailConfirmed], [PasswordHash], [SecurityStamp], [ConcurrencyStamp], [PhoneNumber], [PhoneNumberConfirmed], [TwoFactorEnabled], [LockoutEnd], [LockoutEnabled], [AccessFailedCount]) VALUES (N'7e0b38c8-9d5b-45a5-b1b5-6b40385068b6', N'ApplicationUser', N'Catherine', N'Clark', N'Weber St', N'Odgen', N'UT', N'84405', N'Admin@gmail.com', N'ADMIN@GMAIL.COM', N'Admin@gmail.com', N'ADMIN@GMAIL.COM', 0, N'AQAAAAEAACcQAAAAEECubHYo82aWS8UM6q1alGKnv2jb9vN6rw1VqQbnO/v1p4i1DWMpdUQy1OFcVEz6fQ==', N'UQH5E3ZZTEPQLJWAY5UYU52XICDVIOLR', N'84dd6d2b-22a1-485d-9051-879f9b17d778', N'1234567890', 0, 0, NULL, 1, 0)
@@ -93,13 +108,21 @@ SET IDENTITY_INSERT [dbo].[UserApplicationAssignmentType] OFF
 GO
 SET IDENTITY_INSERT [dbo].[UserAssignment] ON
 
-INSERT [dbo].[UserAssignment] ([UserAssignmentID], [UserApplicationAssignmentTypeId], [ApplicationUserId], [ApplicationId]) VALUES (1, 4, N'fb086d38-22e4-4fc2-9ff7-49fcd22bd56c', 1)
-INSERT [dbo].[UserAssignment] ([UserAssignmentID], [UserApplicationAssignmentTypeId], [ApplicationUserId], [ApplicationId]) VALUES (2, 4, N'fb086d38-22e4-4fc2-9ff7-49fcd22bd56c', 2)
-INSERT [dbo].[UserAssignment] ([UserAssignmentID], [UserApplicationAssignmentTypeId], [ApplicationUserId], [ApplicationId]) VALUES (3, 4, N'fb086d38-22e4-4fc2-9ff7-49fcd22bd56c', 3)
-INSERT [dbo].[UserAssignment] ([UserAssignmentID], [UserApplicationAssignmentTypeId], [ApplicationUserId], [ApplicationId]) VALUES (4, 4, N'fb086d38-22e4-4fc2-9ff7-49fcd22bd56e', 4)
-INSERT [dbo].[UserAssignment] ([UserAssignmentID], [UserApplicationAssignmentTypeId], [ApplicationUserId], [ApplicationId]) VALUES (5, 4, N'fb086d38-22e4-4fc2-9ff7-49fcd22bd56e', 5)
-INSERT [dbo].[UserAssignment] ([UserAssignmentID], [UserApplicationAssignmentTypeId], [ApplicationUserId], [ApplicationId]) VALUES (6, 4, N'fb086d38-22e4-4fc2-9ff7-49fcd22bd56c', 6)
-INSERT [dbo].[UserAssignment] ([UserAssignmentID], [UserApplicationAssignmentTypeId], [ApplicationUserId], [ApplicationId]) VALUES (7, 4, N'fb086d38-22e4-4fc2-9ff7-49fcd22bd56c', 7)
+INSERT [dbo].[UserAssignment] ([UserAssignmentID], [UserApplicationAssignmentTypeId], [ApplicationUserId], [ApplicationId]) VALUES (1,  4, N'fb086d38-22e4-4fc2-9ff7-49fcd22bd56c', 1)
+INSERT [dbo].[UserAssignment] ([UserAssignmentID], [UserApplicationAssignmentTypeId], [ApplicationUserId], [ApplicationId]) VALUES (2,  4, N'fb086d38-22e4-4fc2-9ff7-49fcd22bd56e', 2)
+INSERT [dbo].[UserAssignment] ([UserAssignmentID], [UserApplicationAssignmentTypeId], [ApplicationUserId], [ApplicationId]) VALUES (3,  4, N'fb086d38-22e4-4fc2-9ff7-49fcd22bd56e', 3)
+INSERT [dbo].[UserAssignment] ([UserAssignmentID], [UserApplicationAssignmentTypeId], [ApplicationUserId], [ApplicationId]) VALUES (4,  4, N'fb086d38-22e4-4fc2-9ff7-49fcd22bd56e', 4)
+INSERT [dbo].[UserAssignment] ([UserAssignmentID], [UserApplicationAssignmentTypeId], [ApplicationUserId], [ApplicationId]) VALUES (5,  4, N'fb086d38-22e4-4fc2-9ff7-49fcd22bd56e', 5)
+INSERT [dbo].[UserAssignment] ([UserAssignmentID], [UserApplicationAssignmentTypeId], [ApplicationUserId], [ApplicationId]) VALUES (6,  4, N'fb086d38-22e4-4fc2-9ff7-49fcd22bd56e', 6)
+INSERT [dbo].[UserAssignment] ([UserAssignmentID], [UserApplicationAssignmentTypeId], [ApplicationUserId], [ApplicationId]) VALUES (7,  4, N'fb086d38-22e4-4fc2-9ff7-49fcd22bd56e', 7)
+INSERT [dbo].[UserAssignment] ([UserAssignmentID], [UserApplicationAssignmentTypeId], [ApplicationUserId], [ApplicationId]) VALUES (8,  4, N'fb086d38-22e4-4fc2-9ff7-49fcd22bd56e', 8)
+INSERT [dbo].[UserAssignment] ([UserAssignmentID], [UserApplicationAssignmentTypeId], [ApplicationUserId], [ApplicationId]) VALUES (9,  4, N'fb086d38-22e4-4fc2-9ff7-49fcd22bd56e', 9 )
+INSERT [dbo].[UserAssignment] ([UserAssignmentID], [UserApplicationAssignmentTypeId], [ApplicationUserId], [ApplicationId]) VALUES (10, 4, N'fb086d38-22e4-4fc2-9ff7-49fcd22bd56e', 10)
+INSERT [dbo].[UserAssignment] ([UserAssignmentID], [UserApplicationAssignmentTypeId], [ApplicationUserId], [ApplicationId]) VALUES (11, 4, N'fb086d38-22e4-4fc2-9ff7-49fcd22bd56e', 11)
+INSERT [dbo].[UserAssignment] ([UserAssignmentID], [UserApplicationAssignmentTypeId], [ApplicationUserId], [ApplicationId]) VALUES (12, 4, N'fb086d38-22e4-4fc2-9ff7-49fcd22bd56d', 12)
+INSERT [dbo].[UserAssignment] ([UserAssignmentID], [UserApplicationAssignmentTypeId], [ApplicationUserId], [ApplicationId]) VALUES (13, 4, N'fb086d38-22e4-4fc2-9ff7-49fcd22bd56d', 13)
+INSERT [dbo].[UserAssignment] ([UserAssignmentID], [UserApplicationAssignmentTypeId], [ApplicationUserId], [ApplicationId]) VALUES (14, 4, N'fb086d38-22e4-4fc2-9ff7-49fcd22bd56d', 14)
+INSERT [dbo].[UserAssignment] ([UserAssignmentID], [UserApplicationAssignmentTypeId], [ApplicationUserId], [ApplicationId]) VALUES (15, 4, N'fb086d38-22e4-4fc2-9ff7-49fcd22bd56d', 15)
 SET IDENTITY_INSERT [dbo].[UserAssignment] OFF
 GO
 INSERT [dbo].[AspNetRoles] ([Id], [Name], [NormalizedName], [ConcurrencyStamp]) VALUES (N'a8782739-1c8f-4ec8-b75a-7d6d7bd4271f', N'Judge', N'JUDGE', N'5244c660-e488-4ab3-ad34-47e2d35faacf')
@@ -187,6 +210,84 @@ INSERT [dbo].[QuestionDetail] ([QuestionDetailId], [QuestionDetailInfo], [Questi
 SET IDENTITY_INSERT [dbo].[QuestionDetail] OFF
 GO
 
+insert into Response(Responses, applicationId)
+values (N'Open', 1),
+       (N'Small cafe for students at Weber', 1),
+       (N'Food', 1),
+       (N'www.wallysbistro.com', 1),
+       (N'No', 1),
+       (N'Started', 2),
+       (N'Computer stuff', 2),
+       (N'Tech', 2),
+       (N'www.microsoft.com', 2),
+       (N'Many', 2),
+       (N'Started', 3),
+       (N'We sell computers', 3),
+       (N'www.lenovo.com', 3),
+       (N'Tech', 3),
+       (N'Yes', 3),
+	   (N'lorem ipsum', 4),
+	   (N'lorem ipsum', 4),
+	   (N'lorem ipsum', 4),
+	   (N'lorem ipsum', 4),
+	   (N'lorem ipsum', 4),
+	   (N'lorem ipsum', 5),
+	   (N'lorem ipsum', 5),
+	   (N'lorem ipsum', 5),
+	   (N'lorem ipsum', 5),
+	   (N'lorem ipsum', 5),
+       (N'lorem ipsum', 6),
+       (N'lorem ipsum', 7),
+       (N'lorem ipsum', 8),
+       (N'lorem ipsum', 9),
+       (N'lorem ipsum', 10),
+       (N'lorem ipsum', 11),
+       (N'lorem ipsum', 12),
+       (N'lorem ipsum', 13),
+       (N'lorem ipsum', 14),
+       (N'lorem ipsum', 15),
+       (N'lorem ipsum', 6),
+       (N'lorem ipsum', 7),
+       (N'lorem ipsum', 8),
+       (N'lorem ipsum', 9),
+       (N'lorem ipsum', 10),
+       (N'lorem ipsum', 11),
+       (N'lorem ipsum', 12),
+       (N'lorem ipsum', 13),
+       (N'lorem ipsum', 14),
+       (N'lorem ipsum', 15),
+       (N'lorem ipsum', 6),
+       (N'lorem ipsum', 7),
+       (N'lorem ipsum', 8),
+       (N'lorem ipsum', 9),
+       (N'lorem ipsum', 10),
+       (N'lorem ipsum', 11),
+       (N'lorem ipsum', 12),
+       (N'lorem ipsum', 13),
+       (N'lorem ipsum', 14),
+       (N'lorem ipsum', 15),
+       (N'lorem ipsum', 6),
+       (N'lorem ipsum', 7),
+       (N'lorem ipsum', 8),
+       (N'lorem ipsum', 9),
+       (N'lorem ipsum', 10),
+       (N'lorem ipsum', 11),
+       (N'lorem ipsum', 12),
+       (N'lorem ipsum', 13),
+       (N'lorem ipsum', 14),
+       (N'lorem ipsum', 15),
+       (N'lorem ipsum', 6),
+       (N'lorem ipsum', 7),
+       (N'lorem ipsum', 8),
+       (N'lorem ipsum', 9),
+       (N'lorem ipsum', 10),
+       (N'lorem ipsum', 11),
+       (N'lorem ipsum', 12),
+       (N'lorem ipsum', 13),
+       (N'lorem ipsum', 14),
+       (N'lorem ipsum', 15);
+Go
+
 SET IDENTITY_INSERT [dbo].[Award] ON
 
 INSERT [dbo].[Award] ([AwardId], [AppID], [AwardTypeID], [AwardAmount], [AwardDate], [WasRecieved]) VALUES (1, 1, 1, 1000, CAST(N'2019-03-01T00:01:00.0000000' AS DateTime2), 1)
@@ -214,9 +315,18 @@ INSERT [dbo].[NoteType] ([NoteTypeID], [NoteTypeDesc]) VALUES (1, N'General Upda
 SET IDENTITY_INSERT [dbo].[NoteType] OFF
 GO
 
-SET IDENTITY_INSERT [dbo].[Note] ON
-
-INSERT [dbo].[Note] ([NoteID], [NoteContent], [NoteVisibility], [NoteInternal], [NoteCreatorUserId], [CreatedDate], [ApplicationId], [NoteTypeId]) VALUES (1, N'Called Jaden to set up our first appointment for 12/04/2022', 1, 1, N'db3e05c6-c885-437b-94f5-87cb3b4de9d4', N'2022-12-01 00:00:00', 2, 1)
-INSERT [dbo].[Note] ([NoteID], [NoteContent], [NoteVisibility], [NoteInternal], [NoteCreatorUserId], [CreatedDate], [ApplicationId], [NoteTypeId]) VALUES (2, N'Met in person with Jaden today, went over his business model and came up with an action plan on how to proceed.', 1, 1, N'db3e05c6-c885-437b-94f5-87cb3b4de9d4', N'2022-12-04 13:53:53', 2, 1)
-SET IDENTITY_INSERT [dbo].[Note] OFF
+insert into note(NoteContent, NoteVisibility, NoteInternal, NoteCreatorUserId, CreatedDate, ApplicationId, NoteTypeId)
+values  (N'Application been reviewed by admin', 1, 1, N'7e0b38c8-9d5b-45a5-b1b5-6b40385068b6', N'2022-12-01 00:00:00.0000000', 3, 1),
+        (N'Application been reviewed by admin', 1, 1, N'7e0b38c8-9d5b-45a5-b1b5-6b40385068b6', N'2022-12-01 00:00:00.0000000', 4, 1),
+       (N'Application been reviewed by admin', 1, 1, N'7e0b38c8-9d5b-45a5-b1b5-6b40385068b6', N'2022-12-01 00:00:00.0000000', 5, 1),
+       (N'Application been reviewed by admin', 1, 1, N'7e0b38c8-9d5b-45a5-b1b5-6b40385068b6', N'2022-12-01 00:00:00.0000000', 6, 1),
+       (N'Application been reviewed by admin', 1, 1, N'7e0b38c8-9d5b-45a5-b1b5-6b40385068b6', N'2022-12-01 00:00:00.0000000', 7, 1),
+       (N'Application been reviewed by admin', 1, 1, N'7e0b38c8-9d5b-45a5-b1b5-6b40385068b6', N'2022-12-01 00:00:00.0000000', 8, 1),
+       (N'Application been reviewed by admin', 1, 1, N'7e0b38c8-9d5b-45a5-b1b5-6b40385068b6', N'2022-12-01 00:00:00.0000000', 9, 1),
+       (N'Application been reviewed by admin', 1, 1, N'7e0b38c8-9d5b-45a5-b1b5-6b40385068b6', N'2022-12-01 00:00:00.0000000', 10, 1),
+       (N'Application been reviewed by admin', 1, 1, N'7e0b38c8-9d5b-45a5-b1b5-6b40385068b6', N'2022-12-01 00:00:00.0000000', 11, 1),
+       (N'Application been reviewed by admin', 1, 1, N'7e0b38c8-9d5b-45a5-b1b5-6b40385068b6', N'2022-12-01 00:00:00.0000000', 12, 1),
+       (N'Application been reviewed by admin', 1, 1, N'7e0b38c8-9d5b-45a5-b1b5-6b40385068b6', N'2022-12-01 00:00:00.0000000', 13, 1),
+       (N'Application been reviewed by admin', 1, 1, N'7e0b38c8-9d5b-45a5-b1b5-6b40385068b6', N'2022-12-01 00:00:00.0000000', 14, 1),
+       (N'Application been reviewed by admin', 1, 1, N'7e0b38c8-9d5b-45a5-b1b5-6b40385068b6', N'2022-12-01 00:00:00.0000000', 15, 1);
 GO
