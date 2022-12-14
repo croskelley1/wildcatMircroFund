@@ -1,4 +1,5 @@
-﻿@{
+﻿@model wildcatMicroFund.Areas.Entrepreneur.ViewModels.AppStatusVM
+@{
     ViewData["Title"] = "New Applications";
     var successMessage = TempData["success"];
 }
@@ -35,14 +36,21 @@
     <div class="row py-3">
         <h1 class="Display-5 row">Your applications:</h1>
 
-        @foreach (var item in Model)
-        {
-            <div class="card col-2 m-2">
-                <p class="card-header">@(item.Application.CompanyName)</p>
-                @*<p class="card-body">@(item.Application.AppStatus)</p> ViewModel breaks everything, will be taken care of shortly*@
-                <p class="card-footer">@(item.Application.CreatedDate)</p>
-            </div>
-        }
+        @if(Model != null)
+            @foreach(var stat in Model.status)
+            {
+                @foreach(var uAss in Model.userAssignments)
+                {
+                    if(uAss.Application.AppStatus == stat.StatusID)
+                    {
+                        <div class="card py-2 col col-2">
+                            <p class="card-header">Company Name: @uAss.Application.CompanyName</p>
+                            <p class="card-body">Created Date: @uAss.Application.CreatedDate</p>
+                            <p class="card-footer">App Status: @stat.StatusDesc</p>
+                        </div>
+                    }
+                }
+            }
         
         
     </div>

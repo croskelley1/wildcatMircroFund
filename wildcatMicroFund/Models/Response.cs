@@ -12,8 +12,9 @@ namespace wildcatMicroFund.Models
         public string? Responses { get; set; }
 
         [ForeignKey("AssignedQuestionId")]
-        public virtual AssignedQuestion? AssignedQuestion { get; set; }
-
+        public int? QuestionID { get; set; }
         public int applicationId { get; set; }
+
+
     }
 }
