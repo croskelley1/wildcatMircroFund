@@ -8,6 +8,9 @@
         <div class="row justify-content-evenly text-center px-2 mx-2 backgroundWhite border">
             @* All for Model validation and HTML validation *@
             <div asp-validation-summary="All" class="text-danger"></div>
+            <div class="col-12 px-3" style="border-bottom:1px solid #325d88">
+                <h2 class="text-primary">Submit Application</h2>
+            </div>
             <div class="col-8 pt-3">
                 <div class="form-group row py-1">
                     <div class="col-3">
@@ -32,10 +35,16 @@
                     </div>
                 }
                 <input readonly type="hidden" asp-for="Questions" />
-                <div class="form-group row">
-                    <div class="row justify-content-center">
-                        <div class="col-4">
-                            <button type="submit" class="btn btn-primary form-control">Submit</button>
+                <div class="form-group row m-2">
+                    <div class="col-12" style="border-top:1px solid #325d88">
+                        <div class="row m-2">
+                            <div class="col-2 offset-3">
+                                <button type="submit" class="btn btn-primary form-control">Submit</button>
+
+                            </div>
+                            <div class="col-3">
+                                <a asp-area="Entrepreneur" asp-controller="NewApplication" asp-action="Index" class="btn btn-success form-control">Back to List</a>
+                            </div>
                         </div>
                     </div>
                 </div>

@@ -12,13 +12,8 @@ using wildcatMicroFund.Data;
 namespace wildcatMicroFund.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-<<<<<<<< HEAD:wildcatMicroFund/Migrations/20221212030210_RessetDEC11.Designer.cs
-    [Migration("20221212030210_RessetDEC11")]
-    partial class RessetDEC11
-========
-    [Migration("20221212014638_resetDEC11")]
-    partial class resetDEC11
->>>>>>>> michael-sprint4-draft:wildcatMicroFund/Migrations/20221212014638_resetDEC11.Designer.cs
+    [Migration("20221214110923_finalFix")]
+    partial class finalFix
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {

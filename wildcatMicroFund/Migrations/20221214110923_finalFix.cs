@@ -5,11 +5,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace wildcatMicroFund.Migrations
 {
-<<<<<<<< HEAD:wildcatMicroFund/Migrations/20221212030210_RessetDEC11.cs
-    public partial class RessetDEC11 : Migration
-========
-    public partial class resetDEC11 : Migration
->>>>>>>> michael-sprint4-draft:wildcatMicroFund/Migrations/20221212014638_resetDEC11.cs
+    public partial class finalFix : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -222,7 +218,8 @@ namespace wildcatMicroFund.Migrations
                     ResponseID = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
                     Responses = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    QuestionID = table.Column<int>(type: "int", nullable: true)
+                    QuestionID = table.Column<int>(type: "int", nullable: true),
+                    applicationId = table.Column<int>(type: "int", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -577,26 +574,6 @@ namespace wildcatMicroFund.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "Response",
-                columns: table => new
-                {
-                    ResponseID = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
-                    Responses = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    AssignedQuestionId = table.Column<int>(type: "int", nullable: true),
-                    applicationId = table.Column<int>(type: "int", nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_Response", x => x.ResponseID);
-                    table.ForeignKey(
-                        name: "FK_Response_AssignedQuestion_AssignedQuestionId",
-                        column: x => x.AssignedQuestionId,
-                        principalTable: "AssignedQuestion",
-                        principalColumn: "AssignedQuestionId");
-                });
-
-            migrationBuilder.CreateTable(
                 name: "Score",
                 columns: table => new
                 {
@@ -605,12 +582,8 @@ namespace wildcatMicroFund.Migrations
                     UserID = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     ScoreValue = table.Column<int>(type: "int", nullable: false),
                     ScoreComments = table.Column<string>(type: "nvarchar(max)", nullable: true),
-<<<<<<<< HEAD:wildcatMicroFund/Migrations/20221212030210_RessetDEC11.cs
                     AssignedQuestionId = table.Column<int>(type: "int", nullable: false),
                     applicationId = table.Column<int>(type: "int", nullable: true)
-========
-                    AssignedQuestionId = table.Column<int>(type: "int", nullable: false)
->>>>>>>> michael-sprint4-draft:wildcatMicroFund/Migrations/20221212014638_resetDEC11.cs
                 },
                 constraints: table =>
                 {
@@ -733,14 +706,6 @@ namespace wildcatMicroFund.Migrations
                 column: "AssignedQuestionId");
 
             migrationBuilder.CreateIndex(
-<<<<<<<< HEAD:wildcatMicroFund/Migrations/20221212030210_RessetDEC11.cs
-                name: "IX_Score_AssignedQuestionId",
-                table: "Score",
-                column: "AssignedQuestionId");
-
-            migrationBuilder.CreateIndex(
-========
->>>>>>>> michael-sprint4-draft:wildcatMicroFund/Migrations/20221212014638_resetDEC11.cs
                 name: "IX_UserAssignment_ApplicationId",
                 table: "UserAssignment",
                 column: "ApplicationId");
